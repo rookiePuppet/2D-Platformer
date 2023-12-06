@@ -10,6 +10,8 @@ public class PlayerStateMachine : StateMachine<PlayerController> {
         AddState(new PlayerAerialState(this, owner, Animator.StringToHash("Aerial")));
         AddState(new PlayerLandState(this, owner, Animator.StringToHash("Land")));
         AddState(new PlayerWallSlideState(this, owner, Animator.StringToHash("WallSlide")));
+        AddState(new PlayerWallGrabState(this, owner, Animator.StringToHash("WallGrab")));
+        AddState(new PlayerWallClimbState(this, owner, Animator.StringToHash("WallClimb")));
 
         Initialize<PlayerIdleState>();
     }

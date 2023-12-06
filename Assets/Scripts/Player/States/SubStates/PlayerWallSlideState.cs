@@ -1,6 +1,4 @@
-﻿public class PlayerWallSlideState : PlayerState {
-    private int InputY => (int)owner.InputHandler.RawMovementInput.y;
-
+﻿public class PlayerWallSlideState : PlayerTouchingWallState {
     public PlayerWallSlideState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
     }
@@ -9,16 +7,13 @@
     {
         base.FixedUpdate();
 
-        if (InputY != 0) return;
-        owner.SetVelocityY(-owner.PlayerData.wallSlideVelocity);
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        if (owner.IsGrounded)
+        if (GrabInput)
         {
-            stateMachine.TransitionTo<PlayerIdleState>();
+            stateMachine.TransitionTo<PlayerWallGrabState>();
+        }
+        else if (InputY != -1)
+        {
+            owner.SetVelocityY(-owner.PlayerData.wallSlideVelocity);
         }
     }
 }

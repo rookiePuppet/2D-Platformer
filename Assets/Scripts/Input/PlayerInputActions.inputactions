@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Gameplay",
@@ -18,6 +18,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "bb4b5fad-130f-4152-8465-9f9009794d82",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grab",
+                    "type": "Button",
+                    "id": "2acdfac6-6881-46b2-a1d7-0cd2640fe34c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -85,7 +94,7 @@
                     "id": "b3896366-4f9f-4c4e-a428-3eca76dad6b0",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": "Gamepad",
                     "action": "Movement",
                     "isComposite": false,
@@ -110,6 +119,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b0f2e06-2c4c-47df-8816-d2c60e994fdf",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93455caf-6aaf-44a5-8836-021cde6ddf03",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Grab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -82,6 +82,11 @@ public class PlayerController : MonoBehaviour {
 
     public void SetVelocityY(float velocityY) => SetVelocity(CurrentVelocity.x, velocityY);
 
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     #endregion
 
     #region Check Functions

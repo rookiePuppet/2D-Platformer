@@ -14,7 +14,9 @@ public class PlayerData : ScriptableObject {
     public float variableJumpHeightMultiplier = 0.5f;
 
     [Header("Wall Slide State")] 
-    public float wallSlideVelocity = 1f;
+    public float wallSlideVelocity = 3f;
+
+    public float wallClimbVelocity = 2f;
 
     [Header("Check Variables")] 
     public float groundCheckRadius = 0.5f;

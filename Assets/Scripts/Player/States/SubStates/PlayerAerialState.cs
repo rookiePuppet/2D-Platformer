@@ -3,8 +3,9 @@
 public class PlayerAerialState : PlayerState {
     private readonly int _velocityXHash = Animator.StringToHash("VelocityX");
     private readonly int _velocityYHash = Animator.StringToHash("VelocityY");
-    
-    private int InputX => (int)owner.InputHandler.RawMovementInput.x;
+
+    private int InputX => owner.InputHandler.NormalizedMovementInput.x;
+    private bool GrabInput => owner.InputHandler.GrabInput;
 
     private PlayerJumpState _jumpState;
 
@@ -27,43 +28,50 @@ public class PlayerAerialState : PlayerState {
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
+
         // 接触地面且纵向速度向下时，进入落地状态
-        if (owner.IsGrounded && owner.CurrentVelocity.y <= 0)
+        if (owner.IsGrounded && owner.CurrentVelocity.y <= 0f)
         {
             stateMachine.TransitionTo<PlayerLandState>();
         }
-
         // 空中跳跃
-        if (owner.InputHandler.JumpInput && _jumpState.CanJump)
+        else if (owner.InputHandler.JumpInput && _jumpState.CanJump)
         {
             stateMachine.TransitionTo<PlayerJumpState>();
             // 土狼时间过后起跳才消耗一次跳跃次数
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
         }
-
-        if (owner.IsTouchingWall)
+        else if (owner.IsTouchingWall)
         {
-            stateMachine.TransitionTo<PlayerWallSlideState>();
+            // 抓墙
+            if (GrabInput)
+            {
+                stateMachine.TransitionTo<PlayerWallGrabState>();
+            }
+            // 横向输入与面朝向一致且速度向下时，进入滑墙状态
+            else if (owner.FacingDirection == InputX && owner.CurrentVelocity.y <= 0f)
+            {
+                stateMachine.TransitionTo<PlayerWallSlideState>();
+            }
         }
-        
-        // 更新Animator变量
-        owner.Animator.SetFloat(_velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
-        owner.Animator.SetFloat(_velocityYHash, owner.CurrentVelocity.y);
-        
-        _coyoteTimer -= Time.deltaTime;
+        else
+        {
+            owner.SetVelocityX(owner.PlayerData.movementVelocity * InputX);
+            owner.CheckIfShouldFlip(InputX);
+            
+            // 更新Animator变量
+            owner.Animator.SetFloat(_velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
+            owner.Animator.SetFloat(_velocityYHash, owner.CurrentVelocity.y);
 
-        CheckJumpMultiplier();
+            _coyoteTimer -= Time.deltaTime;
+
+            CheckJumpMultiplier();
+        }
     }
 
-    public override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        owner.SetVelocityX(owner.PlayerData.movementVelocity * InputX);
-        owner.CheckIfShouldFlip(InputX);
-    }
-
+    /// <summary>
+    /// 根据玩家跳跃键的维持时间改变跳跃高度
+    /// </summary>
     private void CheckJumpMultiplier()
     {
         if (!_isJumping) return;
@@ -73,6 +81,7 @@ public class PlayerAerialState : PlayerState {
             owner.SetVelocityY(owner.CurrentVelocity.y * owner.PlayerData.variableJumpHeightMultiplier);
             _isJumping = false;
         }
+        // 人物速度向下时，设置_isJumping为false
         else if (owner.CurrentVelocity.y <= 0)
         {
             _isJumping = false;
