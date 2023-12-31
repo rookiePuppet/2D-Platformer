@@ -6,14 +6,19 @@
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-
-        if (GrabInput)
+        
+        // 离开墙面切换待机状态
+        if (!owner.IsTouchingWall)
+        {
+            stateMachine.TransitionTo<PlayerIdleState>();
+        }
+        else if (GrabInput)
         {
             stateMachine.TransitionTo<PlayerWallGrabState>();
         }
         else if (InputY != -1)
         {
-            owner.SetVelocityY(-owner.PlayerData.wallSlideVelocity);
+            owner.SetVelocityY(-owner.Data.wallSlideVelocity);
         }
     }
 }

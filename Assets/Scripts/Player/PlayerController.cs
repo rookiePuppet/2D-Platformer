@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     public PlayerStateMachine StateMachine { get; private set; }
 
     [SerializeField] private PlayerData playerData;
-    public PlayerData PlayerData => playerData;
+    public PlayerData Data => playerData;
     private Rigidbody2D Rigidbody { get; set; }
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
@@ -85,6 +85,11 @@ public class PlayerController : MonoBehaviour {
     public void SetPosition(Vector3 position)
     {
         transform.position = position;
+    }
+
+    public void ClimbAction()
+    {
+        SetPosition(groundCheck.position + Vector3.up * 1.5f + Vector3.right * 1.5f);
     }
 
     #endregion

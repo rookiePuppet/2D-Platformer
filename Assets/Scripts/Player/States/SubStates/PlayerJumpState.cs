@@ -1,6 +1,6 @@
 ﻿public class PlayerJumpState : PlayerAbilityState {
     private int _jumpCounter;
-    public bool CanJump => _jumpCounter < owner.PlayerData.amountOfJumps;
+    public bool CanJump => _jumpCounter < owner.Data.amountOfJumps;
 
     public PlayerJumpState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
@@ -10,7 +10,7 @@
     {
         base.Enter();
 
-        owner.SetVelocityY(owner.PlayerData.jumpVelocity);
+        owner.SetVelocityY(owner.Data.jumpVelocity);
         IncreaseJumpCounter();
         isAbilityDone = true;
     }

@@ -2,7 +2,7 @@
 /// 状态基类
 /// </summary>
 /// <typeparam name="TOwner">状态宿主类型</typeparam>
-public abstract class StateBase<TOwner> {
+public abstract class StateBase<TOwner> : IState{
     /// <summary>
     /// 状态机
     /// </summary>

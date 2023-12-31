@@ -7,7 +7,7 @@
     {
         base.FixedUpdate();
         owner.CheckIfShouldFlip(InputX);
-        owner.SetVelocityX(owner.PlayerData.movementVelocity * owner.FacingDirection);
+        owner.SetVelocityX(owner.Data.movementVelocity * owner.FacingDirection);
         
         // 横向输入为0时，进入待机状态
         if (InputX == 0)
