@@ -19,6 +19,8 @@ public class PlayerWallGrabState : PlayerTouchingWallState {
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (isExiting) return;
+
         // 取消抓墙进入滑墙状态
         if (!GrabInput)
         {

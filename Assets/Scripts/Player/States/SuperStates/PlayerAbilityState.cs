@@ -1,4 +1,8 @@
-﻿public class PlayerAbilityState : PlayerState {
+﻿using UnityEngine;
+
+public class PlayerAbilityState : PlayerState
+{
+    protected float startTime;
     protected bool isAbilityDone;
 
     protected PlayerAbilityState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
@@ -9,6 +13,7 @@
     {
         base.Enter();
         isAbilityDone = false;
+        startTime = Time.time;
     }
 
     public override void LogicUpdate()

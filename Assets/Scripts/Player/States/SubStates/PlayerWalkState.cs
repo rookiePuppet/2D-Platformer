@@ -6,6 +6,8 @@
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (isExiting) return;
+
         owner.CheckIfShouldFlip(InputX);
         owner.SetVelocityX(owner.Data.movementVelocity * owner.FacingDirection);
         

@@ -12,6 +12,8 @@
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (isExiting) return;
+        
         // 有横向输入时，进入行走状态
         if (InputX != 0)
         {

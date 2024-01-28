@@ -70,6 +70,14 @@ public class PlayerController : MonoBehaviour {
 
     #region Set Functions
 
+    public void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        _velocity.x = angle.x * direction * velocity;
+        _velocity.y = angle.y * velocity;
+        Rigidbody.velocity = _velocity;
+    }
+
     public void SetVelocity(float x, float y)
     {
         _velocity.x = x;

@@ -1,4 +1,6 @@
-﻿public class PlayerWallSlideState : PlayerTouchingWallState {
+﻿using Unity.VisualScripting;
+
+public class PlayerWallSlideState : PlayerTouchingWallState {
     public PlayerWallSlideState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
     }
@@ -6,7 +8,8 @@
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        
+        if (isExiting) return;
+
         // 离开墙面切换待机状态
         if (!owner.IsTouchingWall)
         {

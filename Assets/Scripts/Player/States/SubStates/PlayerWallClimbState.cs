@@ -8,6 +8,7 @@
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (isExiting) return;
 
         // 爬墙时必须有抓墙输入
         if (GrabInput)

@@ -6,6 +6,8 @@
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (isExiting) return;
+        
         // 落地时有横向输入，直接进入行走状态
         if (InputX != 0)
         {

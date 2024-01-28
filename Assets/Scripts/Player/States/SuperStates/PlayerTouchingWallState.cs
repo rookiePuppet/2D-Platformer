@@ -9,10 +9,16 @@ public class PlayerTouchingWallState : PlayerState {
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+         if (owner.InputHandler.JumpInput)
+        {
+            stateMachine.TransitionTo<PlayerWallJumpState>();
+        }
         // 接触地面并且没有抓墙输入时，回到待机状态
-        if (owner.IsGrounded && !GrabInput)
+        else if (owner.IsGrounded && !GrabInput)
         {
             stateMachine.TransitionTo<PlayerIdleState>();
-        }
+        } 
+
     }
 }
