@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     #region Components
 
     public PlayerStateMachine StateMachine { get; private set; }
@@ -17,13 +18,21 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform ledgeCheck;
 
     #endregion
 
     #region Character Properties
 
-    public bool IsGrounded => Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
-    public bool IsTouchingWall => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.groundLayer);
+    public bool IsGrounded =>
+        Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
+
+    public bool IsTouchingWall => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection,
+        playerData.wallCheckDistance, playerData.groundLayer);
+
+    public bool IsTouchingLedge => Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection,
+        playerData.wallCheckDistance, playerData.groundLayer);
+
     public int FacingDirection { get; private set; } = 1;
     public Vector2 CurrentVelocity => Rigidbody.velocity;
 
@@ -62,8 +71,8 @@ public class PlayerController : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheck.position, playerData.groundCheckRadius);
-        var position = wallCheck.position;
-        Gizmos.DrawLine(position, position + Vector3.right * FacingDirection * playerData.wallCheckDistance);
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * FacingDirection * playerData.wallCheckDistance);
+        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.right * FacingDirection * playerData.wallCheckDistance);
     }
 
     #endregion
@@ -95,11 +104,6 @@ public class PlayerController : MonoBehaviour {
         transform.position = position;
     }
 
-    public void ClimbAction()
-    {
-        SetPosition(groundCheck.position + Vector3.up * 1.5f + Vector3.right * 1.5f);
-    }
-
     #endregion
 
     #region Check Functions
@@ -121,4 +125,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     #endregion
+
+    public Vector2 DetermineCornerPosition()
+    {
+        var wallCheckPos = wallCheck.position;
+        var ledgeCheckPos = ledgeCheck.position;
+        var direction = Vector2.right * FacingDirection;
+
+        // 获得角色与墙壁的横向距离
+        var wallHit = Physics2D.Raycast(wallCheckPos, direction, playerData.wallCheckDistance, playerData.groundLayer);
+        var xDis = wallHit.distance;
+
+        // 获得头顶到地面的垂直距离
+        var groundHit = Physics2D.Raycast((Vector2)ledgeCheckPos + direction * xDis,
+            Vector2.down, ledgeCheckPos.y - wallCheckPos.y, playerData.groundLayer);
+        var yDis = groundHit.distance;
+
+        return new Vector2(wallCheckPos.x + xDis * FacingDirection, ledgeCheckPos.y - yDis);
+    }
 }

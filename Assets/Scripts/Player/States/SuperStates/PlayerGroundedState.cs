@@ -2,7 +2,6 @@
 
 public class PlayerGroundedState : PlayerState {
     private PlayerJumpState _jumpState;
-    protected int InputX => owner.InputHandler.NormalizedMovementInput.x;
     private bool GrabInput => owner.InputHandler.GrabInput;
 
     protected PlayerGroundedState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)

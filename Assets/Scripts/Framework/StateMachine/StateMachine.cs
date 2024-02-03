@@ -69,6 +69,8 @@ public abstract class StateMachine<TOwner> {
             return;
         }
 
+        // Debug.Log("Transition to: " + typeof(TState).Name);
+        
         CurrentState?.Exit();
         CurrentState = targetState;
         CurrentState.Enter();
@@ -76,23 +78,4 @@ public abstract class StateMachine<TOwner> {
 
     public TState GetStateInstance<TState>() where TState: StateBase<TOwner>
         => _statesDic[typeof(TState).Name] as TState;
-
-    /*/// <summary>
-    /// 创建所有状态的实例，并存入字典
-    /// 必须先重写GetStateClassList方法
-    /// </summary>
-    protected void CreateInstanceForAllStates()
-    {
-        foreach (var stateClassType in GetStateClassList())
-        {
-            var state = Activator.CreateInstance(stateClassType, this, owner) as StateBase<TOwner>;
-            _statesDic.Add(stateClassType.Name, state);
-        }
-    }*/
-
-    /*/// <summary>
-    /// 获取状态类列表，用于实例化所有状态类
-    /// </summary>
-    /// <returns></returns>
-    protected virtual IEnumerable<Type> GetStateClassList() => new List<Type>();*/
 }

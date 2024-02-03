@@ -1,5 +1,4 @@
 public class PlayerTouchingWallState : PlayerState {
-    protected int InputY => owner.InputHandler.NormalizedMovementInput.y;
     protected bool GrabInput => owner.InputHandler.GrabInput;
 
     protected PlayerTouchingWallState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)

@@ -14,10 +14,9 @@
         if (GrabInput)
         {
             // 离开墙面切换待机状态
-            if (!owner.IsTouchingWall)
+            if (!owner.IsTouchingLedge)
             {
-                owner.ClimbAction();
-                stateMachine.TransitionTo<PlayerIdleState>();
+                stateMachine.TransitionTo<PlayerLedgeClimbState>();
             }
             else if (InputY == 1)
             // 有抓墙输入和向上的垂直输入，则向上爬

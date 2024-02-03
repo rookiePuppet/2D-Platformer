@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 
 public class PlayerAerialState : PlayerState {
-    private readonly int _velocityXHash = Animator.StringToHash("VelocityX");
-    private readonly int _velocityYHash = Animator.StringToHash("VelocityY");
-
-    private int InputX => owner.InputHandler.NormalizedMovementInput.x;
     private bool GrabInput => owner.InputHandler.GrabInput;
 
     private PlayerJumpState _jumpState;
@@ -38,6 +34,7 @@ public class PlayerAerialState : PlayerState {
         {
             stateMachine.TransitionTo<PlayerLandState>();
         }   
+        // 跳墙
         else if (_jumpInput && owner.IsTouchingWall)
         {
             stateMachine.TransitionTo<PlayerWallJumpState>();
@@ -56,6 +53,11 @@ public class PlayerAerialState : PlayerState {
             {
                 stateMachine.TransitionTo<PlayerWallGrabState>();
             }
+            // 平台攀爬
+            else if (!owner.IsTouchingLedge)
+            {
+                stateMachine.TransitionTo<PlayerLedgeClimbState>();
+            }
             // 横向输入与面朝向一致且速度向下时，进入滑墙状态
             else if (owner.FacingDirection == InputX && owner.CurrentVelocity.y <= 0f)
             {
@@ -64,12 +66,12 @@ public class PlayerAerialState : PlayerState {
         }
         else
         {
-            owner.SetVelocityX(owner.Data.movementVelocity * InputX);
+            owner.SetVelocityX(owner.Data.movementVelocity * owner.Data.airSteeringMultiplier * InputX);
             owner.CheckIfShouldFlip(InputX);
             
             // 更新Animator变量
-            owner.Animator.SetFloat(_velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
-            owner.Animator.SetFloat(_velocityYHash, owner.CurrentVelocity.y);
+            owner.Animator.SetFloat(velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
+            owner.Animator.SetFloat(velocityYHash, owner.CurrentVelocity.y);
 
             _coyoteTimer -= Time.deltaTime;
 

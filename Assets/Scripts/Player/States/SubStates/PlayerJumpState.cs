@@ -1,8 +1,10 @@
-﻿public class PlayerJumpState : PlayerAbilityState {
+﻿public class PlayerJumpState : PlayerAbilityState
+{
     private int _jumpCounter;
     public bool CanJump => _jumpCounter < owner.Data.amountOfJumps;
 
-    public PlayerJumpState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
+    public PlayerJumpState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(
+        stateMachine, owner, animatorParamHash)
     {
     }
 
@@ -18,4 +20,6 @@
     public void ResetJumpCounter() => _jumpCounter = 0;
 
     public void IncreaseJumpCounter() => _jumpCounter++;
+
+    public void SetJumpCounterWhenWallJump() => _jumpCounter = owner.Data.amountOfJumps;
 }
