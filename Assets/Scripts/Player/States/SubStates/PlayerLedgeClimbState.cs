@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLedgeClimbState : PlayerState
 {
-    private Vector2 _cornerPos;
-    private Vector2 _startPos;
-    private Vector2 _stopPos;
+    private Vector2 _cornerPos; // 墙角位置
+    private Vector2 _startPos; // 爬墙起始位置
+    private Vector2 _stopPos; // 爬墙结束位置
 
-    private bool _isHanging;
-    private bool _isClimbing;
-    
+    private bool _isHanging; // 是否悬挂
+    private bool _isClimbing; // 是否正在攀爬
+
+    private bool _jumpInput; // 跳跃输入
+
     public PlayerLedgeClimbState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
     }
@@ -18,13 +18,17 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
         owner.SetVelocity(0f, 0f);
-        
+
+        // 确定角落位置
         _cornerPos = owner.DetermineCornerPosition();
 
+        // 确定爬墙起始位置和结束位置
         _startPos = _cornerPos - new Vector2(owner.Data.startOffset.x * owner.FacingDirection, owner.Data.startOffset.y);
         _stopPos = _cornerPos + new Vector2(owner.Data.stopOffset.x * owner.FacingDirection, owner.Data.stopOffset.y);
-       
+
+        // 设置角色到起始位置
         owner.transform.position = _startPos;
     }
 
@@ -32,21 +36,32 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.LogicUpdate();
 
+        // 攀爬动作播放完之后，切换到站立状态或行走状态
         if (isAnimationFinished)
         {
-            if(InputX == 0) stateMachine.TransitionTo<PlayerIdleState>();
+            if (InputX == 0) stateMachine.TransitionTo<PlayerIdleState>();
             else stateMachine.TransitionTo<PlayerWalkState>();
         }
         else
         {
             owner.SetVelocity(0f, 0f);
             owner.transform.position = _startPos;
-            
+
+            _jumpInput = owner.InputHandler.JumpInput;
+
+            // 按下右或上的方向键时，开始攀爬
             if ((InputX == owner.FacingDirection || InputY > 0) && _isHanging && !_isClimbing)
             {
                 _isClimbing = true;
                 owner.Animator.SetBool(climbLedgeHash, true);
-            } else if (InputY < 0 && _isHanging && !_isClimbing)
+            }
+            // 悬挂时跳墙
+            else if (_jumpInput && !_isClimbing)
+            {
+                stateMachine.TransitionTo<PlayerWallJumpState>();
+            }
+            // 按下下方向键时，进入空中状态往下掉落
+            else if (InputY < 0 && _isHanging && !_isClimbing)
             {
                 stateMachine.TransitionTo<PlayerAerialState>();
             }
@@ -60,6 +75,7 @@ public class PlayerLedgeClimbState : PlayerState
 
         if (_isClimbing)
         {
+            // 设置角色到结束位置
             owner.transform.position = _stopPos;
             _isClimbing = false;
         }

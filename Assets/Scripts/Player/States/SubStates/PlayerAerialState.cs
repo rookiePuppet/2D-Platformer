@@ -49,7 +49,7 @@ public class PlayerAerialState : PlayerState {
         else if (owner.IsTouchingWall)
         {
             // 抓墙
-            if (GrabInput)
+            if (GrabInput && owner.IsTouchingLedge)
             {
                 stateMachine.TransitionTo<PlayerWallGrabState>();
             }
