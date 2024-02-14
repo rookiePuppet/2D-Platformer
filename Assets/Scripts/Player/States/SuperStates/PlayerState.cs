@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 
-public class PlayerState : StateBase<PlayerController> {
-    protected int InputX => owner.InputHandler.NormalizedMovementInput.x;
-    protected int InputY => owner.InputHandler.NormalizedMovementInput.y;
+public class PlayerState : StateBase<PlayerController>
+{
+    protected int InputX => owner.InputHandler.NormalizedMoveInput.x;
+    protected int InputY => owner.InputHandler.NormalizedMoveInput.y;
     protected bool isAnimationFinished;
     protected bool isExiting;
-    
+
     private readonly int _animatorParamHash;
-    
+
     protected static readonly int velocityXHash = Animator.StringToHash("VelocityX");
     protected static readonly int velocityYHash = Animator.StringToHash("VelocityY");
     protected static readonly int climbLedgeHash = Animator.StringToHash("ClimbLedge");
-    
+
     protected PlayerState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner)
     {
         _animatorParamHash = animatorParamHash;

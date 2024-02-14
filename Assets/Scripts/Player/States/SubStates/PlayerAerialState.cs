@@ -4,8 +4,10 @@ public class PlayerAerialState : PlayerState {
     private bool GrabInput => owner.InputHandler.GrabInput;
 
     private PlayerJumpState _jumpState;
+    private PlayerDashState _dashState;
 
     private bool _jumpInput;
+    private bool _dashInput;
     private float _coyoteTimer;
     private bool InCoyoteTime => _coyoteTimer > 0;
 
@@ -20,6 +22,7 @@ public class PlayerAerialState : PlayerState {
         base.Enter();
         _coyoteTimer = owner.Data.coyoteTime;
         _jumpState = stateMachine.GetStateInstance<PlayerJumpState>();
+        _dashState = stateMachine.GetStateInstance<PlayerDashState>();
     }
 
     public override void LogicUpdate()
@@ -28,6 +31,7 @@ public class PlayerAerialState : PlayerState {
         if (isExiting) return;
 
         _jumpInput = owner.InputHandler.JumpInput;
+        _dashInput = owner.InputHandler.DashInput;
 
         // 接触地面且纵向速度向下时，进入落地状态
         if (owner.IsGrounded && owner.CurrentVelocity.y <= 0f)
@@ -45,6 +49,10 @@ public class PlayerAerialState : PlayerState {
             stateMachine.TransitionTo<PlayerJumpState>();
             // 土狼时间过后起跳才消耗一次跳跃次数
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
+        }
+        else if(_dashInput && _dashState.CanDash)
+        {
+            stateMachine.TransitionTo<PlayerDashState>();
         }
         else if (owner.IsTouchingWall)
         {

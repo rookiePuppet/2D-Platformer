@@ -7,18 +7,17 @@ public class PlayerController : MonoBehaviour
     public PlayerStateMachine StateMachine { get; private set; }
 
     [SerializeField] private PlayerData playerData;
-    public PlayerData Data => playerData;
-    private Rigidbody2D Rigidbody { get; set; }
-    public Animator Animator { get; private set; }
-    public PlayerInputHandler InputHandler { get; private set; }
-
-    #endregion
-
-    #region Check Variables
+    [SerializeField] private Transform dashDirectionIndicator;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+
+    public PlayerData Data => playerData;
+    public Rigidbody2D Rigidbody { get; private set; }
+    public Animator Animator { get; private set; }
+    public PlayerInputHandler InputHandler { get; private set; }
+    public Transform DashDirectionIndicator => dashDirectionIndicator;
 
     #endregion
 
@@ -84,6 +83,13 @@ public class PlayerController : MonoBehaviour
         angle.Normalize();
         _velocity.x = angle.x * direction * velocity;
         _velocity.y = angle.y * velocity;
+        Rigidbody.velocity = _velocity;
+    }
+
+    public void SetVelocity(float velocity, Vector2 direction)
+    {
+        _velocity.x = direction.x * velocity;
+        _velocity.y = direction.y * velocity;
         Rigidbody.velocity = _velocity;
     }
 

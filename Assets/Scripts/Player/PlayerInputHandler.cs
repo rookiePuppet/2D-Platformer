@@ -1,9 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour {
-    public Vector2 RawMovementInput { get; set; }
-    public Vector2Int NormalizedMovementInput { get; private set; }
+public class PlayerInputHandler : MonoBehaviour
+{
+    [SerializeField] private float inputHoldTime = 0.2f;
+
+    public Vector2 RawMoveInput { get; set; }
+    public Vector2Int NormalizedMoveInput { get; private set; }
+    public Vector2 RawDashDirectionInput { get; private set; }
+
+    public Vector2 mousePosition;
+
     public bool JumpInput
     {
         get
@@ -14,74 +21,112 @@ public class PlayerInputHandler : MonoBehaviour {
         }
         private set => _jumpInput = value;
     }
+    public bool JumpInputStop { get; private set; }
+    public bool DashInput
+    {
+        get
+        {
+            var input = _dashInput;
+            _dashInput = false;
+            return input;
+        }
+        private set => _dashInput = value;
+    }
+    public bool DashInputStop { get; private set; }
     public bool GrabInput { get; private set; }
+
     private bool _jumpInput;
     private float _jumpInputStartTime;
-    public bool JumpInputStop { get; private set; }
+    private bool _dashInput;
+    private float _dashInputStartTime;
+    private PlayerInput _playerInput;
 
-    [SerializeField] private float inputHoldTime = 0.2f;
-
-    private PlayerInputActions _playerInput;
-
-    #region Unity Callback Functions
+    private Camera _mainCamera;
 
     private void Awake()
     {
-        _playerInput = new PlayerInputActions();
-        _playerInput.Gameplay.Enable();
+        _playerInput = GetComponent<PlayerInput>();
+        _mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        CheckMovementInput();
         CheckInputHoldTime();
     }
 
-    private void OnEnable()
+    public void OnMoveInput(InputAction.CallbackContext context)
     {
-        _playerInput.Gameplay.Jump.started += OnJumpStarted;
-        _playerInput.Gameplay.Jump.canceled += OnJumpCanceled;
-        _playerInput.Gameplay.Grab.started += OnGrabStarted;
-        _playerInput.Gameplay.Grab.canceled += OnGrabCanceled;
+        RawMoveInput = context.ReadValue<Vector2>();
+        var x = Mathf.Abs(RawMoveInput.x) > 0.5f
+                ? (int)(RawMoveInput.x * Vector2.right).normalized.x
+                : 0;
+        var y = Mathf.Abs(RawMoveInput.y) > 0.5f
+                ? (int)(RawMoveInput.y * Vector2.up).normalized.y
+                : 0;
+        NormalizedMoveInput = new Vector2Int(x, y);
     }
 
-    private void OnDisable()
+    public void OnJumpInput(InputAction.CallbackContext context)
     {
-        _playerInput.Gameplay.Jump.started -= OnJumpStarted;
-        _playerInput.Gameplay.Jump.canceled -= OnJumpCanceled;
-        _playerInput.Gameplay.Grab.started -= OnGrabStarted;
-        _playerInput.Gameplay.Grab.canceled -= OnGrabCanceled;
+        if (context.started)
+        {
+            JumpInput = true;
+            JumpInputStop = false;
+            _jumpInputStartTime = Time.time;
+        }
+        else if (context.canceled)
+        {
+            JumpInputStop = true;
+        }
     }
 
-    #endregion
-
-    private void CheckMovementInput()
+    public void OnGrabInput(InputAction.CallbackContext context)
     {
-        RawMovementInput = _playerInput.Gameplay.Movement.ReadValue<Vector2>();
-        
-        var x = Mathf.Abs(RawMovementInput.x) > 0.5f ? (int)(RawMovementInput.x * Vector2.right).normalized.x : 0;
-        var y = Mathf.Abs(RawMovementInput.y) > 0.5f ? (int)(RawMovementInput.y * Vector2.up).normalized.y : 0;
-        NormalizedMovementInput = new Vector2Int(x, y);
+        if (context.started)
+        {
+            GrabInput = true;
+        }
+        else if (context.canceled)
+        {
+            GrabInput = false;
+        }
     }
 
-    private void OnJumpStarted(InputAction.CallbackContext obj)
+    public void OnDashInput(InputAction.CallbackContext context)
     {
-        JumpInput = true;
-        JumpInputStop = false;
-        _jumpInputStartTime = Time.time;
+        if (context.started)
+        {
+            DashInput = true;
+            DashInputStop = false;
+            _dashInputStartTime = Time.time;
+        }
+        else if (context.canceled)
+        {
+            DashInputStop = true;
+        }
     }
 
-    private void OnJumpCanceled(InputAction.CallbackContext obj) => JumpInputStop = true;
+    public void OnDashDirectionInput(InputAction.CallbackContext context)
+    {
+        RawDashDirectionInput = context.ReadValue<Vector2>();
 
-    private void OnGrabStarted(InputAction.CallbackContext obj) => GrabInput = true;
-
-    private void OnGrabCanceled(InputAction.CallbackContext obj) => GrabInput = false;
+        // 键鼠操作，方向向量从角色位置指向鼠标位置
+        if (_playerInput.currentControlScheme == "Keyboard")
+        {
+            RawDashDirectionInput = (RawDashDirectionInput - (Vector2)_mainCamera.WorldToScreenPoint(transform.position)).normalized;
+        }
+    }
 
     private void CheckInputHoldTime()
     {
         if (Time.time >= _jumpInputStartTime + inputHoldTime)
         {
             JumpInput = false;
+        }
+
+        if (Time.time >= _dashInputStartTime + inputHoldTime)
+        {
+            DashInput = false;
         }
     }
 }
