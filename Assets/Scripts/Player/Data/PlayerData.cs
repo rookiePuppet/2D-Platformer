@@ -39,6 +39,10 @@ public class PlayerData : ScriptableObject
     public float dashDrag = 0.2f;
     public float dashCoolDown = 1f;
 
+    [Header("Crouch State")]
+    public float crouchMovementVelocity = 5f;
+    
+
     [Header("Check Variables")]
     public float groundCheckRadius = 0.5f;
 
