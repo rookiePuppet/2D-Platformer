@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-public class PlayerGroundedState : PlayerState {
+public class PlayerGroundedState : PlayerState
+{
     private PlayerJumpState _jumpState;
-    private bool GrabInput => owner.InputHandler.GrabInput;
+
+    private bool _jumpInput;
+    private bool _grabInput;
+    private bool _dashInput;
 
     protected PlayerGroundedState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
@@ -19,13 +23,21 @@ public class PlayerGroundedState : PlayerState {
     {
         base.LogicUpdate();
 
-        if (owner.InputHandler.JumpInput && _jumpState.CanJump)
+        _jumpInput = owner.InputHandler.JumpInput;
+        _grabInput = owner.InputHandler.GrabInput;
+        _dashInput = owner.InputHandler.DashInput;
+
+        if (_jumpInput && _jumpState.CanJump)
         {
             stateMachine.TransitionTo<PlayerJumpState>();
         }
-        else if (GrabInput && owner.IsTouchingWall)
+        else if (_grabInput && owner.IsTouchingWall)
         {
             stateMachine.TransitionTo<PlayerWallGrabState>();
+        }
+        else if (_dashInput && !owner.IsTouchingCeiling)
+        {
+            stateMachine.TransitionTo<PlayerDashState>();
         }
         else if (!owner.IsGrounded)
         {
