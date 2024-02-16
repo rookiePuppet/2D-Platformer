@@ -39,8 +39,14 @@ public class PlayerLedgeClimbState : PlayerState
         // 攀爬动作播放完之后，切换到站立状态或行走状态
         if (isAnimationFinished)
         {
-            if (InputX == 0) stateMachine.TransitionTo<PlayerIdleState>();
-            else stateMachine.TransitionTo<PlayerWalkState>();
+            if (IsTouchingCeiling())
+            {
+                stateMachine.TransitionTo<PlayerCrouchIdleState>();
+            }
+            else
+            {
+                stateMachine.TransitionTo<PlayerIdleState>();
+            }
         }
         else
         {
@@ -91,5 +97,10 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.AnimationFinishTrigger();
         owner.Animator.SetBool(climbLedgeHash, false);
+    }
+
+    public bool IsTouchingCeiling()
+    {
+        return Physics2D.Raycast(_cornerPos + Vector2.up * 0.015f + Vector2.right * owner.FacingDirection * 0.015f, Vector2.up, owner.Data.normalColliderHeight, owner.Data.groundLayer);
     }
 }

@@ -25,8 +25,7 @@ public class PlayerController : MonoBehaviour
 
     #region Character Properties
 
-    public bool IsGrounded =>
-        Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
+    public bool IsGrounded => Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
 
     public bool IsTouchingWall => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection,
         playerData.wallCheckDistance, playerData.groundLayer);
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public bool IsTouchingLedge => Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection,
         playerData.wallCheckDistance, playerData.groundLayer);
 
-    public bool IsTouchingCeiling => Physics2D.Raycast(ceilingCheck.position, Vector2.up, playerData.ceilingCheckDistance,
+    public bool IsTouchingCeiling => Physics2D.OverlapCircle(ceilingCheck.position, Data.groundCheckRadius,
         playerData.groundLayer);
 
     public int FacingDirection { get; private set; } = 1;
