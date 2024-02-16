@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCrouchIdleState : PlayerGroundedState
 {
+    private bool _isTouchingCeiling;
+
     public PlayerCrouchIdleState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
     }
@@ -12,6 +14,13 @@ public class PlayerCrouchIdleState : PlayerGroundedState
     {
         base.Enter();
         owner.SetVelocity(0f, 0f);
+        owner.SetCrouchCollider();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        owner.SetNormalCollider();
     }
 
     public override void LogicUpdate()
@@ -19,7 +28,9 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         base.LogicUpdate();
         if (isExiting) return;
 
-        if (InputY != -1)
+        _isTouchingCeiling = owner.IsTouchingCeiling;
+
+        if (InputY != -1 && !_isTouchingCeiling)
         {
             if (InputX == 0)
             {

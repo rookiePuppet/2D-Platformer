@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform ceilingCheck;
 
     public PlayerData Data => playerData;
     public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
+    private BoxCollider2D _collider;
 
     #endregion
 
@@ -31,6 +33,9 @@ public class PlayerController : MonoBehaviour
 
     public bool IsTouchingLedge => Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection,
         playerData.wallCheckDistance, playerData.groundLayer);
+
+    public bool IsTouchingCeiling => Physics2D.Raycast(ceilingCheck.position, Vector2.up, playerData.ceilingCheckDistance,
+        playerData.groundLayer);
 
     public int FacingDirection { get; private set; } = 1;
     public Vector2 CurrentVelocity => Rigidbody.velocity;
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
+        _collider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -72,6 +78,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, playerData.groundCheckRadius);
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * FacingDirection * playerData.wallCheckDistance);
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.right * FacingDirection * playerData.wallCheckDistance);
+        Gizmos.DrawLine(ceilingCheck.position, ceilingCheck.position + Vector3.up * playerData.ceilingCheckDistance);
     }
 
     #endregion
@@ -148,5 +155,27 @@ public class PlayerController : MonoBehaviour
         var yDis = groundHit.distance;
 
         return new Vector2(wallCheckPos.x + xDis * FacingDirection, ledgeCheckPos.y - yDis);
+    }
+
+    public void SetCrouchCollider()
+    {
+        var temp = _collider.size;
+        temp.y = playerData.crouchColliderHeight;
+        _collider.size = temp;
+
+        temp = _collider.offset;
+        temp.y = playerData.normalColliderYOffset - (playerData.normalColliderHeight - playerData.crouchColliderHeight) / 2;
+        _collider.offset = temp;
+    }
+
+    public void SetNormalCollider()
+    {
+        var temp = _collider.size;
+        temp.y = playerData.normalColliderHeight;
+        _collider.size = temp;
+
+        temp = _collider.offset;
+        temp.y = playerData.normalColliderYOffset;
+        _collider.offset = temp;
     }
 }

@@ -32,8 +32,13 @@ MonoBehaviour:
   dashEndYMultiplier: 0.2
   dashDrag: 0.2
   dashCoolDown: 1
+  crouchMovementVelocity: 4
+  normalColliderYOffset: -0.18
+  normalColliderHeight: 1.6
+  crouchColliderHeight: 0.9
   groundCheckRadius: 0.25
   wallCheckDistance: 0.4
+  ceilingCheckDistance: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
