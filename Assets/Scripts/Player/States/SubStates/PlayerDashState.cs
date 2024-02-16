@@ -82,6 +82,9 @@ public class PlayerDashState : PlayerAbilityState
                 owner.SetVelocityY(owner.CurrentVelocity.y * owner.Data.dashEndYMultiplier);
             }
         }
+
+        owner.Animator.SetFloat(velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
+        owner.Animator.SetFloat(velocityYHash, owner.CurrentVelocity.y);
     }
 
     public override void Exit()
