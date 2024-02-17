@@ -1,29 +1,42 @@
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEngine;
-
 public class PlayerPrimaryAttackState : PlayerAbilityState
 {
-    private int _attackCounter;
     private Weapon _weapon;
+    private float _velocityToSet;
+    private bool _setVelocity;
+    private bool _shouldCheckFlip;
 
-    private static readonly int AttackCounterHash = Animator.StringToHash("AttackCounter");
-
-    public PlayerPrimaryAttackState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
+    public PlayerPrimaryAttackState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) :
+        base(stateMachine, owner, animatorParamHash)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        _weapon.EnterWeapon();
 
-        ResetAttackCounter();
-        IncreaseAttackCounter();
+        _setVelocity = false;
+        _weapon.EnterWeapon();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        if (_setVelocity)
+        {
+            core.Movement.SetVelocityX(_velocityToSet * core.Movement.FacingDirection);
+        }
+
+        if (_shouldCheckFlip)
+        {
+            core.Movement.CheckIfShouldFlip(InputX);
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
+
         _weapon.ExitWeapon();
     }
 
@@ -33,26 +46,23 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
         _weapon.InitializeWeapon(this);
     }
 
-    private void ResetAttackCounter() {
-        _attackCounter = 0;
-    }
-
-    private void IncreaseAttackCounter()
-    {
-        _attackCounter++;
-        if (_attackCounter > 3)
-        {
-            _attackCounter = 1;
-        }
-
-        foreach(var anim in _weapon.GetComponentsInChildren<Animator>()) {
-            anim.SetInteger(AttackCounterHash, _attackCounter);
-        }
-    }
-
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
+
         isAbilityDone = true;
+    }
+
+    public void SetPlayerVelocity(float velocity)
+    {
+        core.Movement.SetVelocityX(velocity * core.Movement.FacingDirection);
+
+        _velocityToSet = velocity;
+        _setVelocity = true;
+    }
+
+    public void SetShouldCheckFlip(bool value)
+    {
+        _shouldCheckFlip = value;
     }
 }
