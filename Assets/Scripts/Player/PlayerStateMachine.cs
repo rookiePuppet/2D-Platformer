@@ -18,6 +18,12 @@ public class PlayerStateMachine : StateMachine<PlayerController> {
         AddState(new PlayerCrouchIdleState(this, owner, Animator.StringToHash("CrouchIdle")));
         AddState(new PlayerCrouchMoveState(this, owner, Animator.StringToHash("CrouchMove")));
 
+        var primaryAttackState = new PlayerPrimaryAttackState(this, owner, Animator.StringToHash("Attack"));
+        primaryAttackState.SetWeapon(owner.Inventory.weapons[(int)CombatInputs.Primary]);
+        AddState(primaryAttackState);
+
+        AddState(new PlayerSecondaryAttackState(this, owner, Animator.StringToHash("Attack")));
+
         Initialize<PlayerIdleState>();
     }
 }

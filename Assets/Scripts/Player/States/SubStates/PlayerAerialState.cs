@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public class PlayerAerialState : PlayerState
-{
-    private bool GrabInput => owner.InputHandler.GrabInput;
-
+public class PlayerAerialState : PlayerState {
     private PlayerJumpState _jumpState;
     private PlayerDashState _dashState;
 
     private bool _jumpInput;
+    private bool _grabInput;
     private bool _dashInput;
+    private bool[] _attackInputs;
+
     private float _coyoteTimer;
     private bool InCoyoteTime => _coyoteTimer > 0;
 
@@ -33,7 +33,19 @@ public class PlayerAerialState : PlayerState
 
         _jumpInput = owner.InputHandler.JumpInput;
         _dashInput = owner.InputHandler.DashInput;
+        _grabInput = owner.InputHandler.GrabInput;
+        _attackInputs = owner.InputHandler.AttackInputs;
 
+        // 主攻击
+        if (_attackInputs[(int)CombatInputs.Primary])
+        {
+            stateMachine.TransitionTo<PlayerPrimaryAttackState>();
+        }
+        // 副攻击
+        else if (_attackInputs[(int)CombatInputs.Secondary])
+        {
+            stateMachine.TransitionTo<PlayerSecondaryAttackState>();
+        }
         // 接触地面且纵向速度向下时，进入落地状态
         if (core.CollisionSenses.IsGrounded && core.Movement.CurrentVelocity.y <= 0f)
         {
@@ -52,13 +64,14 @@ public class PlayerAerialState : PlayerState
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
         }
         else if (_dashInput && _dashState.CanDash)
+        // 冲刺
         {
             stateMachine.TransitionTo<PlayerDashState>();
         }
         else if (core.CollisionSenses.IsTouchingWall)
         {
             // 抓墙
-            if (GrabInput && core.CollisionSenses.IsTouchingLedge)
+            if (_grabInput && core.CollisionSenses.IsTouchingLedge)
             {
                 stateMachine.TransitionTo<PlayerWallGrabState>();
             }

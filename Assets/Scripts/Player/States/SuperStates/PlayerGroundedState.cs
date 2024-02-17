@@ -7,6 +7,7 @@ public class PlayerGroundedState : PlayerState
     private bool _jumpInput;
     private bool _grabInput;
     private bool _dashInput;
+    private bool[] _attackInputs;
 
     protected PlayerGroundedState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
@@ -26,8 +27,20 @@ public class PlayerGroundedState : PlayerState
         _jumpInput = owner.InputHandler.JumpInput;
         _grabInput = owner.InputHandler.GrabInput;
         _dashInput = owner.InputHandler.DashInput;
+        _attackInputs = owner.InputHandler.AttackInputs;
 
-        if (_jumpInput && _jumpState.CanJump)
+        // 主攻击
+        if (_attackInputs[(int)CombatInputs.Primary])
+        {
+            stateMachine.TransitionTo<PlayerPrimaryAttackState>();
+        }
+        // 副攻击
+        else if (_attackInputs[(int)CombatInputs.Secondary])
+        {
+            stateMachine.TransitionTo<PlayerSecondaryAttackState>();
+        }
+        // 跳跃
+        else if (_jumpInput && _jumpState.CanJump)
         {
             stateMachine.TransitionTo<PlayerJumpState>();
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public bool DashInputStop { get; private set; }
     public bool GrabInput { get; private set; }
+    public bool[] AttackInputs { get; private set; }
 
     private bool _jumpInput;
     private float _jumpInputStartTime;
@@ -49,20 +51,45 @@ public class PlayerInputHandler : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
+    private void Start()
+    {
+        AttackInputs = new bool[Enum.GetValues(typeof(CombatInputs)).Length];
+    }
+
     private void Update()
     {
         CheckInputHoldTime();
     }
 
+    public void OnPrimaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInputs[(int)CombatInputs.Primary] = true;
+        }
+        else if (context.canceled)
+        {
+            AttackInputs[(int)CombatInputs.Primary] = false;
+        }
+    }
+
+    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInputs[(int)CombatInputs.Secondary] = true;
+        }
+        else if (context.canceled)
+        {
+            AttackInputs[(int)CombatInputs.Secondary] = false;
+        }
+    }
+
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         RawMoveInput = context.ReadValue<Vector2>();
-        var x = Mathf.Abs(RawMoveInput.x) > 0.5f
-                ? (int)(RawMoveInput.x * Vector2.right).normalized.x
-                : 0;
-        var y = Mathf.Abs(RawMoveInput.y) > 0.5f
-                ? (int)(RawMoveInput.y * Vector2.up).normalized.y
-                : 0;
+        var x = Mathf.RoundToInt(RawMoveInput.x);
+        var y = Mathf.RoundToInt(RawMoveInput.y);
         NormalizedMoveInput = new Vector2Int(x, y);
     }
 
@@ -129,4 +156,10 @@ public class PlayerInputHandler : MonoBehaviour
             DashInput = false;
         }
     }
+}
+
+public enum CombatInputs
+{
+    Primary,
+    Secondary
 }

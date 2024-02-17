@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
+    public PlayerInventory Inventory { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
     private BoxCollider2D _collider;
 
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
+        Inventory = GetComponent<PlayerInventory>();
         _collider = GetComponent<BoxCollider2D>();
     }
 
