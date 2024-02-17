@@ -2,6 +2,7 @@
 
 public class PlayerState : StateBase<PlayerController>
 {
+    protected Core core;
     protected int InputX => owner.InputHandler.NormalizedMoveInput.x;
     protected int InputY => owner.InputHandler.NormalizedMoveInput.y;
     protected bool isAnimationFinished;
@@ -15,6 +16,7 @@ public class PlayerState : StateBase<PlayerController>
 
     protected PlayerState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner)
     {
+        core = owner.Core;
         _animatorParamHash = animatorParamHash;
     }
 

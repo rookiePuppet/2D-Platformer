@@ -13,7 +13,7 @@ public class PlayerCrouchIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        owner.SetVelocity(0f, 0f);
+        core.Movement.SetVelocity(0f, 0f);
         owner.SetCrouchCollider();
     }
 
@@ -28,7 +28,7 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         base.LogicUpdate();
         if (isExiting) return;
 
-        _isTouchingCeiling = owner.IsTouchingCeiling;
+        _isTouchingCeiling = core.CollisionSenses.IsTouchingCeiling;
 
         if (InputY != -1 && !_isTouchingCeiling)
         {

@@ -31,15 +31,15 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.TransitionTo<PlayerJumpState>();
         }
-        else if (_grabInput && owner.IsTouchingWall)
+        else if (_grabInput && core.CollisionSenses.IsTouchingWall)
         {
             stateMachine.TransitionTo<PlayerWallGrabState>();
         }
-        else if (_dashInput && !owner.IsTouchingCeiling)
+        else if (_dashInput && !core.CollisionSenses.IsTouchingCeiling)
         {
             stateMachine.TransitionTo<PlayerDashState>();
         }
-        else if (!owner.IsGrounded)
+        else if (!core.CollisionSenses.IsGrounded)
         {
             stateMachine.TransitionTo<PlayerAerialState>();
         }

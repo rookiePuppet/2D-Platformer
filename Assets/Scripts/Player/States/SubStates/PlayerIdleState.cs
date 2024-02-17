@@ -7,7 +7,7 @@
     public override void Enter()
     {
         base.Enter();
-        owner.SetVelocity(0, 0);
+        core.Movement.SetVelocity(0, 0);
     }
 
     public override void LogicUpdate()

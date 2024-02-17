@@ -12,7 +12,7 @@
     {
         base.Enter();
 
-        owner.SetVelocityY(owner.Data.jumpVelocity);
+        core.Movement.SetVelocityY(owner.Data.jumpVelocity);
         IncreaseJumpCounter();
         isAbilityDone = true;
     }

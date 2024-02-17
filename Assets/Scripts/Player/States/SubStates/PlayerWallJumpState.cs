@@ -12,18 +12,18 @@ public class PlayerWallJumpState : PlayerAbilityState
         base.Enter();
         var jumpState = stateMachine.GetStateInstance<PlayerJumpState>();
         jumpState.SetJumpCounterWhenWallJump();
-        
-        var wallJumpDirection = -owner.FacingDirection;
-        owner.SetVelocity(owner.Data.wallJumpVelocity, owner.Data.wallJumpAngle, wallJumpDirection);
-        owner.CheckIfShouldFlip(wallJumpDirection);
+
+        var wallJumpDirection = -core.Movement.FacingDirection;
+        core.Movement.SetVelocity(owner.Data.wallJumpVelocity, owner.Data.wallJumpAngle, wallJumpDirection);
+        core.Movement.CheckIfShouldFlip(wallJumpDirection);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
-        owner.Animator.SetFloat(velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
-        owner.Animator.SetFloat(velocityYHash, owner.CurrentVelocity.y);
+
+        owner.Animator.SetFloat(velocityXHash, Mathf.Abs(core.Movement.CurrentVelocity.x));
+        owner.Animator.SetFloat(velocityYHash, core.Movement.CurrentVelocity.y);
 
         if (Time.time >= startTime + owner.Data.wallJumpTime)
         {

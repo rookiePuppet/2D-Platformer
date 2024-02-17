@@ -13,7 +13,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState {
         // 记录抓墙位置
         _grabPosition = owner.transform.position;
         // 人物垂直速度置为0
-        owner.SetVelocityY(0);
+        core.Movement.SetVelocityY(0);
     }
 
     public override void LogicUpdate()
@@ -40,7 +40,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState {
     /// </summary>
     private void HoldPosition()
     {
-        owner.SetVelocityY(0);
+        core.Movement.SetVelocityY(0);
         owner.SetPosition(_grabPosition);
     }
 }

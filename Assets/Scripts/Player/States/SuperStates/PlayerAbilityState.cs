@@ -21,7 +21,7 @@ public class PlayerAbilityState : PlayerState
         base.LogicUpdate();
         if (!isAbilityDone) return;
 
-        if (owner.IsGrounded && owner.CurrentVelocity.y < 0.01f)
+        if (core.CollisionSenses.IsGrounded && core.Movement.CurrentVelocity.y < 0.01f)
         {
             stateMachine.TransitionTo<PlayerIdleState>();
         }

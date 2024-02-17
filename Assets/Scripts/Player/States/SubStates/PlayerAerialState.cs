@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class PlayerAerialState : PlayerState {
+public class PlayerAerialState : PlayerState
+{
     private bool GrabInput => owner.InputHandler.GrabInput;
 
     private PlayerJumpState _jumpState;
@@ -34,12 +35,12 @@ public class PlayerAerialState : PlayerState {
         _dashInput = owner.InputHandler.DashInput;
 
         // 接触地面且纵向速度向下时，进入落地状态
-        if (owner.IsGrounded && owner.CurrentVelocity.y <= 0f)
+        if (core.CollisionSenses.IsGrounded && core.Movement.CurrentVelocity.y <= 0f)
         {
             stateMachine.TransitionTo<PlayerLandState>();
-        }   
+        }
         // 跳墙
-        else if (_jumpInput && owner.IsTouchingWall)
+        else if (_jumpInput && core.CollisionSenses.IsTouchingWall)
         {
             stateMachine.TransitionTo<PlayerWallJumpState>();
         }
@@ -50,36 +51,36 @@ public class PlayerAerialState : PlayerState {
             // 土狼时间过后起跳才消耗一次跳跃次数
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
         }
-        else if(_dashInput && _dashState.CanDash)
+        else if (_dashInput && _dashState.CanDash)
         {
             stateMachine.TransitionTo<PlayerDashState>();
         }
-        else if (owner.IsTouchingWall)
+        else if (core.CollisionSenses.IsTouchingWall)
         {
             // 抓墙
-            if (GrabInput && owner.IsTouchingLedge)
+            if (GrabInput && core.CollisionSenses.IsTouchingLedge)
             {
                 stateMachine.TransitionTo<PlayerWallGrabState>();
             }
             // 平台攀爬
-            else if (!owner.IsTouchingLedge)
+            else if (!core.CollisionSenses.IsTouchingLedge)
             {
                 stateMachine.TransitionTo<PlayerLedgeClimbState>();
             }
             // 横向输入与面朝向一致且速度向下时，进入滑墙状态
-            else if (owner.FacingDirection == InputX && owner.CurrentVelocity.y <= 0f)
+            else if (core.Movement.FacingDirection == InputX && core.Movement.CurrentVelocity.y <= 0f)
             {
                 stateMachine.TransitionTo<PlayerWallSlideState>();
             }
         }
         else
         {
-            owner.SetVelocityX(owner.Data.movementVelocity * owner.Data.airSteeringMultiplier * InputX);
-            owner.CheckIfShouldFlip(InputX);
-            
+            core.Movement.SetVelocityX(owner.Data.movementVelocity * owner.Data.airSteeringMultiplier * InputX);
+            core.Movement.CheckIfShouldFlip(InputX);
+
             // 更新Animator变量
-            owner.Animator.SetFloat(velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
-            owner.Animator.SetFloat(velocityYHash, owner.CurrentVelocity.y);
+            owner.Animator.SetFloat(velocityXHash, Mathf.Abs(core.Movement.CurrentVelocity.x));
+            owner.Animator.SetFloat(velocityYHash, core.Movement.CurrentVelocity.y);
 
             _coyoteTimer -= Time.deltaTime;
 
@@ -96,11 +97,11 @@ public class PlayerAerialState : PlayerState {
         // 跃起过程中松开跳跃键，会降低跳跃高度
         if (owner.InputHandler.JumpInputStop)
         {
-            owner.SetVelocityY(owner.CurrentVelocity.y * owner.Data.variableJumpHeightMultiplier);
+            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.Data.variableJumpHeightMultiplier);
             _isJumping = false;
         }
         // 人物速度向下时，设置_isJumping为false
-        else if (owner.CurrentVelocity.y <= 0)
+        else if (core.Movement.CurrentVelocity.y <= 0)
         {
             _isJumping = false;
         }

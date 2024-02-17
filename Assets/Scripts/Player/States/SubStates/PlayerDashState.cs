@@ -52,7 +52,7 @@ public class PlayerDashState : PlayerAbilityState
             var angle = Vector2.SignedAngle(Vector2.right, _dashDirection); //direction和Vector2.right的夹角
             owner.DashDirectionIndicator.rotation = Quaternion.AngleAxis(angle - 45f, Vector3.forward);
 
-            owner.CheckIfShouldFlip(Mathf.RoundToInt(_dashDirection.x));
+            core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(_dashDirection.x));
 
             // 松开冲刺键，开始冲刺
             if (owner.InputHandler.DashInputStop)
@@ -73,18 +73,18 @@ public class PlayerDashState : PlayerAbilityState
         else
         {
             owner.DashDirectionIndicator.gameObject.SetActive(false);
-            owner.SetVelocity(owner.Data.dashVelocity, _dashDirection);
+            core.Movement.SetVelocity(owner.Data.dashVelocity, _dashDirection);
             // 冲刺时间结束
             if (Time.time >= startTime + owner.Data.dashTime)
             {
                 _lastDashTime = Time.time;
                 isAbilityDone = true;
-                owner.SetVelocityY(owner.CurrentVelocity.y * owner.Data.dashEndYMultiplier);
+                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.Data.dashEndYMultiplier);
             }
         }
 
-        owner.Animator.SetFloat(velocityXHash, Mathf.Abs(owner.CurrentVelocity.x));
-        owner.Animator.SetFloat(velocityYHash, owner.CurrentVelocity.y);
+        owner.Animator.SetFloat(velocityXHash, Mathf.Abs(core.Movement.CurrentVelocity.x));
+        owner.Animator.SetFloat(velocityYHash, core.Movement.CurrentVelocity.y);
     }
 
     public override void Exit()

@@ -9,8 +9,8 @@
         base.FixedUpdate();
         if (isExiting) return;
 
-        owner.CheckIfShouldFlip(InputX);
-        owner.SetVelocityX(owner.Data.movementVelocity * owner.FacingDirection);
+        core.Movement.CheckIfShouldFlip(InputX);
+        core.Movement.SetVelocityX(owner.Data.movementVelocity * core.Movement.FacingDirection);
 
         // 横向输入为0时，进入待机状态
         if (InputX == 0)

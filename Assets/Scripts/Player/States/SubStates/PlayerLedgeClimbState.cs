@@ -19,14 +19,14 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.Enter();
 
-        owner.SetVelocity(0f, 0f);
+        core.Movement.SetVelocity(0f, 0f);
 
         // 确定角落位置
-        _cornerPos = owner.DetermineCornerPosition();
+        _cornerPos = DetermineCornerPosition();
 
         // 确定爬墙起始位置和结束位置
-        _startPos = _cornerPos - new Vector2(owner.Data.startOffset.x * owner.FacingDirection, owner.Data.startOffset.y);
-        _stopPos = _cornerPos + new Vector2(owner.Data.stopOffset.x * owner.FacingDirection, owner.Data.stopOffset.y);
+        _startPos = _cornerPos - new Vector2(owner.Data.startOffset.x * core.Movement.FacingDirection, owner.Data.startOffset.y);
+        _stopPos = _cornerPos + new Vector2(owner.Data.stopOffset.x * core.Movement.FacingDirection, owner.Data.stopOffset.y);
 
         // 设置角色到起始位置
         owner.transform.position = _startPos;
@@ -50,13 +50,13 @@ public class PlayerLedgeClimbState : PlayerState
         }
         else
         {
-            owner.SetVelocity(0f, 0f);
+            core.Movement.SetVelocity(0f, 0f);
             owner.transform.position = _startPos;
 
             _jumpInput = owner.InputHandler.JumpInput;
 
             // 按下右或上的方向键时，开始攀爬
-            if ((InputX == owner.FacingDirection || InputY > 0) && _isHanging && !_isClimbing)
+            if ((InputX == core.Movement.FacingDirection || InputY > 0) && _isHanging && !_isClimbing)
             {
                 _isClimbing = true;
                 owner.Animator.SetBool(climbLedgeHash, true);
@@ -99,8 +99,23 @@ public class PlayerLedgeClimbState : PlayerState
         owner.Animator.SetBool(climbLedgeHash, false);
     }
 
-    public bool IsTouchingCeiling()
+    public bool IsTouchingCeiling() => Physics2D.Raycast(_cornerPos + Vector2.up * 0.015f + Vector2.right * core.Movement.FacingDirection * 0.015f, Vector2.up, owner.Data.normalColliderHeight, core.CollisionSenses.GroundLayer);
+
+    private Vector2 DetermineCornerPosition()
     {
-        return Physics2D.Raycast(_cornerPos + Vector2.up * 0.015f + Vector2.right * owner.FacingDirection * 0.015f, Vector2.up, owner.Data.normalColliderHeight, owner.Data.groundLayer);
+        var wallCheckPos = core.CollisionSenses.WallCheck.position;
+        var ledgeCheckPos = core.CollisionSenses.LedgeCheck.position;
+        var direction = Vector2.right * core.Movement.FacingDirection;
+
+        // 获得角色与墙壁的横向距离
+        var wallHit = Physics2D.Raycast(wallCheckPos, direction, core.CollisionSenses.WallCheckDistance, core.CollisionSenses.GroundLayer);
+        var xDis = wallHit.distance;
+
+        // 获得头顶到地面的垂直距离
+        var groundHit = Physics2D.Raycast((Vector2)ledgeCheckPos + direction * xDis,
+            Vector2.down, ledgeCheckPos.y - wallCheckPos.y, core.CollisionSenses.GroundLayer);
+        var yDis = groundHit.distance;
+
+        return new Vector2(wallCheckPos.x + xDis * core.Movement.FacingDirection, ledgeCheckPos.y - yDis);
     }
 }

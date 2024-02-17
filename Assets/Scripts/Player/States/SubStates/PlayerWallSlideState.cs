@@ -1,6 +1,5 @@
-﻿using Unity.VisualScripting;
-
-public class PlayerWallSlideState : PlayerTouchingWallState {
+﻿public class PlayerWallSlideState : PlayerTouchingWallState
+{
     public PlayerWallSlideState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
     {
     }
@@ -11,7 +10,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState {
         if (isExiting) return;
 
         // 离开墙面切换待机状态
-        if (!owner.IsTouchingWall)
+        if (!core.CollisionSenses.IsTouchingWall)
         {
             stateMachine.TransitionTo<PlayerIdleState>();
         }
@@ -21,7 +20,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState {
         }
         else if (InputY != -1)
         {
-            owner.SetVelocityY(-owner.Data.wallSlideVelocity);
+            core.Movement.SetVelocityY(-owner.Data.wallSlideVelocity);
         }
     }
 }
