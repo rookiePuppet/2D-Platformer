@@ -2003,7 +2003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 0}
+  - {fileID: 2067517878}
 --- !u!1 &773752112
 GameObject:
   m_ObjectHideFlags: 0
@@ -59067,6 +59067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de77164faafea9a4d8fcf3ec9b612e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: cea4931393c44ec4096f5e6cec3baea7, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
