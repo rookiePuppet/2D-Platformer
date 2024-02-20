@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Core : MonoBehaviour
@@ -12,11 +10,12 @@ public class Core : MonoBehaviour
         Movement = GetComponentInChildren<Movement>();
         CollisionSenses = GetComponentInChildren<CollisionSenses>();
 
-        if(Movement == null)
+        if (Movement == null)
         {
             Debug.LogError("Movement component not found in children of Core");
         }
-        if(CollisionSenses == null)
+
+        if (CollisionSenses == null)
         {
             Debug.LogError("CollisionSenses component not found in children of Core");
         }

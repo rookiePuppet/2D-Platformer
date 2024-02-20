@@ -33,4 +33,9 @@ public class WeaponAnimationToWeapon : MonoBehaviour
     {
         _weapon.AnimationStopFlipCheck();
     }
+    
+    public void AnimationActionTrigger()
+    {
+        _weapon.AnimationActionTrigger();
+    }
 }

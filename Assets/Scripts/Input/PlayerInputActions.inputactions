@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "327baba1-d612-4fcc-ba29-9e9f7c7b5952",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -243,6 +252,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SecondaryAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "509aebd4-97a5-4a6e-b140-764a287a3b10",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

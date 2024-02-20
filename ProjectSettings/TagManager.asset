@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Damageable
+  - Dead
+  - Player
+  - Weapon
+  - InteractiveItem
   - 
   - 
   - 
@@ -53,9 +53,15 @@ TagManager:
   - name: Decoration
     uniqueID: 3982073949
     locked: 0
+  - name: Enemy
+    uniqueID: 2880370565
+    locked: 0
   - name: Player
     uniqueID: 2503148243
     locked: 0
   - name: Decoration Front
     uniqueID: 3704382095
+    locked: 0
+  - name: Particle
+    uniqueID: 4216698751
     locked: 0

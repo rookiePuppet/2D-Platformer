@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private WeaponData_SO weaponData;
+    [SerializeField] protected WeaponData_SO weaponData;
 
-    protected Animator baseAnimator;
-    protected Animator weaponAnimator;
+    private Animator _baseAnimator;
+    private Animator _weaponAnimator;
     protected int attackCounter;
 
-    protected static readonly int AttackHash = Animator.StringToHash("Attack");
-    protected static readonly int AttackCounterHash = Animator.StringToHash("AttackCounter");
+    private static readonly int AttackHash = Animator.StringToHash("Attack");
+    private static readonly int AttackCounterHash = Animator.StringToHash("AttackCounter");
 
     private PlayerPrimaryAttackState _state;
 
     protected virtual void Awake()
     {
-        baseAnimator = transform.Find("Base").GetComponent<Animator>();
-        weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
+        _baseAnimator = transform.Find("Base").GetComponent<Animator>();
+        _weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
     }
 
     protected virtual void Start()
@@ -35,23 +32,23 @@ public class Weapon : MonoBehaviour
     public virtual void EnterWeapon()
     {
         gameObject.SetActive(true);
-        baseAnimator.SetBool(AttackHash, true);
-        weaponAnimator.SetBool(AttackHash, true);
+        _baseAnimator.SetBool(AttackHash, true);
+        _weaponAnimator.SetBool(AttackHash, true);
 
         attackCounter++;
-        if (attackCounter > weaponData.movementSpeed.Length)
+        if (attackCounter > weaponData.amountOfAttacks)
         {
             attackCounter = 1;
         }
 
-        baseAnimator.SetInteger(AttackCounterHash, attackCounter);
-        weaponAnimator.SetInteger(AttackCounterHash, attackCounter);
+        _baseAnimator.SetInteger(AttackCounterHash, attackCounter);
+        _weaponAnimator.SetInteger(AttackCounterHash, attackCounter);
     }
 
     public virtual void ExitWeapon()
     {
-        baseAnimator.SetBool(AttackHash, false);
-        weaponAnimator.SetBool(AttackHash, false);
+        _baseAnimator.SetBool(AttackHash, false);
+        _weaponAnimator.SetBool(AttackHash, false);
         gameObject.SetActive(false);
     }
 
@@ -84,5 +81,9 @@ public class Weapon : MonoBehaviour
     public virtual void AnimationStopFlipCheck()
     {
         _state.SetShouldCheckFlip(false);
+    }
+
+    public virtual void AnimationActionTrigger()
+    {
     }
 }

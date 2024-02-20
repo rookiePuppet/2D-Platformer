@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDashState : PlayerAbilityState
@@ -33,7 +31,7 @@ public class PlayerDashState : PlayerAbilityState
         _isHolding = true;
 
         owner.DashDirectionIndicator.gameObject.SetActive(true);
-        owner.Rigidbody.drag = owner.Data.dashDrag;
+        core.Movement.Rigidbody.drag = owner.Data.dashDrag;
 
         // 慢动作
         Time.timeScale = owner.Data.dashTimeScale;
@@ -90,6 +88,6 @@ public class PlayerDashState : PlayerAbilityState
     public override void Exit()
     {
         base.Exit();
-        owner.Rigidbody.drag = 0f;
+        core.Movement.Rigidbody.drag = 0f;
     }
 }

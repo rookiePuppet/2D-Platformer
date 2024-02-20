@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,13 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData playerData;
     [SerializeField] private Transform dashDirectionIndicator;
 
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform ledgeCheck;
-    [SerializeField] private Transform ceilingCheck;
-
     public PlayerData Data => playerData;
-    public Rigidbody2D Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerInventory Inventory { get; private set; }
@@ -30,7 +25,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Core = GetComponentInChildren<Core>();
-        Rigidbody = GetComponent<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         Inventory = GetComponent<PlayerInventory>();
@@ -70,7 +64,8 @@ public class PlayerController : MonoBehaviour
         _collider.size = temp;
 
         temp = _collider.offset;
-        temp.y = playerData.normalColliderYOffset - (playerData.normalColliderHeight - playerData.crouchColliderHeight) / 2;
+        temp.y = playerData.normalColliderYOffset -
+                 (playerData.normalColliderHeight - playerData.crouchColliderHeight) / 2;
         _collider.offset = temp;
     }
 

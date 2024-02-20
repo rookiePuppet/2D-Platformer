@@ -36,11 +36,22 @@ public class PlayerInputHandler : MonoBehaviour
     public bool DashInputStop { get; private set; }
     public bool GrabInput { get; private set; }
     public bool[] AttackInputs { get; private set; }
+    public bool InteractInput
+    {
+        get
+        {
+            var input = _interactInput;
+            _interactInput = false;
+            return input;
+        }
+        private set => _interactInput = value;
+    }
 
     private bool _jumpInput;
     private float _jumpInputStartTime;
     private bool _dashInput;
     private float _dashInputStartTime;
+    private bool _interactInput;
     private PlayerInput _playerInput;
 
     private Camera _mainCamera;
@@ -59,6 +70,18 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         CheckInputHoldTime();
+    }
+    
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            InteractInput = true;
+        }
+        else if (context.canceled)
+        {
+            InteractInput = false;
+        }
     }
 
     public void OnPrimaryAttackInput(InputAction.CallbackContext context)
