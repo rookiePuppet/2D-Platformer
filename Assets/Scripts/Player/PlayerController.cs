@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     #region Components
 
@@ -78,5 +78,18 @@ public class PlayerController : MonoBehaviour
         temp = _collider.offset;
         temp.y = playerData.normalColliderYOffset;
         _collider.offset = temp;
+    }
+
+    public float Health { get; set; } = 100f;
+    public event Action<float, float> HealthChanged;
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        Debug.Log("player's health: " + Health);
+    }
+
+    public void HandleHitFeedback(Vector3 hitSourcePos)
+    {
+        
     }
 }

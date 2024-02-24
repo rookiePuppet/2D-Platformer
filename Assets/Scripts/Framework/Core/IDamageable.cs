@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public interface IDamageable
 {
-    float Health { get; set; }
-    UnityEvent<float, float> HealthChanged { get; }
-    
-    void TakeDamage(float damage);
-
-    void HandleHitFeedback(Vector3 hitSourcePos);
+    public float Health { get; set; }
+    public event Action<float, float> HealthChanged;
+    public void TakeDamage(float damage);
+    public void HandleHitFeedback(Vector3 hitSourcePos);
 }

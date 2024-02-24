@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -5,13 +6,24 @@ using Random = UnityEngine.Random;
 public class CombatDummy : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject hitParticlesPrefab;
+    [SerializeField] private HealthBarUI healthBarUI;
     public float Health { get; set; } = 100f;
-    public UnityEvent<float, float> HealthChanged { get; }
+    public event Action<float, float> HealthChanged;
     
     private Animator _animator;
     private SpriteRenderer _mainSpriteRenderer;
     private static readonly int HitFromLeftHash = Animator.StringToHash("HitFromLeft");
     private static readonly int BeHitHash = Animator.StringToHash("BeHit");
+
+    private void OnEnable()
+    {
+        HealthChanged += OnHealthChanged;
+    }
+    
+    private void OnDisable()
+    {
+        HealthChanged -= OnHealthChanged;
+    }
 
     private void Awake()
     {
@@ -22,6 +34,11 @@ public class CombatDummy : MonoBehaviour, IDamageable
     private void Start()
     {
         HealthChanged?.Invoke(Health, 100f);
+    }
+    
+    private void OnHealthChanged(float health, float maxHealth)
+    {
+        healthBarUI.SetHealthBar(health, maxHealth);
     }
 
     public void TakeDamage(float damage)
