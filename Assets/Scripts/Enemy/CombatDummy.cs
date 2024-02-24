@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class CombatDummy : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject hitParticlesPrefab;
     public float Health { get; set; } = 100f;
-
+    public UnityEvent<float, float> HealthChanged { get; }
+    
     private Animator _animator;
     private SpriteRenderer _mainSpriteRenderer;
     private static readonly int HitFromLeftHash = Animator.StringToHash("HitFromLeft");
@@ -17,12 +19,19 @@ public class CombatDummy : MonoBehaviour, IDamageable
         _mainSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        HealthChanged?.Invoke(Health, 100f);
+    }
+
     public void TakeDamage(float damage)
     {
         if (Health <= 0) return;
 
         Health -= damage;
 
+        HealthChanged?.Invoke(Health, 100f);
+        
         if (Health < 0)
         {
             Health = 0;
@@ -46,6 +55,7 @@ public class CombatDummy : MonoBehaviour, IDamageable
         _animator.SetTrigger(BeHitHash);
         
         position.x = isHitFromLeft ? position.x + 0.1f : position.x - 0.1f;
+        transform.position = position;
 
         // 打击粒子动画
         if (hitParticlesPrefab != null)
@@ -57,6 +67,7 @@ public class CombatDummy : MonoBehaviour, IDamageable
     private void Recover()
     {
         Health = 100f;
+        HealthChanged?.Invoke(Health, 100f);
         _mainSpriteRenderer.enabled = true;
     }
 }
