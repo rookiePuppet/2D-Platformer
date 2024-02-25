@@ -1,38 +1,40 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public float perceptionRadius = 5f;
-    public float patrolRadius = 10f;
-    public float movementSpeed = 3f;
-    public float stopDistance = 2f;
-    public float attackCooldown = 2f;
-    public float damage = 10f;
-    public float attackRadius = 1.5f;
+    [SerializeField] private EnemyData_SO enemyData;
 
-    public LayerMask playerLayer;
-
-    public Transform attackPoint;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform touchGroundPoint;
     [SerializeField] private HealthBarUI healthBarUI;
 
     public Animator Animator { get; private set; }
     public Core Core { get; private set; }
     public PlayerController Target { get; private set; }
+    public EnemyData_SO Data => enemyData;
 
     private StateMachine<Enemy> StateMachine { get; set; }
+
     public float Health { get; set; } = 100f;
-    public event Action<float, float> HealthChanged;
+    public event Action<DamageInfo> Damaged;
+
+    /// <summary>
+    /// 检测前方是否为地面边缘
+    /// </summary>
+    public bool IsEdgeDetected => Physics2D.OverlapCircle(
+        (Vector2)touchGroundPoint.position + Vector2.right * Core.Movement.FacingDirection * Data.edgeCheckDistance,
+        0.2f,
+        Data.groundLayer) is null;
 
     private void OnEnable()
     {
-        HealthChanged += OnHealthChanged;
+        Damaged += OnDamaged;
     }
 
     private void OnDisable()
     {
-        HealthChanged -= OnHealthChanged;
+        Damaged -= OnDamaged;
     }
 
     private void Awake()
@@ -44,7 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         StateMachine = new EnemyStateMachine(this);
-        HealthChanged?.Invoke(Health, 100f);
+        healthBarUI.SetHealthBar(Health, 100f);
     }
 
     private void Update()
@@ -52,34 +54,10 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.LogicUpdate();
     }
 
-    private void OnHealthChanged(float health, float maxHealth)
-    {
-        healthBarUI.SetHealthBar(health, maxHealth);
-    }
-    
-    public void TakeDamage(float damage)
-    {
-        Health -= damage;
-        HealthChanged?.Invoke(Health, 100f);
-    }
-
-    public void HandleHitFeedback(Vector3 hitSourcePos)
-    {
-        
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position - Vector3.right * patrolRadius,
-            transform.position + Vector3.right * patrolRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(perceptionRadius * 2, 1f, 0f));
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
-    }
-
     public bool IsPlayerDetected()
     {
-        var hit = Physics2D.OverlapBox(transform.position, new Vector2(perceptionRadius * 2, 1f), 0f, playerLayer);
+        var hit = Physics2D.OverlapBox(transform.position, new Vector2(Data.perceptionRadius * 2, 1f), 0f,
+            Data.playerLayer);
         if (hit is not null)
         {
             Target = hit.GetComponent<PlayerController>();
@@ -87,24 +65,62 @@ public class Enemy : MonoBehaviour, IDamageable
 
         return hit;
     }
-    
+
+    private void OnDamaged(DamageInfo info)
+    {
+        healthBarUI.SetHealthBar(Health, 100f);
+        var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
+        Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
+    }
+
+    public void TakeDamage(DamageInfo info)
+    {
+        if (Health <= 0) return;
+
+        Health -= info.damageAmount;
+
+        if (Health < 0)
+        {
+            Health = 0;
+        }
+
+        Damaged?.Invoke(info);
+    }
+
     public void CheckMeleeAttack()
     {
-        var target = Physics2D.OverlapCircle(attackPoint.position, attackRadius, playerLayer);
+        var target = Physics2D.OverlapCircle(attackPoint.position, Data.attackRadius, Data.playerLayer);
         if (target is not null)
         {
             var damageable = target.GetComponent<IDamageable>();
-            damageable?.TakeDamage(damage);
+            var damageInfo = new DamageInfo
+            {
+                damageAmount = Data.damage,
+                hitSourcePosition = transform.position,
+                knockBackVelocity = new Vector2(1.5f, 1f)
+            };
+            damageable?.TakeDamage(damageInfo);
         }
     }
-    
+
     public void AnimationTrigger()
     {
         StateMachine.CurrentState.AnimationTrigger();
     }
-    
+
     public void AnimationFinishTrigger()
     {
         StateMachine.CurrentState.AnimationFinishTrigger();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position - Vector3.right * Data.patrolRadius,
+            transform.position + Vector3.right * Data.patrolRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(Data.perceptionRadius * 2, 1f, 0f));
+        Gizmos.DrawWireSphere(attackPoint.position, Data.attackRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere((Vector2)touchGroundPoint.position + Vector2.right * Data.edgeCheckDistance, 0.2f);
     }
 }

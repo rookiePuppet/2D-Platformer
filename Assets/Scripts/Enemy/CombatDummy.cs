@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class CombatDummy : MonoBehaviour, IDamageable
@@ -8,21 +7,22 @@ public class CombatDummy : MonoBehaviour, IDamageable
     [SerializeField] private GameObject hitParticlesPrefab;
     [SerializeField] private HealthBarUI healthBarUI;
     public float Health { get; set; } = 100f;
-    public event Action<float, float> HealthChanged;
-    
+    public event Action<DamageInfo> Damaged;
+
     private Animator _animator;
     private SpriteRenderer _mainSpriteRenderer;
+
     private static readonly int HitFromLeftHash = Animator.StringToHash("HitFromLeft");
     private static readonly int BeHitHash = Animator.StringToHash("BeHit");
 
     private void OnEnable()
     {
-        HealthChanged += OnHealthChanged;
+        Damaged += OnDamaged;
     }
-    
+
     private void OnDisable()
     {
-        HealthChanged -= OnHealthChanged;
+        Damaged -= OnDamaged;
     }
 
     private void Awake()
@@ -33,21 +33,36 @@ public class CombatDummy : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        HealthChanged?.Invoke(Health, 100f);
-    }
-    
-    private void OnHealthChanged(float health, float maxHealth)
-    {
-        healthBarUI.SetHealthBar(health, maxHealth);
+        UpdateHealthBar();
     }
 
-    public void TakeDamage(float damage)
+    private void OnDamaged(DamageInfo info)
+    {
+        UpdateHealthBar();
+
+        if (Health <= 0) return;
+
+        // 受击动画
+        var position = transform.position;
+        var isHitFromLeft = info.hitSourcePosition.x < position.x;
+        _animator.SetBool(HitFromLeftHash, isHitFromLeft);
+        _animator.SetTrigger(BeHitHash);
+
+        position.x = isHitFromLeft ? position.x + 0.1f : position.x - 0.1f;
+        transform.position = position;
+
+        // 打击粒子动画
+        if (hitParticlesPrefab != null)
+        {
+            Instantiate(hitParticlesPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+        }
+    }
+
+    public void TakeDamage(DamageInfo info)
     {
         if (Health <= 0) return;
 
-        Health -= damage;
-
-        HealthChanged?.Invoke(Health, 100f);
+        Health -= info.damageAmount;
         
         if (Health < 0)
         {
@@ -59,32 +74,19 @@ public class CombatDummy : MonoBehaviour, IDamageable
             _mainSpriteRenderer.enabled = false;
             Invoke(nameof(Recover), 5f);
         }
+        
+        Damaged?.Invoke(info);
     }
 
-    public void HandleHitFeedback(Vector3 hitSourcePos)
+    private void UpdateHealthBar()
     {
-        if(Health <= 0) return;
-        
-        // 受击动画
-        var position = transform.position;
-        var isHitFromLeft = hitSourcePos.x < position.x;
-        _animator.SetBool(HitFromLeftHash, isHitFromLeft);
-        _animator.SetTrigger(BeHitHash);
-        
-        position.x = isHitFromLeft ? position.x + 0.1f : position.x - 0.1f;
-        transform.position = position;
-
-        // 打击粒子动画
-        if (hitParticlesPrefab != null)
-        {
-            Instantiate(hitParticlesPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
-        }
+        healthBarUI.SetHealthBar(Health, 100f);
     }
 
     private void Recover()
     {
         Health = 100f;
-        HealthChanged?.Invoke(Health, 100f);
+        UpdateHealthBar();
         _mainSpriteRenderer.enabled = true;
     }
 }

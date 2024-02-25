@@ -20,10 +20,13 @@ MonoBehaviour:
   weaponDetails:
   - attackName: attack1
     movementSpeed: 3
-    damageAmount: 10
+    damageAmount: 1
+    knockBackForce: {x: 4, y: 2}
   - attackName: attack2
     movementSpeed: 4
-    damageAmount: 12
+    damageAmount: 1
+    knockBackForce: {x: 5, y: 3}
   - attackName: attack3
     movementSpeed: 2
-    damageAmount: 15
+    damageAmount: 1
+    knockBackForce: {x: 2, y: 6}

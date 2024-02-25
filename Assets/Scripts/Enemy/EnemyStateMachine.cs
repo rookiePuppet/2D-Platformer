@@ -6,7 +6,14 @@
         AddState(new EnemyPatrolState(this, owner));
         AddState(new EnemyChaseState(this, owner));
         AddState(new EnemyAttackState(this, owner));
-        
-        Initialize<EnemyGuardState>();
+
+        if (owner.Data.isPatrol)
+        {
+            Initialize<EnemyPatrolState>();
+        }
+        else
+        {
+            Initialize<EnemyGuardState>();
+        }
     }
 }

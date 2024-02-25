@@ -16,11 +16,25 @@ public class PlayerController : MonoBehaviour, IDamageable
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerInventory Inventory { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
+    
     private BoxCollider2D _collider;
 
     #endregion
+    
+    public float Health { get; set; } = 100f;
+    public event Action<DamageInfo> Damaged;
 
     #region Unity Callback Functions
+
+    private void OnEnable()
+    {
+        Damaged += OnDamaged;
+    }
+
+    private void OnDisable()
+    {
+        Damaged += OnDamaged;
+    }
 
     private void Awake()
     {
@@ -54,9 +68,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         transform.position = position;
     }
-
-    #endregion
-
+    
     public void SetCrouchCollider()
     {
         var temp = _collider.size;
@@ -80,16 +92,25 @@ public class PlayerController : MonoBehaviour, IDamageable
         _collider.offset = temp;
     }
 
-    public float Health { get; set; } = 100f;
-    public event Action<float, float> HealthChanged;
-    public void TakeDamage(float damage)
+    #endregion
+    
+    private void OnDamaged(DamageInfo info)
     {
-        Health -= damage;
-        Debug.Log("player's health: " + Health);
+        // var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
+        // Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
     }
-
-    public void HandleHitFeedback(Vector3 hitSourcePos)
+    
+    public void TakeDamage(DamageInfo info)
     {
+        if (Health <= 0) return;
+
+        Health -= info.damageAmount;
         
+        if (Health < 0)
+        {
+            Health = 0;
+        }
+        
+        Damaged?.Invoke(info);
     }
 }

@@ -23,8 +23,14 @@ public class AggressiveWeapon : Weapon
     {
         foreach (var target in _detectedTargets)
         {
-            target.TakeDamage(_aggressiveWeaponData.WeaponDetails[attackCounter - 1].damageAmount);
-            target.HandleHitFeedback(transform.position);
+            var weaponDetail = _aggressiveWeaponData.WeaponDetails[attackCounter - 1];
+            var damageInfo = new DamageInfo
+            {
+                damageAmount = weaponDetail.damageAmount,
+                hitSourcePosition = transform.position,
+                knockBackVelocity = weaponDetail.knockBackForce
+            };
+            target.TakeDamage(damageInfo);
         }
     }
 

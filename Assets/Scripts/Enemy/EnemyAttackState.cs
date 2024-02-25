@@ -2,7 +2,7 @@
 
 public class EnemyAttackState : EnemyState
 {
-    public bool CanAttack => Time.time >= _lastAttackTime + owner.attackCooldown;
+    public bool CanAttack => Time.time >= _lastAttackTime + owner.Data.attackCooldown;
     
     private bool _isAttackFinished;
     private float _lastAttackTime;
@@ -15,7 +15,7 @@ public class EnemyAttackState : EnemyState
     {
         base.Enter();
         
-        CheckIfShouldFlip();
+        CheckIfShouldFlipWhenChasing();
         
         owner.Animator.SetTrigger(AttackHash);
         _isAttackFinished = false;

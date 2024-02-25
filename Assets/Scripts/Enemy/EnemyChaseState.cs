@@ -14,16 +14,26 @@
     {
         base.LogicUpdate();
 
-        CheckIfShouldFlip();
+        CheckIfShouldFlipWhenChasing();
 
         if (!owner.IsPlayerDetected())
         {
-            stateMachine.TransitionTo<EnemyGuardState>();
+            if (owner.Data.isPatrol)
+            {
+                stateMachine.TransitionTo<EnemyPatrolState>();
+            }
+            else
+            {
+                stateMachine.TransitionTo<EnemyGuardState>();
+            }
         }
-        else if (DistanceToPlayer > owner.stopDistance)
+        // 追击玩家直到进入攻击范围
+        else if (DistanceToPlayer > owner.Data.stopDistance && !owner.IsEdgeDetected)
         {
-            owner.Core.Movement.SetVelocityX(owner.movementSpeed * owner.Core.Movement.FacingDirection);
+            owner.Core.Movement.SetVelocityX(owner.Data.movementSpeed * owner.Data.chaseSpeedMultiplier *
+                                             owner.Core.Movement.FacingDirection);
         }
+        // 进入攻击范围，等待攻击
         else
         {
             stateMachine.TransitionTo<EnemyGuardState>();
