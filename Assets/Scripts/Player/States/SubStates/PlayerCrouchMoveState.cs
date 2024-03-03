@@ -30,7 +30,7 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         _isTouchingCeiling = core.CollisionSenses.IsTouchingCeiling;
 
         core.Movement.CheckIfShouldFlip(InputX);
-        core.Movement.SetVelocityX(owner.Data.crouchMovementVelocity * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(owner.StatesConfigSo.crouchMovementVelocity * core.Movement.FacingDirection);
 
         if (InputY != -1 && !_isTouchingCeiling)
         {

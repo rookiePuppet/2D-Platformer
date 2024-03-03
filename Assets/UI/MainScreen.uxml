@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/main-screen.uss?fileID=7433441132597879392&amp;guid=650af3b543ac1954f872624151a4fb0f&amp;type=3#main-screen" />
+    <ui:VisualElement style="flex-grow: 1; align-items: flex-start; padding-top: 10px; padding-left: 15px;">
+        <ui:VisualElement name="HealthBar" class="character-status-bar">
+            <ui:VisualElement name="Background" style="flex-direction: column; width: 100%;">
+                <ui:VisualElement name="Foreground" style="flex-grow: 1; width: 100%; align-items: stretch; align-self: flex-start; height: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

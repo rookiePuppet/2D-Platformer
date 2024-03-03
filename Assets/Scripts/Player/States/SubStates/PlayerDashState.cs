@@ -6,7 +6,7 @@ public class PlayerDashState : PlayerAbilityState
     {
         get
         {
-            if (Time.time - _lastDashTime < owner.Data.dashCoolDown)
+            if (Time.time - _lastDashTime < owner.StatesConfigSo.dashCoolDown)
             {
                 return false;
             }
@@ -31,10 +31,10 @@ public class PlayerDashState : PlayerAbilityState
         _isHolding = true;
 
         owner.DashDirectionIndicator.gameObject.SetActive(true);
-        core.Movement.Rigidbody.drag = owner.Data.dashDrag;
+        core.Movement.Rigidbody.drag = owner.StatesConfigSo.dashDrag;
 
         // 慢动作
-        Time.timeScale = owner.Data.dashTimeScale;
+        Time.timeScale = owner.StatesConfigSo.dashTimeScale;
     }
 
     public override void LogicUpdate()
@@ -60,7 +60,7 @@ public class PlayerDashState : PlayerAbilityState
                 startTime = Time.time;
             }
             // 时间结束，终止动作
-            else if (Time.unscaledTime >= startTime + owner.Data.dashHoldTime)
+            else if (Time.unscaledTime >= startTime + owner.StatesConfigSo.dashHoldTime)
             {
                 Time.timeScale = 1f;
                 isAbilityDone = true;
@@ -71,13 +71,13 @@ public class PlayerDashState : PlayerAbilityState
         else
         {
             owner.DashDirectionIndicator.gameObject.SetActive(false);
-            core.Movement.SetVelocity(owner.Data.dashVelocity, _dashDirection);
+            core.Movement.SetVelocity(owner.StatesConfigSo.dashVelocity, _dashDirection);
             // 冲刺时间结束
-            if (Time.time >= startTime + owner.Data.dashTime)
+            if (Time.time >= startTime + owner.StatesConfigSo.dashTime)
             {
                 _lastDashTime = Time.time;
                 isAbilityDone = true;
-                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.Data.dashEndYMultiplier);
+                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.StatesConfigSo.dashEndYMultiplier);
             }
         }
 

@@ -1,0 +1,27 @@
+.character-status-bar {
+    width: 650px;
+    height: 25px;
+}
+
+.character-status-bar #Background {
+    background-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    background-image: url('project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal');
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    align-self: flex-start;
+    flex-shrink: 1;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.character-status-bar #Foreground {
+    background-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(209, 66, 66);
+    background-image: url('project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal');
+    flex-grow: 1;
+}

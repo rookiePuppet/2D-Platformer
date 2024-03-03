@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SceneLoader
   m_EditorClassIdentifier: 
   loadingScreenPrefab: {fileID: 8822483027620012979, guid: d89c955ef0d88014faa7cf565735fea4, type: 3}
-  simulateWaitingTime: 3
+  simulateWaitingTime: 1.5

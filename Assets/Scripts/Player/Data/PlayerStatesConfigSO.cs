@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Player Data/Base Data", fileName = "newPlayerData")]
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(menuName = "Player/Player States Config", fileName = "PlayerStatesConfig")]
+public class PlayerStatesConfigSO : ScriptableObject
 {
     [Header("Walk State")]
     public float movementVelocity = 10f;

@@ -14,7 +14,7 @@ public class PlayerWallJumpState : PlayerAbilityState
         jumpState.SetJumpCounterWhenWallJump();
 
         var wallJumpDirection = -core.Movement.FacingDirection;
-        core.Movement.SetVelocity(owner.Data.wallJumpVelocity, owner.Data.wallJumpAngle, wallJumpDirection);
+        core.Movement.SetVelocity(owner.StatesConfigSo.wallJumpVelocity, owner.StatesConfigSo.wallJumpAngle, wallJumpDirection);
         core.Movement.CheckIfShouldFlip(wallJumpDirection);
     }
 
@@ -25,7 +25,7 @@ public class PlayerWallJumpState : PlayerAbilityState
         owner.Animator.SetFloat(velocityXHash, Mathf.Abs(core.Movement.CurrentVelocity.x));
         owner.Animator.SetFloat(velocityYHash, core.Movement.CurrentVelocity.y);
 
-        if (Time.time >= startTime + owner.Data.wallJumpTime)
+        if (Time.time >= startTime + owner.StatesConfigSo.wallJumpTime)
         {
             isAbilityDone = true;
         }

@@ -25,8 +25,8 @@ public class PlayerLedgeClimbState : PlayerState
         _cornerPos = DetermineCornerPosition();
 
         // 确定爬墙起始位置和结束位置
-        _startPos = _cornerPos - new Vector2(owner.Data.startOffset.x * core.Movement.FacingDirection, owner.Data.startOffset.y);
-        _stopPos = _cornerPos + new Vector2(owner.Data.stopOffset.x * core.Movement.FacingDirection, owner.Data.stopOffset.y);
+        _startPos = _cornerPos - new Vector2(owner.StatesConfigSo.startOffset.x * core.Movement.FacingDirection, owner.StatesConfigSo.startOffset.y);
+        _stopPos = _cornerPos + new Vector2(owner.StatesConfigSo.stopOffset.x * core.Movement.FacingDirection, owner.StatesConfigSo.stopOffset.y);
 
         // 设置角色到起始位置
         owner.transform.position = _startPos;
@@ -99,7 +99,7 @@ public class PlayerLedgeClimbState : PlayerState
         owner.Animator.SetBool(climbLedgeHash, false);
     }
 
-    public bool IsTouchingCeiling() => Physics2D.Raycast(_cornerPos + Vector2.up * 0.015f + Vector2.right * core.Movement.FacingDirection * 0.015f, Vector2.up, owner.Data.normalColliderHeight, core.CollisionSenses.GroundLayer);
+    public bool IsTouchingCeiling() => Physics2D.Raycast(_cornerPos + Vector2.up * 0.015f + Vector2.right * core.Movement.FacingDirection * 0.015f, Vector2.up, owner.StatesConfigSo.normalColliderHeight, core.CollisionSenses.GroundLayer);
 
     private Vector2 DetermineCornerPosition()
     {

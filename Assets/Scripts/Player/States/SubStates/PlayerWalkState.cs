@@ -10,7 +10,7 @@
         if (isExiting) return;
 
         core.Movement.CheckIfShouldFlip(InputX);
-        core.Movement.SetVelocityX(owner.Data.movementVelocity * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(owner.StatesConfigSo.movementVelocity * core.Movement.FacingDirection);
 
         // 横向输入为0时，进入待机状态
         if (InputX == 0)

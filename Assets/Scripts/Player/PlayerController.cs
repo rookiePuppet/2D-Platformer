@@ -7,20 +7,20 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public PlayerStateMachine StateMachine { get; private set; }
     public Core Core { get; private set; }
-
-    [SerializeField] private PlayerData playerData;
+    [SerializeField] private PlayerStatesConfigSO playerStatesConfigSo;
+    [SerializeField] PlayerStatsSO stats;
     [SerializeField] private Transform dashDirectionIndicator;
 
-    public PlayerData Data => playerData;
+    public PlayerStatesConfigSO StatesConfigSo => playerStatesConfigSo;
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerInventory Inventory { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
-    
+
     private BoxCollider2D _collider;
 
     #endregion
-    
+
     public float Health { get; set; } = 100f;
     public event Action<DamageInfo> Damaged;
 
@@ -68,49 +68,41 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         transform.position = position;
     }
-    
+
     public void SetCrouchCollider()
     {
         var temp = _collider.size;
-        temp.y = playerData.crouchColliderHeight;
+        temp.y = playerStatesConfigSo.crouchColliderHeight;
         _collider.size = temp;
 
         temp = _collider.offset;
-        temp.y = playerData.normalColliderYOffset -
-                 (playerData.normalColliderHeight - playerData.crouchColliderHeight) / 2;
+        temp.y = playerStatesConfigSo.normalColliderYOffset -
+                 (playerStatesConfigSo.normalColliderHeight - playerStatesConfigSo.crouchColliderHeight) / 2;
         _collider.offset = temp;
     }
 
     public void SetNormalCollider()
     {
         var temp = _collider.size;
-        temp.y = playerData.normalColliderHeight;
+        temp.y = playerStatesConfigSo.normalColliderHeight;
         _collider.size = temp;
 
         temp = _collider.offset;
-        temp.y = playerData.normalColliderYOffset;
+        temp.y = playerStatesConfigSo.normalColliderYOffset;
         _collider.offset = temp;
     }
 
     #endregion
-    
+
     private void OnDamaged(DamageInfo info)
     {
         // var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
         // Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
     }
-    
+
     public void TakeDamage(DamageInfo info)
     {
-        if (Health <= 0) return;
-
-        Health -= info.damageAmount;
-        
-        if (Health < 0)
-        {
-            Health = 0;
-        }
-        
+        stats.TakeDamage(info);
         Damaged?.Invoke(info);
     }
 }

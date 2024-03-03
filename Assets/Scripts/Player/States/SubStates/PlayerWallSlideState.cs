@@ -20,7 +20,7 @@
         }
         else if (InputY != -1)
         {
-            core.Movement.SetVelocityY(-owner.Data.wallSlideVelocity);
+            core.Movement.SetVelocityY(-owner.StatesConfigSo.wallSlideVelocity);
         }
     }
 }
