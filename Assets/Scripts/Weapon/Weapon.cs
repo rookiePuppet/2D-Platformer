@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int AttackCounterHash = Animator.StringToHash("AttackCounter");
 
-    private PlayerPrimaryAttackState _state;
+    private PlayerAttackState _state;
 
     protected virtual void Awake()
     {
@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void InitializeWeapon(PlayerPrimaryAttackState state)
+    public void InitializeWeapon(PlayerAttackState state)
     {
         _state = state;
     }

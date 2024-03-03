@@ -22,7 +22,9 @@ public class PlayerStateMachine : StateMachine<PlayerController> {
         primaryAttackState.SetWeapon(owner.Inventory.weapons[(int)CombatInputs.Primary]);
         AddState(primaryAttackState);
 
-        AddState(new PlayerSecondaryAttackState(this, owner, Animator.StringToHash("Attack")));
+        var secondAttackState = new PlayerSecondaryAttackState(this, owner, Animator.StringToHash("Attack"));
+        secondAttackState.SetWeapon(owner.Inventory.weapons[(int)CombatInputs.Secondary]);
+        AddState(secondAttackState);
 
         Initialize<PlayerIdleState>();
     }

@@ -21,7 +21,7 @@ public class PlayerAerialState : PlayerState {
     public override void Enter()
     {
         base.Enter();
-        _coyoteTimer = owner.Data.coyoteTime;
+        _coyoteTimer = owner.StatesConfigSo.coyoteTime;
         _jumpState = stateMachine.GetStateInstance<PlayerJumpState>();
         _dashState = stateMachine.GetStateInstance<PlayerDashState>();
     }
@@ -88,7 +88,7 @@ public class PlayerAerialState : PlayerState {
         }
         else
         {
-            core.Movement.SetVelocityX(owner.Data.movementVelocity * owner.Data.airSteeringMultiplier * InputX);
+            core.Movement.SetVelocityX(owner.StatesConfigSo.movementVelocity * owner.StatesConfigSo.airSteeringMultiplier * InputX);
             core.Movement.CheckIfShouldFlip(InputX);
 
             // 更新Animator变量
@@ -110,7 +110,7 @@ public class PlayerAerialState : PlayerState {
         // 跃起过程中松开跳跃键，会降低跳跃高度
         if (owner.InputHandler.JumpInputStop)
         {
-            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.Data.variableJumpHeightMultiplier);
+            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.StatesConfigSo.variableJumpHeightMultiplier);
             _isJumping = false;
         }
         // 人物速度向下时，设置_isJumping为false
