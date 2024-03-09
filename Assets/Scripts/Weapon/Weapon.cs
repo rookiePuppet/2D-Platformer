@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] protected WeaponData_SO weaponData;
+    [SerializeField] protected WeaponDataSO weaponData;
 
     private Animator _baseAnimator;
     private Animator _weaponAnimator;

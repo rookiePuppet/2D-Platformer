@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class WeaponHitboxToWeapon : MonoBehaviour
 {
-    private AggressiveWeapon _aggressiveWeapon;
+    private MeleeWeapon _meleeWeapon;
 
     private void Awake()
     {
-        _aggressiveWeapon = GetComponentInParent<AggressiveWeapon>();
+        _meleeWeapon = GetComponentInParent<MeleeWeapon>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _aggressiveWeapon.AddToDetected(other);
+        _meleeWeapon.AddToDetected(other);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _aggressiveWeapon.RemoveFromDetected(other);
+        _meleeWeapon.RemoveFromDetected(other);
     }
 }

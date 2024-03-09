@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AggressiveWeapon : Weapon
+public class MeleeWeapon : Weapon
 {
-    private AggressiveWeaponData_SO _aggressiveWeaponData;
+    private MeleeWeaponDataSO _meleeWeaponData;
 
     private readonly List<IDamageable> _detectedTargets = new();
 
     private void OnEnable()
     {
-        if (weaponData.GetType() == typeof(AggressiveWeaponData_SO))
+        if (weaponData.GetType() == typeof(MeleeWeaponDataSO))
         {
-            _aggressiveWeaponData = (AggressiveWeaponData_SO)weaponData;
+            _meleeWeaponData = (MeleeWeaponDataSO)weaponData;
         }
         else
         {
@@ -23,7 +23,7 @@ public class AggressiveWeapon : Weapon
     {
         foreach (var target in _detectedTargets)
         {
-            var weaponDetail = _aggressiveWeaponData.WeaponDetails[attackCounter - 1];
+            var weaponDetail = _meleeWeaponData.WeaponDetails[attackCounter - 1];
             var damageInfo = new DamageInfo
             {
                 damageAmount = weaponDetail.damageAmount,
