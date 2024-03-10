@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountOfAttacks: 1
   movementSpeed:
-  - 0
+  - -0.1
   projectileType: 0
   projectilePrefab: {fileID: 7442914634649489572, guid: f4e7bf919d373944286ffbe8efb867e5, type: 3}
   projectileInitialPosition: {x: 0.6, y: 0.2}
