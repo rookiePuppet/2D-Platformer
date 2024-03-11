@@ -298,6 +298,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Weapon1_Book_Throw_9
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bbd3814bbe396444b27146c1a677687
+      internalID: -1929639019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -318,6 +339,7 @@ TextureImporter:
       Weapon1_Book_Throw_6: 1103900845
       Weapon1_Book_Throw_7: -1419214826
       Weapon1_Book_Throw_8: -94201392
+      Weapon1_Book_Throw_9: -1929639019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

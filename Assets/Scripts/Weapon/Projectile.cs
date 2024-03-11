@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private int destroyTime = 3;
+
+    [SerializeField] private float checkRadius;
 
     private float _velocity;
 
@@ -17,14 +16,19 @@ public class Projectile : MonoBehaviour
 
     private Action _releaseAction;
 
+    private Transform _trackedTarget;
+    private bool _isReleased;
+
     public void Init(ProjectileBehaviourType type, float velocity, Action releaseAction, bool isFromEnemy = false)
     {
+        _type = type;
         _velocity = velocity;
         _isFromEnemy = isFromEnemy;
         _releaseAction = releaseAction;
 
         _isActive = true;
-        
+        _isReleased = false;
+
         Invoke(nameof(Release), destroyTime);
     }
 
@@ -34,8 +38,49 @@ public class Projectile : MonoBehaviour
 
         if (_type == ProjectileBehaviourType.Fixed)
         {
-            transform.position += _velocity * Time.deltaTime * transform.right ;
+            HandleFixedBehaviour();
         }
+        else
+        {
+            HandleTrackedBehaviour();
+        }
+    }
+
+    private void SearchForTarget()
+    {
+        var colliders =
+            Physics2D.OverlapCircleAll(transform.position, checkRadius, 1 << LayerMask.NameToLayer("Damageable"));
+
+        foreach (var item in colliders)
+        {
+            print(item.transform.name);
+            if (item != null && !item.CompareTag("Player"))
+            {
+                _trackedTarget = item.transform;
+                return;
+            }
+        }
+    }
+    
+    private void HandleTrackedBehaviour()
+    {
+        if (_trackedTarget is null)
+        {
+            SearchForTarget();
+        }
+
+        if (_trackedTarget is null)
+        {
+            return;
+        }
+
+        var direction = _trackedTarget.position - transform.position;
+        transform.position += Time.deltaTime * _velocity * direction;
+    }
+
+    private void HandleFixedBehaviour()
+    {
+        transform.position += _velocity * Time.deltaTime * transform.right;
     }
 
     private void HandleDamage(Collider2D other)
@@ -48,12 +93,16 @@ public class Projectile : MonoBehaviour
         });
 
         _velocity = 0;
-        transform.SetParent(other.transform);
+        Release();
     }
 
     private void Release()
     {
+        if (_isReleased) return;
+
         _releaseAction?.Invoke();
+        _isReleased = true;
+        _trackedTarget = null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
