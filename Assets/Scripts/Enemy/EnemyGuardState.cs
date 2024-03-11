@@ -64,6 +64,10 @@ public class EnemyGuardState : EnemyState
         {
             _isWaiting = false;
             owner.Core.Movement.SetVelocityX(0f);
+            if (owner.Data.isPatrol)
+            {
+                stateMachine.TransitionTo<EnemyPatrolState>();
+            }
         }
     }
 }

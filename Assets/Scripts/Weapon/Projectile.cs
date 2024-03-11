@@ -61,7 +61,7 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-    
+
     private void HandleTrackedBehaviour()
     {
         if (_trackedTarget is null)
@@ -110,6 +110,13 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (_isFromEnemy)
+            {
+                HandleDamage(other);
+            }
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            if (!_isFromEnemy)
             {
                 HandleDamage(other);
             }
