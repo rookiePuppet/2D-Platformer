@@ -4,19 +4,17 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponDataSO weaponData;
 
-    private Animator _baseAnimator;
-    private Animator _weaponAnimator;
-    protected int attackCounter;
+    protected Animator baseAnimator;
+    protected Animator weaponAnimator;
 
-    private static readonly int AttackHash = Animator.StringToHash("Attack");
-    private static readonly int AttackCounterHash = Animator.StringToHash("AttackCounter");
+    protected PlayerAttackState state;
 
-    private PlayerAttackState _state;
+    protected CombatInputs WeaponOrder;
 
     protected virtual void Awake()
     {
-        _baseAnimator = transform.Find("Base").GetComponent<Animator>();
-        _weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
+        baseAnimator = transform.Find("Base").GetComponent<Animator>();
+        weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
     }
 
     protected virtual void Start()
@@ -26,35 +24,24 @@ public class Weapon : MonoBehaviour
 
     public void InitializeWeapon(PlayerAttackState state)
     {
-        _state = state;
+        this.state = state;
+        WeaponOrder = state is PlayerPrimaryAttackState ? CombatInputs.Primary : CombatInputs.Secondary;
+        print(WeaponOrder);
     }
 
     public virtual void EnterWeapon()
     {
         gameObject.SetActive(true);
-        _baseAnimator.SetBool(AttackHash, true);
-        _weaponAnimator.SetBool(AttackHash, true);
-
-        attackCounter++;
-        if (attackCounter > weaponData.amountOfAttacks)
-        {
-            attackCounter = 1;
-        }
-
-        _baseAnimator.SetInteger(AttackCounterHash, attackCounter);
-        _weaponAnimator.SetInteger(AttackCounterHash, attackCounter);
     }
 
     public virtual void ExitWeapon()
     {
-        _baseAnimator.SetBool(AttackHash, false);
-        _weaponAnimator.SetBool(AttackHash, false);
         gameObject.SetActive(false);
     }
 
     public virtual void AnimationFinishTrigger()
     {
-        _state.AnimationFinishTrigger();
+        state.AnimationFinishTrigger();
     }
 
     /// <summary>
@@ -62,7 +49,6 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public virtual void AnimationStartMovementTrigger()
     {
-        _state.SetPlayerVelocity(weaponData.movementSpeed[attackCounter - 1]);
     }
 
     /// <summary>
@@ -70,17 +56,16 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public virtual void AnimationStopMovementTrigger()
     {
-        _state.SetPlayerVelocity(0f);
     }
 
     public virtual void AnimationStartFlipCheck()
     {
-        _state.SetShouldCheckFlip(true);
+        state.SetShouldCheckFlip(true);
     }
 
     public virtual void AnimationStopFlipCheck()
     {
-        _state.SetShouldCheckFlip(false);
+        state.SetShouldCheckFlip(false);
     }
 
     public virtual void AnimationActionTrigger()

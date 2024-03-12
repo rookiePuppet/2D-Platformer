@@ -40,10 +40,9 @@
         _weapon.ExitWeapon();
     }
 
-    public void SetWeapon(Weapon weapon)
+    public virtual void SetWeapon(Weapon weapon)
     {
         _weapon = weapon;
-        _weapon.InitializeWeapon(this);
     }
 
     public override void AnimationFinishTrigger()
@@ -65,4 +64,6 @@
     {
         _shouldCheckFlip = value;
     }
+
+    public bool CombatInput(CombatInputs type) => owner.InputHandler.AttackInputs[(int)type];
 }

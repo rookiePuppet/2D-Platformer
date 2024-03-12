@@ -79,9 +79,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
         Health -= info.damageAmount;
 
-        if (Health < 0)
+        if (Health <= 0)
         {
-            Health = 0;
+            Die();
         }
 
         Damaged?.Invoke(info);
@@ -101,6 +101,11 @@ public class Enemy : MonoBehaviour, IDamageable
             };
             damageable?.TakeDamage(damageInfo);
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     public void AnimationTrigger()

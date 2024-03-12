@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Pool;
 
-public class RangedWeapon : Weapon
+public class RangedWeapon : AggressiveWeapon
 {
     private RangedWeaponDataSO _rangedWeaponData;
-
     private PlayerController _player;
 
     private ObjectPool<GameObject> _projectilePool;
