@@ -13,6 +13,7 @@
     public override void Enter()
     {
         base.Enter();
+        SetPlayerVelocity(0);
 
         _setVelocity = false;
         _weapon.EnterWeapon();

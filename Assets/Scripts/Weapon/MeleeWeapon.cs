@@ -7,15 +7,25 @@ public class MeleeWeapon : AggressiveWeapon
 
     private readonly List<IDamageable> _detectedTargets = new();
 
-    private void OnEnable()
+    protected override void Awake()
     {
-        if (weaponData.GetType() == typeof(MeleeWeaponDataSO))
+        base.Awake();
+
+        _meleeWeaponData = weaponData as MeleeWeaponDataSO;
+
+        if (_meleeWeaponData != null)
         {
-            _meleeWeaponData = (MeleeWeaponDataSO)weaponData;
-        }
-        else
-        {
-            Debug.LogError("weapon data is not of type AggressiveWeaponData_SO");
+            var amountOfAttacks = _meleeWeaponData.WeaponDetails.Length;
+            weaponData.amountOfAttacks = amountOfAttacks;
+
+            var movementSpeeds = new float[amountOfAttacks];
+
+            for (var i = 0; i < amountOfAttacks; i++)
+            {
+                movementSpeeds[i] = _meleeWeaponData.WeaponDetails[i].movementSpeed;
+            }
+
+            weaponData.movementSpeed = movementSpeeds;
         }
     }
 

@@ -8,10 +8,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     public PlayerStateMachine StateMachine { get; private set; }
     public Core Core { get; private set; }
     [SerializeField] private PlayerStatesConfigSO playerStatesConfigSo;
-    [SerializeField] PlayerStatsSO stats;
+    [SerializeField] private PlayerStatsSO stats;
     [SerializeField] private Transform dashDirectionIndicator;
 
     public PlayerStatesConfigSO StatesConfigSo => playerStatesConfigSo;
+    public PlayerStatsSO PlayerStats => stats;
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerInventory Inventory { get; private set; }

@@ -8,22 +8,12 @@ public class RangedWeapon : AggressiveWeapon
 
     private ObjectPool<GameObject> _projectilePool;
 
-    private void OnEnable()
-    {
-        if (weaponData.GetType() == typeof(RangedWeaponDataSO))
-        {
-            _rangedWeaponData = (RangedWeaponDataSO)weaponData;
-        }
-        else
-        {
-            Debug.LogError("weapon data is not of type RangedWeaponDataSO");
-        }
-    }
-
     protected override void Awake()
     {
         base.Awake();
         _player = GetComponentInParent<PlayerController>();
+        
+        _rangedWeaponData = weaponData as RangedWeaponDataSO;
     }
 
     protected override void Start()

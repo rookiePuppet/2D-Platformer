@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] protected WeaponDataSO weaponData;
-
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
 
+    protected PlayerController owner;
     protected PlayerAttackState state;
 
     protected CombatInputs WeaponOrder;
 
     protected virtual void Awake()
     {
+        owner = GetComponentInParent<PlayerController>();
+        
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
     }

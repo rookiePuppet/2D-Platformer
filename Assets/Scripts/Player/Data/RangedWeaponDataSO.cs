@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "newRangedWeaponData", menuName = "Data/Weapon Data/Ranged Weapon")]
-public class RangedWeaponDataSO : WeaponDataSO
+public class RangedWeaponDataSO : AggressiveWeaponDataSO
 {
     public ProjectileBehaviourType projectileType;
     public GameObject projectilePrefab;

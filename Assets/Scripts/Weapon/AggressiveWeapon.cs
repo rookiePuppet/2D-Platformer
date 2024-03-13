@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AggressiveWeapon : Weapon
 {
+    [SerializeField] protected AggressiveWeaponDataSO weaponData;
+    
     protected int attackCounter;
     
     private static readonly int AttackHash = Animator.StringToHash("Attack");
