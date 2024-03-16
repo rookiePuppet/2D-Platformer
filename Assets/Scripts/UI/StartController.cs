@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StartMenuUI : MonoBehaviour
+public class StartController : MonoBehaviour
 {
-    [SerializeField] private SceneLoaderSO sceneLoader;
-
+    [SerializeField] private UIManager uiManager;
+    
     private VisualElement _root;
 
     private void Start()
@@ -12,14 +12,14 @@ public class StartMenuUI : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         var startButton = _root.Q<Button>("StartButton");
-        startButton.clicked += LoadMainScene;
+        startButton.clicked += OnStartButtonClicked;
         
         var exitButton = _root.Q<Button>("ExitButton");
         exitButton.clicked += Application.Quit;
     }
-    
-    private void LoadMainScene()
+
+    private void OnStartButtonClicked()
     {
-        StartCoroutine(sceneLoader.LoadSceneAsync("MainScene"));
+        uiManager.LoadView(View.LevelSelectView);
     }
 }

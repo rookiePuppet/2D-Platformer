@@ -27,7 +27,6 @@ public class Weapon : MonoBehaviour
     {
         this.state = state;
         WeaponOrder = state is PlayerPrimaryAttackState ? CombatInputs.Primary : CombatInputs.Secondary;
-        print(WeaponOrder);
     }
 
     public virtual void EnterWeapon()

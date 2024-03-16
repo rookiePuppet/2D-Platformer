@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077cf90774916d34ab73eba5a5235196, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
+  id: 1
+  weaponName: "\u5C0F\u5200"
   amountOfAttacks: 4
   movementSpeed:
+  - 0.5
   - 1
-  - 4
-  - 2
-  - 2
+  - 0.5
+  - 0.2
   weaponDetails:
   - attackName: attack1
     movementSpeed: 0.5

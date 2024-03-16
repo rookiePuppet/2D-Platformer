@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MainUI : MonoBehaviour
+public class MainController : MonoBehaviour
 {
     private VisualElement _root;
     private VisualElement _healthBar;

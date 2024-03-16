@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077cf90774916d34ab73eba5a5235196, type: 3}
   m_Name: Fist
   m_EditorClassIdentifier: 
+  id: 0
+  weaponName: "\u62F3\u5934"
   amountOfAttacks: 3
   movementSpeed:
   - 2

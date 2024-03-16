@@ -1,0 +1,35 @@
+.Button {
+    font-size: 28px;
+    width: 150px;
+    -unity-font: url("project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
+    -unity-font-definition: initial;
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/gray/square/Buttons/button_small_2.png?fileID=21300000&guid=0282d5679668d964c9f02d062737bafd&type=3#button_small_2");
+    color: rgb(255, 255, 255);
+}
+
+.unity-collection-view__item--selected {
+    background-color: rgb(228, 233, 253);
+    color: rgb(0, 0, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    -unity-font-style: bold;
+}
+
+#LevelsList {
+    padding-top: 80px;
+    padding-right: 100px;
+    padding-bottom: 80px;
+    padding-left: 100px;
+    width: 100%;
+    flex-grow: 1;
+}

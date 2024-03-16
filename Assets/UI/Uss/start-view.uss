@@ -2,11 +2,12 @@
     background-image: url('project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/rounded/buttons/button_rounded_HCC.png?fileID=2800000&guid=14858d71a730b4943b11f958bd10ae50&type=3#button_rounded_HCC');
     -unity-font: url('project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01');
     -unity-font-style: bold;
-    font-size: 42px;
+    font-size: 60px;
     -unity-font-definition: initial;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     padding-right: 50px;
     padding-left: 50px;
-    margin-top: 20px;
+    margin-top: 40px;
+    width: 400px;
 }

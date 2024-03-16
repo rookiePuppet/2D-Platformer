@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d32db3dc48445e7a0fdea4d5984279b, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
+  id: 3
+  weaponName: "\u957F\u5F13"
   amountOfAttacks: 1
   movementSpeed:
   - -0.1

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1165a3e7624fc9b76f1c1aa390c79e, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  id: 0
-  weaponName: 
-  damageReductionRate: 0.124
+  id: 5
+  weaponName: "\u76FE\u724C"
+  damageReductionRate: 0.5

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d32db3dc48445e7a0fdea4d5984279b, type: 3}
   m_Name: Book
   m_EditorClassIdentifier: 
+  id: 4
+  weaponName: "\u9B54\u6CD5\u4E66"
   amountOfAttacks: 1
   movementSpeed:
   - 0

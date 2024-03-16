@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5141821295132203914}
   - component: {fileID: 3928237351171089366}
+  - component: {fileID: -3744655282084737366}
   m_Layer: 0
-  m_Name: LoadingScreen
+  m_Name: LoadingView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: dbe9ce597c298cb4182c2494df776e59, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 8ef84fb2cef021d43902a39f91d13df3, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: ba87f573ba67b4247abe92b69b764961, type: 3}
   m_SortingOrder: 0
+--- !u!114 &-3744655282084737366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8822483027620012979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8b311e27cb4447a03ccfac699cdec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
