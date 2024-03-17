@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private EnemyData_SO enemyData;
+    [SerializeField] private EnemyDataSO enemyData;
 
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform touchGroundPoint;
@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator Animator { get; private set; }
     public Core Core { get; private set; }
     public PlayerController Target { get; private set; }
-    public EnemyData_SO Data => enemyData;
+    public EnemyDataSO Data => enemyData;
 
     private StateMachine<Enemy> StateMachine { get; set; }
 

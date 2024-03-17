@@ -18,5 +18,5 @@ public struct GameLevelData
     public SceneAsset scene;
 
     [Header("Player")]
-    public Vector2 playerInitialPosition;
+    public Vector3 playerInitialPosition;
 }

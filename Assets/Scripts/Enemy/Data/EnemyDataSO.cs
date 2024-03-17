@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "newEnemyData", menuName = "Data/EnemyData")]
-public class EnemyData_SO : ScriptableObject
+public class EnemyDataSO : ScriptableObject
 {
     [Header("Basic Settings")]
     public float perceptionRadius = 6f;
