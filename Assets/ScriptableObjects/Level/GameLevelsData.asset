@@ -17,9 +17,9 @@ MonoBehaviour:
     levelName: "\u5E7D\u9759\u68EE\u6797"
     previewImage: {fileID: 0}
     scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4}
+    playerInitialPosition: {x: 20, y: -4, z: 0}
   - id: 2
     levelName: "\u5F85\u5F00\u53D1"
     previewImage: {fileID: 0}
     scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4}
+    playerInitialPosition: {x: 40, y: -4, z: 0}

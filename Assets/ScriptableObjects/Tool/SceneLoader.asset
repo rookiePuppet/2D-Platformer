@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80740dab0be18764f87cb0edc364b8de, type: 3}
   m_Name: SceneLoader
   m_EditorClassIdentifier: 
-  UIManger: {fileID: 11400000, guid: 522b2fe8daaeead4e84bc16c681886a7, type: 2}
+  uiManger: {fileID: 11400000, guid: 522b2fe8daaeead4e84bc16c681886a7, type: 2}
   playerPrefab: {fileID: 9072961844735747500, guid: 165f2555c61195742acc40062786783a, type: 3}
   simulateWaitingTime: 1

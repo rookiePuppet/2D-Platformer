@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class CombatDummy : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject hitParticlesPrefab;
-    [SerializeField] private HealthBarUI healthBarUI;
+    [FormerlySerializedAs("healthBarUI")] [SerializeField] private HealthBarController healthBarController;
     public float Health { get; set; } = 100f;
     public event Action<DamageInfo> Damaged;
 
@@ -80,7 +81,7 @@ public class CombatDummy : MonoBehaviour, IDamageable
 
     private void UpdateHealthBar()
     {
-        healthBarUI.SetHealthBar(Health, 100f);
+        healthBarController.SetHealthBar(Health, 100f);
     }
 
     private void Recover()

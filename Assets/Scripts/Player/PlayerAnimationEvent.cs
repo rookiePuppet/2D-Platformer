@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimationEvent : MonoBehaviour {
+public class PlayerAnimationEvent : MonoBehaviour {
     private PlayerController _player;
 
     private void Awake()

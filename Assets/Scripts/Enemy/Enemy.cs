@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -7,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform touchGroundPoint;
-    [SerializeField] private HealthBarUI healthBarUI;
+    [FormerlySerializedAs("healthBarUI")] [SerializeField] private HealthBarController healthBarController;
 
     public Animator Animator { get; private set; }
     public Core Core { get; private set; }
@@ -46,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         StateMachine = new EnemyStateMachine(this);
-        healthBarUI.SetHealthBar(Health, 100f);
+        healthBarController.SetHealthBar(Health, 100f);
     }
 
     private void Update()
@@ -68,7 +69,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnDamaged(DamageInfo info)
     {
-        healthBarUI.SetHealthBar(Health, 100f);
+        healthBarController.SetHealthBar(Health, 100f);
         var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
         Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
     }

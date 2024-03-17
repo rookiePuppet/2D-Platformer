@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarUI : MonoBehaviour
+public class HealthBarController : MonoBehaviour
 {
     [SerializeField] private Image barForeground;
     
