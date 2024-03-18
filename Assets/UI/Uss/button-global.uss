@@ -1,0 +1,14 @@
+.Button {
+    font-size: 32px;
+    width: auto;
+    -unity-font: url("project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
+    -unity-font-definition: initial;
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/gray/square/Buttons/button_small_2.png?fileID=21300000&guid=0282d5679668d964c9f02d062737bafd&type=3#button_small_2");
+    color: rgb(255, 255, 255);
+    padding-top: 20px;
+    padding-right: 0;
+    padding-bottom: 20px;
+    padding-left: 0;
+    max-width: none;
+    min-width: 150px;
+}

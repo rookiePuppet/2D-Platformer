@@ -1,16 +1,18 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+    [SerializeField] private UIManager uiManger;
+    [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField] private SceneAsset startScene;
     [SerializeField] private float inputHoldTime = 0.2f;
 
     public Vector2 RawMoveInput { get; set; }
     public Vector2Int NormalizedMoveInput { get; private set; }
     public Vector2 RawDashDirectionInput { get; private set; }
-
-    public Vector2 mousePosition;
 
     public bool JumpInput
     {
@@ -47,6 +49,9 @@ public class PlayerInputHandler : MonoBehaviour
         private set => _interactInput = value;
     }
 
+    private InputActionMap GameplayActionMap => _playerInput.actions.FindActionMap("Gameplay");
+    private InputActionMap FunctionActionMap => _playerInput.actions.FindActionMap("Function");
+
     private bool _jumpInput;
     private float _jumpInputStartTime;
     private bool _dashInput;
@@ -58,20 +63,33 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        _playerInput = GetComponent<PlayerInput>();
         _mainCamera = Camera.main;
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
     {
         AttackInputs = new bool[Enum.GetValues(typeof(CombatInputs)).Length];
+
+        FunctionActionMap.Enable();
     }
 
     private void Update()
     {
         CheckInputHoldTime();
     }
-    
+
+    public void OnEscapeInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            var dialog = uiManger.LoadUI<ConfirmTipsDialog>(GameplayActionMap.Disable);
+            dialog.SetContent("确认退出游戏吗？");
+            dialog.Confirmed += async () => { await sceneLoader.LoadSceneAsync(startScene.name); };
+            dialog.Canceled += GameplayActionMap.Enable;
+        }
+    }
+
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -163,7 +181,8 @@ public class PlayerInputHandler : MonoBehaviour
         // 键鼠操作，方向向量从角色位置指向鼠标位置
         if (_playerInput.currentControlScheme == "Keyboard")
         {
-            RawDashDirectionInput = (RawDashDirectionInput - (Vector2)_mainCamera.WorldToScreenPoint(transform.position)).normalized;
+            RawDashDirectionInput =
+                (RawDashDirectionInput - (Vector2)_mainCamera.WorldToScreenPoint(transform.position)).normalized;
         }
     }
 

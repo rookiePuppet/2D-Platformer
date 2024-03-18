@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,24 +6,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UIManager", menuName = "UIManager")]
 public class UIManager : ScriptableObject
 {
-    [SerializeField] private string rootPath;
+    [SerializeField] private string rootPath = "UI";
 
     private readonly Dictionary<string, UIBase> _uis = new();
 
-    public void LoadView(View view)
+    public TUI LoadUI<TUI>(Action uiLoaded = null) where TUI : UIBase
     {
-        var uiName = view.ToString();
-        if (_uis.TryGetValue(uiName, out var ui))
+        var uiName = typeof(TUI).Name;
+
+        if (_uis.TryGetValue(uiName, out var ui) && ui.gameObject != null)
         {
             ui.Show();
         }
         else
         {
-            var original = Resources.Load($"{rootPath}/{uiName}");
+            var original = Resources.Load(GetUIPath<TUI>());
             if (original is null)
             {
-                Debug.LogErrorFormat("The view you are trying to load is not found. Please check the prefab path.");
-                return;
+                Debug.LogErrorFormat("The UI you are trying to load is not found. Please check the prefab path.");
+                return null;
             }
 
             var gameObject = Instantiate(original);
@@ -32,20 +34,46 @@ public class UIManager : ScriptableObject
 
             ui.Show();
         }
+
+        uiLoaded?.Invoke();
+
+        return ui as TUI;
     }
 
-    public void UnloadView(View view)
+    public void UnloadUI<TUI>() where TUI : UIBase
     {
-        var uiName = view.ToString();
+        var uiName = typeof(TUI).Name;
+
         if (_uis.TryGetValue(uiName, out var ui))
         {
+            if (ui.gameObject == null)
+            {
+                Debug.LogErrorFormat("The UI({0}) you are trying to unload is not attached to any game object.",
+                    uiName);
+
+                return;
+            }
+
             ui.Hide();
 
-            Debug.Log($"Unload view: {uiName}");
+            Debug.Log($"Unload UI: {uiName}");
         }
         else
         {
-            Debug.LogErrorFormat("The view({0}) you are trying to unload has not been loaded.", uiName);
+            Debug.LogErrorFormat("The UI({0}) you are trying to unload has not been loaded.", uiName);
         }
+    }
+
+    public void ClearCache()
+    {
+        _uis.Clear();
+    }
+
+    private string GetUIPath<TUI>()
+    {
+        var uiType = typeof(TUI);
+        return typeof(View).IsAssignableFrom(uiType)
+            ? $"{rootPath}/View/{uiType.Name}"
+            : $"{rootPath}/Dialog/{uiType.Name}";
     }
 }

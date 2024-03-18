@@ -98,15 +98,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Esc"",
-                    ""type"": ""Button"",
-                    ""id"": ""ebea3a02-82c9-4656-b565-44850b3ef73c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -296,15 +287,32 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""Function"",
+            ""id"": ""31bdf9cd-92b0-4c5a-ae2d-a39b34b9e9c6"",
+            ""actions"": [
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""70a06737-736e-44b6-b93e-f7b6e5790afe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""2f83c566-84ac-4a98-a732-66c484a754ff"",
+                    ""id"": ""8f3dc9bd-46cb-43c7-9da3-1bc9c7373e2b"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Esc"",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -351,7 +359,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Gameplay_PrimaryAttack = m_Gameplay.FindAction("PrimaryAttack", throwIfNotFound: true);
         m_Gameplay_SecondaryAttack = m_Gameplay.FindAction("SecondaryAttack", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
-        m_Gameplay_Esc = m_Gameplay.FindAction("Esc", throwIfNotFound: true);
+        // Function
+        m_Function = asset.FindActionMap("Function", throwIfNotFound: true);
+        m_Function_Escape = m_Function.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -421,7 +431,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_PrimaryAttack;
     private readonly InputAction m_Gameplay_SecondaryAttack;
     private readonly InputAction m_Gameplay_Interact;
-    private readonly InputAction m_Gameplay_Esc;
     public struct GameplayActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -434,7 +443,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @PrimaryAttack => m_Wrapper.m_Gameplay_PrimaryAttack;
         public InputAction @SecondaryAttack => m_Wrapper.m_Gameplay_SecondaryAttack;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
-        public InputAction @Esc => m_Wrapper.m_Gameplay_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -468,9 +476,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Esc.started += instance.OnEsc;
-            @Esc.performed += instance.OnEsc;
-            @Esc.canceled += instance.OnEsc;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -499,9 +504,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Esc.started -= instance.OnEsc;
-            @Esc.performed -= instance.OnEsc;
-            @Esc.canceled -= instance.OnEsc;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -519,6 +521,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Function
+    private readonly InputActionMap m_Function;
+    private List<IFunctionActions> m_FunctionActionsCallbackInterfaces = new List<IFunctionActions>();
+    private readonly InputAction m_Function_Escape;
+    public struct FunctionActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public FunctionActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Escape => m_Wrapper.m_Function_Escape;
+        public InputActionMap Get() { return m_Wrapper.m_Function; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FunctionActions set) { return set.Get(); }
+        public void AddCallbacks(IFunctionActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FunctionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FunctionActionsCallbackInterfaces.Add(instance);
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
+        }
+
+        private void UnregisterCallbacks(IFunctionActions instance)
+        {
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
+        }
+
+        public void RemoveCallbacks(IFunctionActions instance)
+        {
+            if (m_Wrapper.m_FunctionActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IFunctionActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FunctionActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FunctionActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public FunctionActions @Function => new FunctionActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -547,6 +595,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnPrimaryAttack(InputAction.CallbackContext context);
         void OnSecondaryAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnEsc(InputAction.CallbackContext context);
+    }
+    public interface IFunctionActions
+    {
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

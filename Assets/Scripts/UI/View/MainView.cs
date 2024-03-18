@@ -1,22 +1,20 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MainController : UIBase
+public class MainView : View
 {
     [SerializeField] private PlayerStatsSO playerStats;
 
     private WeaponsHolder _weaponsHolder;
-
-    private VisualElement Root => _uiDoc.rootVisualElement;
-
-    private UIDocument _uiDoc;
+    
     private VisualElement _healthBarForeground;
     private Label _primaryWeaponLabel;
     private Label _secondaryWeaponLabel;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _uiDoc = GetComponent<UIDocument>();
+        base.Awake();
+        
         _weaponsHolder = FindAnyObjectByType<WeaponsHolder>();
     }
 

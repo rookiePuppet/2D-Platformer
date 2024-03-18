@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Uss/dialog-global.uss?fileID=7433441132597879392&amp;guid=cb8cfebb688bef9498cbb0fe4ffe1afc&amp;type=3#dialog-global" />
+    <Style src="project://database/Assets/UI/Uss/button-global.uss?fileID=7433441132597879392&amp;guid=2135fd7fdbec4951bb8880f412e962d5&amp;type=3#button-global" />
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="Background" class="background">
+            <ui:Label text="提示" name="Title" class="title" />
+            <ui:Label text="确认退出游戏吗？" name="Content" class="content" />
+            <ui:VisualElement style="flex-direction: row; justify-content: space-around; padding-top: 20px; padding-bottom: 20px;">
+                <ui:Button text="确认" name="ConfirmButton" class="Button" />
+                <ui:Button text="取消" name="CancelButton" class="Button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -11,22 +11,19 @@ public class SceneLoader : ScriptableObject
 
     public async Awaitable LoadSceneAsync(string sceneName, Action onSceneLoaded = null)
     {
-        uiManger.LoadView(View.LoadingView);
+        uiManger.LoadUI<LoadingView>();
 
         await Awaitable.WaitForSecondsAsync(simulateWaitingTime);
         await SceneManager.LoadSceneAsync(sceneName);
-
+        
         onSceneLoaded?.Invoke();
+        
+        uiManger.ClearCache();
     }
 
     public async Awaitable LoadLevelAsync(GameLevelData levelData)
     {
-        await LoadSceneAsync(levelData.scene.name, () =>
-        {
-            levelInitializer.InitializeLevel(levelData, () =>
-            {
-                uiManger.LoadView(View.MainView);
-            });
-        });
+        await LoadSceneAsync(levelData.scene.name,
+            () => { levelInitializer.InitializeLevel(levelData, () => { uiManger.LoadUI<MainView>(); }); });
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LevelSelectController : UIBase
+public class LevelSelectView : View
 {
     [Header("Components")]
     [SerializeField] private UIManager uiManager;
@@ -10,17 +10,9 @@ public class LevelSelectController : UIBase
     [Header("UI")]
     [SerializeField] private GameLevelsDataSO levelsData;
     [SerializeField] private float mouseWheelSpeed = 100f;
-
-    private UIDocument _uiDoc;
-    private VisualElement Root => _uiDoc.rootVisualElement;
-
+    
     private ListView _levelsList;
-
-    private void Awake()
-    {
-        _uiDoc = GetComponent<UIDocument>();
-    }
-
+    
     private void OnEnable()
     {
         _levelsList = Root.Q<ListView>("LevelsList");
@@ -59,7 +51,7 @@ public class LevelSelectController : UIBase
 
     private void OnReturnButtonClicked()
     {
-        uiManager.UnloadView(View.LevelSelectView);
+        uiManager.UnloadUI<LevelSelectView>();
     }
 
     private async void OnConfirmButtonClicked()

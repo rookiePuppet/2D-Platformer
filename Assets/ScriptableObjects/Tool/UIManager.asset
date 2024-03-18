@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f283cf1765079d4bbcc7c0b6f698ea9, type: 3}
   m_Name: UIManager
   m_EditorClassIdentifier: 
-  rootPath: UI/View
+  rootPath: UI
