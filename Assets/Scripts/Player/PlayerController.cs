@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public PlayerStatsSO PlayerStats => stats;
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    public PlayerInventory Inventory { get; private set; }
+    public WeaponsHolder WeaponsHolder { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
 
     private BoxCollider2D _collider;
@@ -30,11 +30,13 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         Damaged += OnDamaged;
+        WeaponsHolder.WeaponChanged += OnWeaponChanged;
     }
 
     private void OnDisable()
     {
         Damaged += OnDamaged;
+        WeaponsHolder.WeaponChanged -= OnWeaponChanged;
     }
 
     private void Awake()
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         Core = GetComponentInChildren<Core>();
         Animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        Inventory = GetComponent<PlayerInventory>();
+        WeaponsHolder = GetComponentInChildren<WeaponsHolder>();
         _collider = GetComponent<BoxCollider2D>();
     }
 
@@ -105,5 +107,23 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         stats.TakeDamage(info);
         Damaged?.Invoke(info);
+    }
+
+    private void OnWeaponChanged()
+    {
+        var primaryWeapon = WeaponsHolder.Weapons[(int)CombatInputs.Primary];
+        var secondaryWeapon = WeaponsHolder.Weapons[(int)CombatInputs.Secondary];
+
+        if (primaryWeapon != null)
+        {
+            var primaryAttackState = StateMachine.GetStateInstance<PlayerPrimaryAttackState>();
+            primaryAttackState.SetWeapon(primaryWeapon);
+        }
+
+        if (secondaryWeapon != null)
+        {
+            var secondaryAttackState = StateMachine.GetStateInstance<PlayerSecondaryAttackState>();
+            secondaryAttackState.SetWeapon(secondaryWeapon);
+        }
     }
 }

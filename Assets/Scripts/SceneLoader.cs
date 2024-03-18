@@ -1,5 +1,4 @@
 using System;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : ScriptableObject
 {
     [SerializeField] private UIManager uiManger;
-    [SerializeField] private GameObject playerPrefab;
-
+    [SerializeField] private LevelInitializer levelInitializer;
     [SerializeField] private int simulateWaitingTime = 2;
 
     public async Awaitable LoadSceneAsync(string sceneName, Action onSceneLoaded = null)
@@ -25,9 +23,7 @@ public class SceneLoader : ScriptableObject
     {
         await LoadSceneAsync(levelData.scene.name, () =>
         {
-            var playerObject = Instantiate(playerPrefab, levelData.playerInitialPosition, Quaternion.identity);
-            var camera = FindAnyObjectByType<CinemachineVirtualCamera>();
-            camera.Follow = playerObject.transform;
+            levelInitializer.InitializeLevel(levelData);
         });
     }
 }

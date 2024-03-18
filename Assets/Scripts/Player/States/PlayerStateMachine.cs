@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class PlayerStateMachine : StateMachine<PlayerController> {
+public class PlayerStateMachine : StateMachine<PlayerController>
+{
     public PlayerStateMachine(PlayerController player) : base(player)
     {
         // 初始化状态机
@@ -18,13 +19,8 @@ public class PlayerStateMachine : StateMachine<PlayerController> {
         AddState(new PlayerCrouchIdleState(this, owner, Animator.StringToHash("CrouchIdle")));
         AddState(new PlayerCrouchMoveState(this, owner, Animator.StringToHash("CrouchMove")));
 
-        var primaryAttackState = new PlayerPrimaryAttackState(this, owner, Animator.StringToHash("Attack"));
-        primaryAttackState.SetWeapon(owner.Inventory.weapons[(int)CombatInputs.Primary]);
-        AddState(primaryAttackState);
-
-        var secondAttackState = new PlayerSecondaryAttackState(this, owner, Animator.StringToHash("Attack"));
-        secondAttackState.SetWeapon(owner.Inventory.weapons[(int)CombatInputs.Secondary]);
-        AddState(secondAttackState);
+        AddState(new PlayerPrimaryAttackState(this, owner, Animator.StringToHash("Attack")));
+        AddState(new PlayerSecondaryAttackState(this, owner, Animator.StringToHash("Attack")));
 
         Initialize<PlayerIdleState>();
     }

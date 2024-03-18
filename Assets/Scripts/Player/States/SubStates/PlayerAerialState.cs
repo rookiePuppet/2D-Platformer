@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class PlayerAerialState : PlayerState {
+public class PlayerAerialState : PlayerState
+{
     private PlayerJumpState _jumpState;
     private PlayerDashState _dashState;
 
@@ -14,7 +15,8 @@ public class PlayerAerialState : PlayerState {
 
     private bool _isJumping;
 
-    public PlayerAerialState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
+    public PlayerAerialState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(
+        stateMachine, owner, animatorParamHash)
     {
     }
 
@@ -37,15 +39,16 @@ public class PlayerAerialState : PlayerState {
         _attackInputs = owner.InputHandler.AttackInputs;
 
         // 主攻击
-        if (_attackInputs[(int)CombatInputs.Primary])
+        if (_attackInputs[(int)CombatInputs.Primary] && owner.WeaponsHolder.IsPrimaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerPrimaryAttackState>();
         }
         // 副攻击
-        else if (_attackInputs[(int)CombatInputs.Secondary])
+        else if (_attackInputs[(int)CombatInputs.Secondary] && owner.WeaponsHolder.IsSecondaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerSecondaryAttackState>();
         }
+        
         // 接触地面且纵向速度向下时，进入落地状态
         if (core.CollisionSenses.IsGrounded && core.Movement.CurrentVelocity.y <= 0f)
         {
@@ -64,7 +67,7 @@ public class PlayerAerialState : PlayerState {
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
         }
         else if (_dashInput && _dashState.CanDash)
-        // 冲刺
+            // 冲刺
         {
             stateMachine.TransitionTo<PlayerDashState>();
         }
@@ -88,7 +91,8 @@ public class PlayerAerialState : PlayerState {
         }
         else
         {
-            core.Movement.SetVelocityX(owner.StatesConfigSo.movementVelocity * owner.StatesConfigSo.airSteeringMultiplier * InputX);
+            core.Movement.SetVelocityX(owner.StatesConfigSo.movementVelocity *
+                                       owner.StatesConfigSo.airSteeringMultiplier * InputX);
             core.Movement.CheckIfShouldFlip(InputX);
 
             // 更新Animator变量
@@ -110,7 +114,8 @@ public class PlayerAerialState : PlayerState {
         // 跃起过程中松开跳跃键，会降低跳跃高度
         if (owner.InputHandler.JumpInputStop)
         {
-            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.StatesConfigSo.variableJumpHeightMultiplier);
+            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y *
+                                       owner.StatesConfigSo.variableJumpHeightMultiplier);
             _isJumping = false;
         }
         // 人物速度向下时，设置_isJumping为false

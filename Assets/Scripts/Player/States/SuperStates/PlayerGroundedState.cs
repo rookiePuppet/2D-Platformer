@@ -9,7 +9,8 @@ public class PlayerGroundedState : PlayerState
     private bool _dashInput;
     private bool[] _attackInputs;
 
-    protected PlayerGroundedState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
+    protected PlayerGroundedState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) :
+        base(stateMachine, owner, animatorParamHash)
     {
     }
 
@@ -30,12 +31,12 @@ public class PlayerGroundedState : PlayerState
         _attackInputs = owner.InputHandler.AttackInputs;
 
         // 主攻击
-        if (_attackInputs[(int)CombatInputs.Primary])
+        if (_attackInputs[(int)CombatInputs.Primary] && owner.WeaponsHolder.IsPrimaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerPrimaryAttackState>();
         }
         // 副攻击
-        else if (_attackInputs[(int)CombatInputs.Secondary])
+        else if (_attackInputs[(int)CombatInputs.Secondary] && owner.WeaponsHolder.IsSecondaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerSecondaryAttackState>();
         }

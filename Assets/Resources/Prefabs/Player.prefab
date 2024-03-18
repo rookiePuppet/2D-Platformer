@@ -243,6 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5212785113433405202}
   - component: {fileID: 4022782580547023159}
+  - component: {fileID: 7790391820818375528}
   m_Layer: 10
   m_Name: Weapons
   m_TagString: Untagged
@@ -277,6 +278,26 @@ SortingGroup:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &7790391820818375528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343116495743277124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65332b6ac3288e341929d60af2b378f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDataList:
+  - {fileID: 11400000, guid: 7981fecf6379c1a4d814ffd1e26d7e17, type: 2}
+  - {fileID: 11400000, guid: fc5efa3545cd6304685e711dc5e38cb0, type: 2}
+  - {fileID: 11400000, guid: c63445175bd710b4ba05bc1f09716ded, type: 2}
+  - {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
+  - {fileID: 11400000, guid: 7d7f657bd292cc5489851690c1c4ac44, type: 2}
+  - {fileID: 11400000, guid: 2ad0bfcd286519342a451b4b708d8b78, type: 2}
+  weapons: []
 --- !u!1 &7191578576380808634
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +555,6 @@ GameObject:
   - component: {fileID: 6617799341850250568}
   - component: {fileID: 8901934589084766152}
   - component: {fileID: 5059603523216793883}
-  - component: {fileID: 6500244237442777712}
   - component: {fileID: 5391272451730123715}
   m_Layer: 9
   m_Name: Player
@@ -792,6 +812,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 327baba1-d612-4fcc-ba29-9e9f7c7b5952
     m_ActionName: 'Gameplay/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ebea3a02-82c9-4656-b565-44850b3ef73c
+    m_ActionName: 'Gameplay/Esc[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -826,21 +850,6 @@ MonoBehaviour:
   playerStatesConfigSo: {fileID: 11400000, guid: 7170756cdc326134883ed163017aec45, type: 2}
   stats: {fileID: 11400000, guid: a9dfa5f91db0e5c4195c593e4188eea7, type: 2}
   dashDirectionIndicator: {fileID: 5449493918901244292}
---- !u!114 &6500244237442777712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9072961844735747500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65332b6ac3288e341929d60af2b378f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &5391272451730123715
 MonoBehaviour:
   m_ObjectHideFlags: 0
