@@ -11,12 +11,12 @@ public class MeleeWeapon : AggressiveWeapon
     {
         base.Awake();
 
-        _meleeWeaponData = weaponData as MeleeWeaponDataSO;
+        _meleeWeaponData = aggressiveWeaponData as MeleeWeaponDataSO;
 
         if (_meleeWeaponData != null)
         {
             var amountOfAttacks = _meleeWeaponData.WeaponDetails.Length;
-            weaponData.amountOfAttacks = amountOfAttacks;
+            aggressiveWeaponData.amountOfAttacks = amountOfAttacks;
 
             var movementSpeeds = new float[amountOfAttacks];
 
@@ -25,7 +25,7 @@ public class MeleeWeapon : AggressiveWeapon
                 movementSpeeds[i] = _meleeWeaponData.WeaponDetails[i].movementSpeed;
             }
 
-            weaponData.movementSpeed = movementSpeeds;
+            aggressiveWeaponData.movementSpeed = movementSpeeds;
         }
     }
 
@@ -33,6 +33,8 @@ public class MeleeWeapon : AggressiveWeapon
     {
         foreach (var target in _detectedTargets)
         {
+            if (target == null) continue;
+            
             var weaponDetail = _meleeWeaponData.WeaponDetails[attackCounter - 1];
             var damageInfo = new DamageInfo
             {

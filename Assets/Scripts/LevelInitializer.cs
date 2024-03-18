@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelInitializer", menuName = "LevelInitializer")]
@@ -6,9 +7,11 @@ public class LevelInitializer : ScriptableObject
 {
     [SerializeField] private GameObject playerPrefab;
     
-    public async void InitializeLevel(GameLevelData levelData)
+    public async void InitializeLevel(GameLevelData levelData, Action loadMainView)
     {
         var playerObject = Instantiate(playerPrefab, levelData.playerInitialPosition, Quaternion.identity);
+
+        loadMainView?.Invoke();
         
         // 设置摄像机跟随
         var camera = FindAnyObjectByType<CinemachineVirtualCamera>();

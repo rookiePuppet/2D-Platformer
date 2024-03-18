@@ -109,11 +109,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         Damaged?.Invoke(info);
     }
 
-    private void OnWeaponChanged()
+    private void OnWeaponChanged(Weapon primaryWeapon, Weapon secondaryWeapon)
     {
-        var primaryWeapon = WeaponsHolder.Weapons[(int)CombatInputs.Primary];
-        var secondaryWeapon = WeaponsHolder.Weapons[(int)CombatInputs.Secondary];
-
         if (primaryWeapon != null)
         {
             var primaryAttackState = StateMachine.GetStateInstance<PlayerPrimaryAttackState>();

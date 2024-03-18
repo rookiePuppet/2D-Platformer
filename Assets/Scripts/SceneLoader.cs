@@ -23,7 +23,10 @@ public class SceneLoader : ScriptableObject
     {
         await LoadSceneAsync(levelData.scene.name, () =>
         {
-            levelInitializer.InitializeLevel(levelData);
+            levelInitializer.InitializeLevel(levelData, () =>
+            {
+                uiManger.LoadView(View.MainView);
+            });
         });
     }
 }

@@ -10,7 +10,7 @@ public class WeaponsHolder : MonoBehaviour
     public bool IsPrimaryWeaponExists => Weapons[(int)CombatInputs.Primary] != null;
     public bool IsSecondaryWeaponExists => Weapons[(int)CombatInputs.Secondary] != null;
 
-    public event Action WeaponChanged;
+    public event Action<Weapon, Weapon> WeaponChanged;
 
     public void InitializeWeapon(int id)
     {
@@ -20,6 +20,6 @@ public class WeaponsHolder : MonoBehaviour
         var weaponObj = Instantiate(weaponData.weaponPrefab, transform);
         Weapons[(int)CombatInputs.Primary] = weaponObj.GetComponent<Weapon>();
 
-        WeaponChanged?.Invoke();
+        WeaponChanged?.Invoke(Weapons[(int)CombatInputs.Primary], Weapons[(int)CombatInputs.Secondary]);
     }
 }

@@ -8,7 +8,7 @@
     -unity-background-image-tint-color: rgb(255, 255, 255);
     -unity-slice-left: 0;
     -unity-slice-top: 0;
-    background-image: url('project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal');
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal");
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
@@ -22,6 +22,23 @@
 .character-status-bar #Foreground {
     background-color: rgb(0, 0, 0);
     -unity-background-image-tint-color: rgb(209, 66, 66);
-    background-image: url('project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal');
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&guid=7e688790d1df05840a900e54f7af828e&type=3#filled_horizontal");
     flex-grow: 1;
+}
+
+.weapon-icon {
+    width: 100px;
+    flex-grow: 0;
+    height: auto;
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/colorCustomizible/rounded/Slot3D_rounded_CC.png?fileID=21300000&guid=507d7869273b8054b8ca31e853b6b39c&type=3#Slot3D_rounded_CC");
+    margin-right: 10px;
+}
+
+.weapon-icon Label {
+    -unity-font-definition: url("project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
+    font-size: 32px;
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    white-space: normal;
 }

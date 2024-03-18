@@ -12,7 +12,7 @@ public class PlayerStatsSO : ScriptableObject
     public float Health => health;
     public float MaxHealth => maxHealth;
 
-    public event Action HealthChanged;
+    public event Action<float, float> HealthChanged;
 
     private void OnEnable()
     {
@@ -31,6 +31,6 @@ public class PlayerStatsSO : ScriptableObject
             health = 0;
         }
         
-        HealthChanged?.Invoke();
+        HealthChanged?.Invoke(Health, MaxHealth);
     }
 }

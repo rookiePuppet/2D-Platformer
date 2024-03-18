@@ -13,7 +13,7 @@ public class RangedWeapon : AggressiveWeapon
         base.Awake();
         _player = GetComponentInParent<PlayerController>();
         
-        _rangedWeaponData = weaponData as RangedWeaponDataSO;
+        _rangedWeaponData = aggressiveWeaponData as RangedWeaponDataSO;
     }
 
     protected override void Start()

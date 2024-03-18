@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   weaponName: "\u957F\u5251"
+  weaponPrefab: {fileID: 6480685168728367489, guid: 38e129737d520c74cb914134af68e39a, type: 3}
   amountOfAttacks: 3
   movementSpeed:
   - 3

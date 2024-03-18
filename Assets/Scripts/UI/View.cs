@@ -1,5 +1,6 @@
 ﻿public enum View
 {
     LoadingView,
-    LevelSelectView
+    LevelSelectView,
+    MainView
 }

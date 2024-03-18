@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   weaponName: "\u76FE\u724C"
+  weaponPrefab: {fileID: 7732913417389063129, guid: aac39bb590a10c14d81de9712ac6e028, type: 3}
   damageReductionRate: 0.5

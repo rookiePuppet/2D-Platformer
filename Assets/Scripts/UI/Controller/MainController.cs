@@ -1,40 +1,50 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MainController : MonoBehaviour
+public class MainController : UIBase
 {
-    private VisualElement _root;
-    private VisualElement _healthBar;
-    private VisualElement _healthBarForeground;
-
     [SerializeField] private PlayerStatsSO playerStats;
+
+    private WeaponsHolder _weaponsHolder;
+
+    private VisualElement Root => _uiDoc.rootVisualElement;
+
+    private UIDocument _uiDoc;
+    private VisualElement _healthBarForeground;
+    private Label _primaryWeaponLabel;
+    private Label _secondaryWeaponLabel;
 
     private void Awake()
     {
-        _root = GetComponent<UIDocument>().rootVisualElement;
-        _healthBar = _root.Q("HealthBar");
-        _healthBarForeground = _healthBar.Q("Foreground");
+        _uiDoc = GetComponent<UIDocument>();
+        _weaponsHolder = FindAnyObjectByType<WeaponsHolder>();
     }
 
     private void OnEnable()
     {
+        _healthBarForeground = Root.Q("HealthBar").Q("Foreground");
+        _primaryWeaponLabel = Root.Q("PrimaryWeaponIcon").Q<Label>();
+        _secondaryWeaponLabel = Root.Q("SecondaryWeaponIcon").Q<Label>();
+
         playerStats.HealthChanged += OnHealthChanged;
+        _weaponsHolder.WeaponChanged += OnWeaponChanged;
     }
 
     private void OnDisable()
     {
         playerStats.HealthChanged -= OnHealthChanged;
+        _weaponsHolder.WeaponChanged -= OnWeaponChanged;
     }
 
-    private void OnHealthChanged()
-    {
-        UpdateHealthBar(playerStats.Health, playerStats.MaxHealth);
-    }
-
-    private void UpdateHealthBar(float currentHealth, float maxHealth)
+    private void OnHealthChanged(float currentHealth, float maxHealth)
     {
         var ratio = currentHealth / maxHealth;
         _healthBarForeground.style.width = new StyleLength(Length.Percent(ratio * 100f));
+    }
+
+    private void OnWeaponChanged(Weapon primaryWeapon, Weapon secondaryWeapon)
+    {
+        _primaryWeaponLabel.text = primaryWeapon ? primaryWeapon.WeaponData.weaponName : "空";
+        _secondaryWeaponLabel.text = secondaryWeapon ? secondaryWeapon.WeaponData.weaponName : "空";
     }
 }

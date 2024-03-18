@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
+    public abstract WeaponDataSO WeaponData { get;}
+    
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
 
@@ -22,7 +24,7 @@ public class Weapon : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
+    
     public void InitializeWeapon(PlayerAttackState state)
     {
         this.state = state;
