@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player/Player Stats")]
 public class PlayerStatsSO : ScriptableObject
@@ -13,11 +12,11 @@ public class PlayerStatsSO : ScriptableObject
     [SerializeField] private float dashEnergy = 20f;
     [SerializeField] private float maxDashEnergy = 20f;
     [SerializeField] private float dashConsumeEnergy = 10f;
-    
+
     [field: SerializeField] public float DamageReductionRate { get; set; }
-    
+
     public bool IsDashEnergyRecoverStopped { get; set; }
-    
+
     public event Action<float, float> HealthChanged;
     public event Action<float, float> DashEnergyChanged;
 
@@ -35,11 +34,11 @@ public class PlayerStatsSO : ScriptableObject
         dashEnergy -= dashConsumeEnergy;
         DashEnergyChanged?.Invoke(dashEnergy, maxDashEnergy);
     }
-    
+
     public void RecoverDashEnergy()
     {
         if (IsDashEnergyRecoverStopped) return;
-        
+
         if (dashEnergy > maxDashEnergy)
         {
             dashEnergy = maxDashEnergy;
@@ -48,10 +47,23 @@ public class PlayerStatsSO : ScriptableObject
         }
 
         dashEnergy += Time.deltaTime;
-        
+
         DashEnergyChanged?.Invoke(dashEnergy, maxDashEnergy);
     }
-    
+
+    public void RecoverHealth(float recoverValue)
+    {
+        if (health >= maxHealth) return;
+
+        health += recoverValue;
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        
+        HealthChanged?.Invoke(health, maxHealth);
+    }
+
     public void TakeDamage(DamageInfo info)
     {
         if (health <= 0) return;

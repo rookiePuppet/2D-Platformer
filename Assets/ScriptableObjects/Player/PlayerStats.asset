@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06c328a3f5840e584c9edcd314e7a2d, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  health: 75
+  health: 100
   maxHealth: 100
+  dashEnergy: 20
+  maxDashEnergy: 20
+  dashConsumeEnergy: 10
   <DamageReductionRate>k__BackingField: 0

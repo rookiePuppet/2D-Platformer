@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public float Health { get; set; } = 100f;
     public event Action<DamageInfo> Damaged;
+    public event Action Dead;
 
     /// <summary>
     /// 检测前方是否为地面边缘
@@ -107,6 +108,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         Destroy(gameObject);
+        
+        Dead?.Invoke();
     }
 
     public void AnimationTrigger()

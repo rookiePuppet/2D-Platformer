@@ -52,7 +52,7 @@ public class MainView : View
 
     private void OnWeaponChanged(Weapon primaryWeapon, Weapon secondaryWeapon)
     {
-        _primaryWeaponLabel.text = primaryWeapon ? primaryWeapon.WeaponData.weaponName : "空";
-        _secondaryWeaponLabel.text = secondaryWeapon ? secondaryWeapon.WeaponData.weaponName : "空";
+        _primaryWeaponLabel.text = primaryWeapon ? primaryWeapon.WeaponData.itemName : "空";
+        _secondaryWeaponLabel.text = secondaryWeapon ? secondaryWeapon.WeaponData.itemName : "空";
     }
 }

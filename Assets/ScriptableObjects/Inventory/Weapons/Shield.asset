@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1165a3e7624fc9b76f1c1aa390c79e, type: 3}
+  m_Name: Shield
+  m_EditorClassIdentifier: 
+  id: 5
+  itemType: 0
+  itemName: "\u76FE\u724C"
+  itemSprite: {fileID: 0}
+  weaponPrefab: {fileID: 7732913417389063129, guid: aac39bb590a10c14d81de9712ac6e028, type: 3}
+  damageReductionRate: 0.5

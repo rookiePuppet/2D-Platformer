@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Movement : CoreComponent
@@ -9,6 +8,8 @@ public class Movement : CoreComponent
     public int FacingDirection { get; private set; } = 1;
 
     private Vector2 _velocity;
+
+    public event Action Flipped; 
 
     protected override void Awake()
     {
@@ -29,6 +30,7 @@ public class Movement : CoreComponent
         {
             FacingDirection *= -1;
             Rigidbody.transform.Rotate(Vector3.up, 180F);
+            Flipped?.Invoke();
         }
     }
 

@@ -2,7 +2,7 @@
 using Cinemachine;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelInitializer", menuName = "LevelInitializer")]
+[CreateAssetMenu(fileName = "LevelInitializer", menuName = "Tool/LevelInitializer")]
 public class LevelInitializer : ScriptableObject
 {
     [SerializeField] private GameObject playerPrefab;

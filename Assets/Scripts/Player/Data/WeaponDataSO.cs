@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
-public class WeaponDataSO : ScriptableObject
+public class WeaponDataSO : ItemDataSO
 {
-    public int id;
-    public string weaponName;
     public GameObject weaponPrefab;
+
+    private void OnEnable()
+    {
+        itemType = ItemType.Weapon;
+    }
 }

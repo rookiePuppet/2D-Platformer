@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UIManager", menuName = "UIManager")]
+[CreateAssetMenu(fileName = "UIManager", menuName = "Tool/UIManager")]
 public class UIManager : ScriptableObject
 {
     [SerializeField] private string rootPath = "UI";

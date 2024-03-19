@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "SceneLoader", menuName = "Scene Management/Scene Loader")]
+[CreateAssetMenu(fileName = "SceneLoader", menuName = "Tool/Scene Loader")]
 public class SceneLoader : ScriptableObject
 {
     [SerializeField] private UIManager uiManger;
