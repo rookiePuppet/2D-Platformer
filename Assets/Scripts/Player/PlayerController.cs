@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
+        PlayerStats.RecoverDashEnergy();
     }
 
     private void FixedUpdate()

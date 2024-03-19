@@ -3,22 +3,22 @@ using UnityEngine.UIElements;
 
 public class ConfirmTipsDialog : Dialog
 {
-    private Label _titleLabel;
-    private Label _contentLabel;
-
-    private Button _confirmButton;
-    private Button _cancelButton;
-
     public event Action Confirmed
     {
         add => _confirmButton.clicked += value;
         remove => _confirmButton.clicked -= value;
     }
+
     public event Action Canceled
     {
         add => _cancelButton.clicked += value;
         remove => _cancelButton.clicked -= value;
     }
+
+    private Label _titleLabel;
+    private Label _contentLabel;
+    private Button _confirmButton;
+    private Button _cancelButton;
 
     private void OnEnable()
     {

@@ -3,7 +3,12 @@
     <ui:VisualElement style="flex-grow: 1; align-items: flex-start; padding-top: 10px; padding-left: 15px;">
         <ui:VisualElement name="HealthBar" class="character-status-bar">
             <ui:VisualElement name="Background" style="flex-direction: column; width: 100%;">
-                <ui:VisualElement name="Foreground" style="flex-grow: 1; width: 100%; align-items: stretch; align-self: flex-start; height: auto;" />
+                <ui:VisualElement name="Foreground" style="flex-grow: 1; width: 100%; align-items: stretch; align-self: flex-start; height: auto; background-image: url(&quot;project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&amp;guid=7e688790d1df05840a900e54f7af828e&amp;type=3#filled_horizontal&quot;); -unity-background-image-tint-color: rgb(219, 51, 51);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="DashEnergyBar" class="character-status-bar" style="width: 300px; height: 20px;">
+            <ui:VisualElement name="Background" style="flex-direction: column; width: 100%;">
+                <ui:VisualElement name="Foreground" style="flex-grow: 1; width: 100%; align-items: stretch; align-self: flex-start; height: auto; background-image: url(&quot;project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/filled_horizontal.png?fileID=21300000&amp;guid=7e688790d1df05840a900e54f7af828e&amp;type=3#filled_horizontal&quot;); -unity-background-image-tint-color: rgb(255, 212, 100);" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="WeaponsContainer" style="flex-grow: 0; flex-direction: row; width: 100%; height: 100px; justify-content: flex-start; align-self: flex-start; margin-top: 10px;">

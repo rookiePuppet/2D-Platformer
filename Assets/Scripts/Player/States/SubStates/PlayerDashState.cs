@@ -2,21 +2,7 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerAbilityState
 {
-    public bool CanDash
-    {
-        get
-        {
-            if (Time.time - _lastDashTime < owner.StatesConfigSo.dashCoolDown)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }
-
     private bool _isHolding;
-    private float _lastDashTime;
     private Vector2 _dashDirection;
 
     public PlayerDashState(PlayerStateMachine stateMachine, PlayerController owner, int animatorParamHash) : base(stateMachine, owner, animatorParamHash)
@@ -29,6 +15,7 @@ public class PlayerDashState : PlayerAbilityState
 
         startTime = Time.unscaledTime;
         _isHolding = true;
+        owner.PlayerStats.IsDashEnergyRecoverStopped = true;
 
         owner.DashDirectionIndicator.gameObject.SetActive(true);
         core.Movement.Rigidbody.drag = owner.StatesConfigSo.dashDrag;
@@ -55,6 +42,8 @@ public class PlayerDashState : PlayerAbilityState
             // 松开冲刺键，开始冲刺
             if (owner.InputHandler.DashInputStop)
             {
+                owner.PlayerStats.ConsumeDashEnergy();
+                
                 _isHolding = false;
                 Time.timeScale = 1f;
                 startTime = Time.time;
@@ -75,7 +64,6 @@ public class PlayerDashState : PlayerAbilityState
             // 冲刺时间结束
             if (Time.time >= startTime + owner.StatesConfigSo.dashTime)
             {
-                _lastDashTime = Time.time;
                 isAbilityDone = true;
                 core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * owner.StatesConfigSo.dashEndYMultiplier);
             }
@@ -89,5 +77,6 @@ public class PlayerDashState : PlayerAbilityState
     {
         base.Exit();
         core.Movement.Rigidbody.drag = 0f;
+        owner.PlayerStats.IsDashEnergyRecoverStopped = false;
     }
 }

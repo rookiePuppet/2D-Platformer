@@ -48,7 +48,7 @@ public class PlayerAerialState : PlayerState
         {
             stateMachine.TransitionTo<PlayerSecondaryAttackState>();
         }
-        
+
         // 接触地面且纵向速度向下时，进入落地状态
         if (core.CollisionSenses.IsGrounded && core.Movement.CurrentVelocity.y <= 0f)
         {
@@ -66,8 +66,8 @@ public class PlayerAerialState : PlayerState
             // 土狼时间过后起跳才消耗一次跳跃次数
             if (!InCoyoteTime) _jumpState.IncreaseJumpCounter();
         }
-        else if (_dashInput && _dashState.CanDash)
-            // 冲刺
+        // 冲刺
+        else if (_dashInput && owner.PlayerStats.IsDashAvailable)
         {
             stateMachine.TransitionTo<PlayerDashState>();
         }

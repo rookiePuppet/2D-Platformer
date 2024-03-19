@@ -37,7 +37,6 @@ public class PlayerStatesConfigSO : ScriptableObject
     public float dashHoldTime = 1.5f;
     public float dashEndYMultiplier = 0.2f;
     public float dashDrag = 0.2f;
-    public float dashCoolDown = 1f;
 
     [Header("Crouch State")]
     public float crouchMovementVelocity = 5f;
