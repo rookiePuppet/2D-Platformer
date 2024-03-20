@@ -19,5 +19,5 @@ public struct GameLevelData
 
     [Header("Player")]
     public Vector3 playerInitialPosition;
-    public int defaultWeaponId;
+    public WeaponDataSO defaultWeapon;
 }

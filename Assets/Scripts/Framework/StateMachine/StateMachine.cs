@@ -35,7 +35,7 @@ public abstract class StateMachine<TOwner> {
     protected void AddState(StateBase<TOwner> state)
     {
         var stateName = state.GetType().Name;
-        Debug.Log($"Add State: state name is {stateName}");
+        // Debug.Log($"Add State: state name is {stateName}");
         _statesDic.TryAdd(stateName, state);
     }
 
@@ -47,13 +47,13 @@ public abstract class StateMachine<TOwner> {
     {
         TransitionTo<TState>();
 
-        Debug.Log("---STATES LIST---");
-        foreach (var state in _statesDic)
-        {
-            Debug.Log($"{state.Key}");
-        }
-        Debug.Log($"INITIAL STATE IS {typeof(TState).Name}");
-        Debug.Log("------");
+        // Debug.Log("---STATES LIST---");
+        // foreach (var state in _statesDic)
+        // {
+        //     Debug.Log($"{state.Key}");
+        // }
+        // Debug.Log($"INITIAL STATE IS {typeof(TState).Name}");
+        // Debug.Log("------");
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

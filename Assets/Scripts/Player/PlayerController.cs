@@ -9,48 +9,56 @@ public class PlayerController : MonoBehaviour, IDamageable
     public Core Core { get; private set; }
     [SerializeField] private PlayerStatesConfigSO playerStatesConfigSo;
     [SerializeField] private PlayerStatsSO stats;
+    [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private Transform dashDirectionIndicator;
+    [SerializeField] private Transform weaponHolderTransform;
 
     public PlayerStatesConfigSO StatesConfigSo => playerStatesConfigSo;
     public PlayerStatsSO PlayerStats => stats;
+    public InventoryManager InventoryManager => inventoryManager;
     public Animator Animator { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    public WeaponsHolder WeaponsHolder { get; private set; }
     public Transform DashDirectionIndicator => dashDirectionIndicator;
+    public Transform WeaponHolderTransform => weaponHolderTransform;
 
     private BoxCollider2D _collider;
 
     #endregion
 
-    public float Health { get; set; } = 100f;
+    public float Health
+    {
+        get => stats.Health;
+        set => stats.Health = value;
+    }
+    
     public event Action<DamageInfo> Damaged;
 
     #region Unity Callback Functions
-
-    private void OnEnable()
-    {
-        Damaged += OnDamaged;
-        WeaponsHolder.WeaponChanged += OnWeaponChanged;
-    }
-
-    private void OnDisable()
-    {
-        Damaged += OnDamaged;
-        WeaponsHolder.WeaponChanged -= OnWeaponChanged;
-    }
 
     private void Awake()
     {
         Core = GetComponentInChildren<Core>();
         Animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        WeaponsHolder = GetComponentInChildren<WeaponsHolder>();
         _collider = GetComponent<BoxCollider2D>();
+    }
+
+    private void OnEnable()
+    {
+        Damaged += OnDamaged;
+        inventoryManager.WeaponChanged += OnWeaponChanged;
+    }
+
+    private void OnDisable()
+    {
+        Damaged += OnDamaged;
+        inventoryManager.WeaponChanged -= OnWeaponChanged;
     }
 
     private void Start()
     {
         StateMachine = new PlayerStateMachine(this);
+        inventoryManager.Player = this;
     }
 
     private void Update()

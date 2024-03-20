@@ -7,6 +7,7 @@ public class RangedWeaponDataSO : AggressiveWeaponDataSO
     public GameObject projectilePrefab;
     public Vector2 projectileInitialPosition;
     public float projectileInitialVelocity;
+    public float damageAmount;
 }
 
 public enum ProjectileBehaviourType

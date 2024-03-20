@@ -243,9 +243,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5212785113433405202}
   - component: {fileID: 4022782580547023159}
-  - component: {fileID: 7790391820818375528}
   m_Layer: 10
-  m_Name: Weapons
+  m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,25 +277,6 @@ SortingGroup:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &7790391820818375528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3343116495743277124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65332b6ac3288e341929d60af2b378f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDataList:
-  - {fileID: 11400000, guid: 7981fecf6379c1a4d814ffd1e26d7e17, type: 2}
-  - {fileID: 11400000, guid: fc5efa3545cd6304685e711dc5e38cb0, type: 2}
-  - {fileID: 11400000, guid: c63445175bd710b4ba05bc1f09716ded, type: 2}
-  - {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
-  - {fileID: 11400000, guid: 7d7f657bd292cc5489851690c1c4ac44, type: 2}
-  - {fileID: 11400000, guid: 2ad0bfcd286519342a451b4b708d8b78, type: 2}
 --- !u!1 &7191578576380808634
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +398,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b4dc1bcf560729445b26cd747725e1ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 19.82, y: 19.9}
@@ -950,7 +930,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatesConfigSo: {fileID: 11400000, guid: 7170756cdc326134883ed163017aec45, type: 2}
   stats: {fileID: 11400000, guid: a9dfa5f91db0e5c4195c593e4188eea7, type: 2}
+  inventoryManager: {fileID: 11400000, guid: b4b3f50f9faf64947b9bba74dd825649, type: 2}
   dashDirectionIndicator: {fileID: 5449493918901244292}
+  weaponHolderTransform: {fileID: 5212785113433405202}
 --- !u!114 &5391272451730123715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,5 +957,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606be0eed64d4470b196ba15735a2261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 11400000, guid: b4b3f50f9faf64947b9bba74dd825649, type: 2}
   pickUpTips: {fileID: 5358960211095754659}

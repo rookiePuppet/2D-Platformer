@@ -13,6 +13,12 @@ public class PlayerStatsSO : ScriptableObject
     [SerializeField] private float maxDashEnergy = 20f;
     [SerializeField] private float dashConsumeEnergy = 10f;
 
+    public float Health
+    {
+        get => health;
+        set => health = value;
+    }
+
     [field: SerializeField] public float DamageReductionRate { get; set; }
 
     public bool IsDashEnergyRecoverStopped { get; set; }
@@ -60,7 +66,7 @@ public class PlayerStatsSO : ScriptableObject
         {
             health = maxHealth;
         }
-        
+
         HealthChanged?.Invoke(health, maxHealth);
     }
 

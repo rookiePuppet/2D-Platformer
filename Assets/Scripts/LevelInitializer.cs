@@ -21,6 +21,6 @@ public class LevelInitializer : ScriptableObject
         
         // 设置初始武器
         var playerController = playerObject.GetComponent<PlayerController>();
-        playerController.WeaponsHolder.InitializeWeapon(levelData.defaultWeaponId);
+        playerController.InventoryManager.InitializeWeapon(levelData.defaultWeapon);
     }
 }

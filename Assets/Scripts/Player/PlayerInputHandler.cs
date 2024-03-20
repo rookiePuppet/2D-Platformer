@@ -49,8 +49,8 @@ public class PlayerInputHandler : MonoBehaviour
         private set => _interactInput = value;
     }
 
-    private InputActionMap GameplayActionMap => _playerInput.actions.FindActionMap("Gameplay");
-    private InputActionMap FunctionActionMap => _playerInput.actions.FindActionMap("Function");
+    public InputActionMap GameplayActionMap => _playerInput.actions.FindActionMap("Gameplay");
+    public InputActionMap FunctionActionMap => _playerInput.actions.FindActionMap("Function");
 
     private bool _jumpInput;
     private float _jumpInputStartTime;

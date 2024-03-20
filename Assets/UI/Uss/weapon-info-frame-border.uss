@@ -1,0 +1,14 @@
+.Border {
+    border-left-color: rgb(255, 252, 124);
+    border-right-color: rgb(255, 252, 124);
+    border-top-color: rgb(255, 252, 124);
+    border-bottom-color: rgb(255, 252, 124);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}

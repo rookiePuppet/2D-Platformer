@@ -72,8 +72,22 @@ public class UIManager : ScriptableObject
     private string GetUIPath<TUI>()
     {
         var uiType = typeof(TUI);
-        return typeof(View).IsAssignableFrom(uiType)
-            ? $"{rootPath}/View/{uiType.Name}"
-            : $"{rootPath}/Dialog/{uiType.Name}";
+
+        string path;
+
+        if (typeof(View).IsAssignableFrom(uiType))
+        {
+            path = $"{rootPath}/View/{uiType.Name}";
+        }
+        else if (typeof(Window).IsAssignableFrom(uiType))
+        {
+            path = $"{rootPath}/Window/{uiType.Name}";
+        }
+        else
+        {
+            path = $"{rootPath}/Dialog/{uiType.Name}";
+        }
+
+        return path;
     }
 }

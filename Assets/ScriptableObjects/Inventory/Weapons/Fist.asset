@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 0
   itemType: 0
   itemName: "\u62F3\u5934"
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -1105988666, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
+  weaponType: 0
   weaponPrefab: {fileID: 9024443007177807222, guid: 4cc93a932f2db48459e22e5fe4c1ad9f, type: 3}
   amountOfAttacks: 3
   movementSpeed:

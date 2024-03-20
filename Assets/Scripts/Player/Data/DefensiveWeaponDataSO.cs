@@ -5,4 +5,10 @@ public class DefensiveWeaponDataSO : WeaponDataSO
 {
     [Range(0, 1f)]
     public float damageReductionRate;
+    
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        weaponType = WeaponType.Defensive;
+    }
 }

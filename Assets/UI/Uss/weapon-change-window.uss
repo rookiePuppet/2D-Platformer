@@ -1,0 +1,37 @@
+#PlayerWeapons > VisualElement {
+    width: 50%;
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slider2/background_vertical.png?fileID=21300000&guid=69a693142e97477459702cd63f94a7e0&type=3#background_vertical");
+    justify-content: space-evenly;
+    align-items: center;
+    border-left-color: rgb(234, 255, 138);
+    border-right-color: rgb(234, 255, 138);
+    border-top-color: rgb(234, 255, 138);
+    border-bottom-color: rgb(234, 255, 138);
+}
+
+#WeaponIcon {
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(255, 243, 220);
+    border-right-color: rgb(255, 243, 220);
+    border-top-color: rgb(255, 243, 220);
+    border-bottom-color: rgb(255, 243, 220);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#WeaponName {
+    -unity-font-style: bold;
+    font-size: 42px;
+    -unity-text-align: middle-center;
+    color: rgb(0, 0, 0);
+}
+
+.WeaponInfoLabel {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+}

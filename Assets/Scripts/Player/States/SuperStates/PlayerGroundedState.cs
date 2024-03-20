@@ -29,12 +29,12 @@
         _attackInputs = owner.InputHandler.AttackInputs;
 
         // 主攻击
-        if (_attackInputs[(int)CombatInputs.Primary] && owner.WeaponsHolder.IsPrimaryWeaponExists)
+        if (_attackInputs[(int)CombatInputs.Primary] && owner.InventoryManager.IsPrimaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerPrimaryAttackState>();
         }
         // 副攻击
-        else if (_attackInputs[(int)CombatInputs.Secondary] && owner.WeaponsHolder.IsSecondaryWeaponExists)
+        else if (_attackInputs[(int)CombatInputs.Secondary] && owner.InventoryManager.IsSecondaryWeaponExists)
         {
             stateMachine.TransitionTo<PlayerSecondaryAttackState>();
         }

@@ -4,20 +4,12 @@ using UnityEngine.UIElements;
 public class MainView : View
 {
     [SerializeField] private PlayerStatsSO playerStats;
-
-    private WeaponsHolder _weaponsHolder;
+    [SerializeField] private InventoryManager inventoryManager;
 
     private VisualElement _healthBarForeground;
     private VisualElement _dashEnergyBarForeground;
     private Label _primaryWeaponLabel;
     private Label _secondaryWeaponLabel;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        _weaponsHolder = FindAnyObjectByType<WeaponsHolder>();
-    }
 
     private void OnEnable()
     {
@@ -28,14 +20,14 @@ public class MainView : View
 
         playerStats.HealthChanged += OnHealthChanged;
         playerStats.DashEnergyChanged += OnDashEnergyChanged;
-        _weaponsHolder.WeaponChanged += OnWeaponChanged;
+        inventoryManager.WeaponChanged += OnWeaponChanged;
     }
 
     private void OnDisable()
     {
         playerStats.HealthChanged -= OnHealthChanged;
         playerStats.DashEnergyChanged -= OnDashEnergyChanged;
-        _weaponsHolder.WeaponChanged -= OnWeaponChanged;
+        inventoryManager.WeaponChanged -= OnWeaponChanged;
     }
 
     private void OnHealthChanged(float currentHealth, float maxHealth)

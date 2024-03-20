@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManger: {fileID: 11400000, guid: 522b2fe8daaeead4e84bc16c681886a7, type: 2}
   levelInitializer: {fileID: 11400000, guid: d98972d8e8f472e449a5f5f93e73b5cd, type: 2}
-  simulateWaitingTime: 1
+  simulateWaitingTime: 0
