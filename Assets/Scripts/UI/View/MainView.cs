@@ -17,7 +17,7 @@ public class MainView : View
         _dashEnergyBarForeground = Root.Q("DashEnergyBar").Q("Foreground");
         _primaryWeaponLabel = Root.Q("PrimaryWeaponIcon").Q<Label>();
         _secondaryWeaponLabel = Root.Q("SecondaryWeaponIcon").Q<Label>();
-
+        
         playerStats.HealthChanged += OnHealthChanged;
         playerStats.DashEnergyChanged += OnDashEnergyChanged;
         inventoryManager.WeaponChanged += OnWeaponChanged;

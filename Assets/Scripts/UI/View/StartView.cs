@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UIElements;
 
 public class StartView : View

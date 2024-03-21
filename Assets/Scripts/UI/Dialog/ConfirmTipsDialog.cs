@@ -39,6 +39,11 @@ public class ConfirmTipsDialog : Dialog
         Canceled -= Hide;
     }
 
+    private void Start()
+    {
+        _confirmButton.Focus();
+    }
+
     public void SetTitle(string title)
     {
         _titleLabel.text = title;
