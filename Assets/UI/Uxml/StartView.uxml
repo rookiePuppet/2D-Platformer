@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/start-menu.uss?fileID=7433441132597879392&amp;guid=b7ec0f8aeea16ae4dbef8d40e19aaef9&amp;type=3#start-menu" />
+    <Style src="project://database/Assets/UI/Uss/start-view.uss?fileID=7433441132597879392&amp;guid=b7ec0f8aeea16ae4dbef8d40e19aaef9&amp;type=3#start-view" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; padding-top: 50px; padding-right: 50px; padding-bottom: 50px; padding-left: 50px;">
-        <ui:Label tabindex="-1" text="DEMO" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font: url(&apos;project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&amp;guid=c2bbec7a3c0f11f45b30f8810a18e7e9&amp;type=3#unifont-14.0.01&apos;); font-size: 100px; color: rgb(255, 255, 255); -unity-font-style: bold; word-spacing: 10px; letter-spacing: 5px; top: 0; left: 0; -unity-font-definition: initial;" />
+        <ui:Label text="DEMO" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font: url(&quot;project://database/Assets/Art/unifont-14.0.01.ttf?fileID=12800000&amp;guid=c2bbec7a3c0f11f45b30f8810a18e7e9&amp;type=3#unifont-14.0.01&quot;); font-size: 100px; color: rgb(255, 255, 255); -unity-font-style: bold; word-spacing: 10px; letter-spacing: 5px; top: 0; left: 0; -unity-font-definition: initial;" />
         <ui:VisualElement style="flex-grow: 0; margin-top: 64px; justify-content: flex-start; align-self: flex-start; align-items: auto; flex-direction: column;">
             <ui:Button text="开始" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="start-menu-button" />
-            <ui:Button text="选项" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsButton" class="start-menu-button" />
-            <ui:Button text="退出" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="start-menu-button" />
+            <ui:Button text="选项" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsButton" tabindex="1" class="start-menu-button" />
+            <ui:Button text="退出" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" tabindex="2" class="start-menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

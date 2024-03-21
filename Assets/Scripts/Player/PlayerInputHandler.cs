@@ -50,7 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     public InputActionMap GameplayActionMap => _playerInput.actions.FindActionMap("Gameplay");
-    public InputActionMap FunctionActionMap => _playerInput.actions.FindActionMap("Function");
+    public InputActionMap UIActionMap => _playerInput.actions.FindActionMap("UI");
 
     private bool _jumpInput;
     private float _jumpInputStartTime;
@@ -70,8 +70,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Start()
     {
         AttackInputs = new bool[Enum.GetValues(typeof(CombatInputs)).Length];
-
-        FunctionActionMap.Enable();
+        UIActionMap.Enable();
     }
 
     private void Update()

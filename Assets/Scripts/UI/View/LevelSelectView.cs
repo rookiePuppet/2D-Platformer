@@ -10,9 +10,9 @@ public class LevelSelectView : View
     [Header("UI")]
     [SerializeField] private GameLevelsDataSO levelsData;
     [SerializeField] private float mouseWheelSpeed = 100f;
-    
+
     private ListView _levelsList;
-    
+
     private void OnEnable()
     {
         _levelsList = Root.Q<ListView>("LevelsList");
@@ -52,6 +52,7 @@ public class LevelSelectView : View
     private void OnReturnButtonClicked()
     {
         uiManager.UnloadUI<LevelSelectView>();
+        uiManager.LoadUI<StartView>();
     }
 
     private async void OnConfirmButtonClicked()

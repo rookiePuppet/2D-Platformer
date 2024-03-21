@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UIElements;
 
 public class StartView : View
 {
     [SerializeField] private UIManager uiManager;
-    
-    private void Start()
+
+    private void OnEnable()
     {
         var startButton = Root.Q<Button>("StartButton");
         startButton.clicked += OnStartButtonClicked;
@@ -14,8 +16,14 @@ public class StartView : View
         exitButton.clicked += Application.Quit;
     }
 
+    private void Start()
+    {
+        Root.Q<Button>("StartButton").Focus();
+    }
+
     private void OnStartButtonClicked()
     {
         uiManager.LoadUI<LevelSelectView>();
+        Hide();
     }
 }
