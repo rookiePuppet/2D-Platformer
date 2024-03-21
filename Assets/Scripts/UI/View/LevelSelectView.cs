@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,9 +14,14 @@ public class LevelSelectView : View
 
     private ListView _levelsList;
 
+    private Button _returnButton;
+    private Button _confirmButton;
+
     private void OnEnable()
     {
         _levelsList = Root.Q<ListView>("LevelsList");
+        _returnButton = Root.Q<Button>("ReturnButton");
+        _confirmButton = Root.Q<Button>("ConfirmButton");
 
         var scrollView = _levelsList.Q<ScrollView>();
         scrollView.verticalScrollerVisibility = ScrollerVisibility.Hidden;
@@ -36,17 +42,44 @@ public class LevelSelectView : View
             (item.userData as LevelsListEntryController)?.SetLevelData(levelsData.data[index]);
         };
 
-        // _levelsList.selectionChanged += (items) =>
-        // {
-        //     var data = _levelsList.selectedItem is GameLevelData item ? item : default;
-        //     print(data.levelName);
-        // };
+        Root.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            var index = _levelsList.selectedIndex;
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up:
+                {
+                    index--;
+                    if (index < 0) index = levelsData.data.Count - 1;
+                    break;
+                }
+                case NavigationMoveEvent.Direction.Down:
+                {
+                    index++;
+                    if (index >= levelsData.data.Count) index = 0;
+                    break;
+                }
+                case NavigationMoveEvent.Direction.Left:
+                    _returnButton.Focus();
+                    break;
+                case NavigationMoveEvent.Direction.Right:
+                    _confirmButton.Focus();
+                    break;
+            }
+
+            _levelsList.ScrollToItem(index);
+            _levelsList.SetSelection(index);
+
+            e.StopPropagation();
+        });
 
         _levelsList.itemsSource = levelsData.data;
         _levelsList.SetSelection(0);
 
-        Root.Q<Button>("ReturnButton").clicked += OnReturnButtonClicked;
-        Root.Q<Button>("ConfirmButton").clicked += OnConfirmButtonClicked;
+        _levelsList.Focus();
+
+        _returnButton.clicked += OnReturnButtonClicked;
+        _confirmButton.clicked += OnConfirmButtonClicked;
     }
 
     private void OnReturnButtonClicked()
