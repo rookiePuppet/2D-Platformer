@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 
 public class Window : UIBase
 {
+    protected override int SortingOrder { get; set; } = 1;
+    
     private Button _closeButton;
     public event Action Closed;
 
@@ -17,6 +19,7 @@ public class Window : UIBase
     {
         _closeButton.clicked -= Hide;
     }
+
 
     public override void Show()
     {
