@@ -1,4 +1,6 @@
-﻿public class PlayerAttackState : PlayerAbilityState
+﻿using UnityEngine;
+
+public class PlayerAttackState : PlayerAbilityState
 {
     private Weapon _weapon;
     private float _velocityToSet;

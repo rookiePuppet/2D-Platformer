@@ -14,38 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - id: 1
-    levelName: "\u5E7D\u9759\u68EE\u6797"
+    levelName: "\u521D\u59CB\u5E73\u539F"
     previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 20, y: -4, z: 0}
+    scene: {fileID: 102900000, guid: 930eacc186622be43b93b1d45ddcb9ab, type: 3}
+    playerInitialPosition: {x: -16, y: 1, z: 0}
     defaultWeapon: {fileID: 11400000, guid: c63445175bd710b4ba05bc1f09716ded, type: 2}
   - id: 2
-    levelName: "\u5F85\u5F00\u53D1"
+    levelName: "\u5E7D\u9759\u68EE\u6797"
     previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4, z: 0}
+    scene: {fileID: 102900000, guid: 0e3211bd2d10f8f41bd92f3089253fde, type: 3}
+    playerInitialPosition: {x: -24, y: -8, z: 0}
     defaultWeapon: {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
-  - id: 2
+  - id: 3
     levelName: "\u5F85\u5F00\u53D1"
     previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4, z: 0}
-    defaultWeapon: {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
-  - id: 2
-    levelName: "\u5F85\u5F00\u53D1"
-    previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4, z: 0}
-    defaultWeapon: {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
-  - id: 2
-    levelName: "\u5F85\u5F00\u53D1"
-    previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4, z: 0}
-    defaultWeapon: {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}
-  - id: 2
-    levelName: "\u5F85\u5F00\u53D1"
-    previewImage: {fileID: 0}
-    scene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    playerInitialPosition: {x: 40, y: -4, z: 0}
+    scene: {fileID: 102900000, guid: 930eacc186622be43b93b1d45ddcb9ab, type: 3}
+    playerInitialPosition: {x: -16, y: 1, z: 0}
     defaultWeapon: {fileID: 11400000, guid: 1081cba903d7f0d4c8adb66cc9a28071, type: 2}

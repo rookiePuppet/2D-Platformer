@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         Damaged += OnDamaged;
         inventoryManager.WeaponChanged += OnWeaponChanged;
+        Debug.Log("Player OnEnable");
     }
 
     private void OnDisable()
