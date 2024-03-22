@@ -23,6 +23,8 @@ MonoBehaviour:
   stopDistance: 1.2
   chaseSpeedMultiplier: 1.5
   targetLostWaitingTime: 3
+  drop: {fileID: 11400000, guid: ab4e4507640babd489976fb5af690803, type: 2}
+  dropProbability: 0.7
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
