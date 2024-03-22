@@ -971,6 +971,7 @@ MonoBehaviour:
   playerStatesConfigSo: {fileID: 11400000, guid: 7170756cdc326134883ed163017aec45, type: 2}
   stats: {fileID: 11400000, guid: a9dfa5f91db0e5c4195c593e4188eea7, type: 2}
   inventoryManager: {fileID: 11400000, guid: b4b3f50f9faf64947b9bba74dd825649, type: 2}
+  sceneLoader: {fileID: 11400000, guid: 27e0bbfb0c4e37448bc073b145490919, type: 2}
   dashDirectionIndicator: {fileID: 5449493918901244292}
   weaponHolderTransform: {fileID: 5212785113433405202}
 --- !u!114 &5391272451730123715

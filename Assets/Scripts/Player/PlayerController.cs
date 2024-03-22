@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatesConfigSO playerStatesConfigSo;
     [SerializeField] private PlayerStatsSO stats;
     [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private SceneLoader sceneLoader;
     [SerializeField] private Transform dashDirectionIndicator;
     [SerializeField] private Transform weaponHolderTransform;
 
@@ -30,8 +31,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         get => stats.Health;
         set => stats.Health = value;
     }
-    
+
     public event Action<DamageInfo> Damaged;
+    public event Action Dead;
 
     #region Unity Callback Functions
 
@@ -45,14 +47,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        Damaged += OnDamaged;
+        Dead += OnDead;
         inventoryManager.WeaponChanged += OnWeaponChanged;
         Debug.Log("Player OnEnable");
     }
 
     private void OnDisable()
     {
-        Damaged += OnDamaged;
+        Dead -= OnDead;
         inventoryManager.WeaponChanged -= OnWeaponChanged;
     }
 
@@ -107,16 +109,20 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     #endregion
 
-    private void OnDamaged(DamageInfo info)
+    private async void OnDead()
     {
-        // var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
-        // Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
+        await sceneLoader.LoadSceneAsync("StartScene");
     }
 
     public void TakeDamage(DamageInfo info)
     {
         stats.TakeDamage(info);
         Damaged?.Invoke(info);
+        
+        // var direction = info.hitSourcePosition.x > transform.position.x ? -1 : 1;
+        // Core.Movement.SetVelocity(info.knockBackVelocity.x * direction, info.knockBackVelocity.y);
+
+        if (stats.Health <= 0) Dead?.Invoke();
     }
 
     private void OnWeaponChanged(Weapon primaryWeapon, Weapon secondaryWeapon)

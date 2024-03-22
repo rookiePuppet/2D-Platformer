@@ -9,6 +9,7 @@ public class CombatDummy : MonoBehaviour, IDamageable
     [FormerlySerializedAs("healthBarUI")] [SerializeField] private HealthBarController healthBarController;
     public float Health { get; set; } = 100f;
     public event Action<DamageInfo> Damaged;
+    public event Action Dead;
 
     private Animator _animator;
     private SpriteRenderer _mainSpriteRenderer;

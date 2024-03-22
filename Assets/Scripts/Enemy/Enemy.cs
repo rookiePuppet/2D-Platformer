@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -8,11 +7,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform touchGroundPoint;
-    [FormerlySerializedAs("healthBarUI")] [SerializeField] private HealthBarController healthBarController;
+    [SerializeField] private HealthBarController healthBarController;
 
     public Animator Animator { get; private set; }
     public Core Core { get; private set; }
     public PlayerController Target { get; private set; }
+    private DeathDrop _deathDrop;
     public EnemyDataSO Data => enemyData;
 
     private StateMachine<Enemy> StateMachine { get; set; }
@@ -32,17 +32,20 @@ public class Enemy : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         Damaged += OnDamaged;
+        Dead += OnDead;
     }
 
     private void OnDisable()
     {
         Damaged -= OnDamaged;
+        Dead -= OnDead;
     }
 
     private void Awake()
     {
         Core = GetComponentInChildren<Core>();
         Animator = GetComponent<Animator>();
+        _deathDrop = GetComponent<DeathDrop>();
     }
 
     private void Start()
@@ -83,7 +86,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (Health <= 0)
         {
-            Die();
+            Health = 0;
+            Dead?.Invoke();
         }
 
         Damaged?.Invoke(info);
@@ -105,11 +109,10 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private void Die()
+    private void OnDead()
     {
+        _deathDrop.DropItem(enemyData.drop, enemyData.dropProbability);
         Destroy(gameObject);
-        
-        Dead?.Invoke();
     }
 
     public void AnimationTrigger()

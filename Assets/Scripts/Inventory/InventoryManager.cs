@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "InventoryManager", menuName = "Tool/InventoryManger")]
 public class InventoryManager : ScriptableObject
@@ -10,7 +9,7 @@ public class InventoryManager : ScriptableObject
 
     [SerializeField] private GameObject itemPrefab;
 
-    [FormerlySerializedAs("uiManger")] [SerializeField] private UIManager uiManager;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerStatsSO playerStats;
 
     public PlayerController Player { private get; set; }
@@ -47,7 +46,7 @@ public class InventoryManager : ScriptableObject
         WeaponChanged?.Invoke(PrimaryWeapon, SecondaryWeapon);
     }
 
-    private void InstantiateItem(ItemDataSO itemData, Vector2 position)
+    public void InstantiateItem(ItemDataSO itemData, Vector2 position)
     {
         var itemObj = Instantiate(itemPrefab, position, Quaternion.identity);
         var item = itemObj.GetComponent<Item>();

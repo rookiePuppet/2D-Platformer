@@ -22,6 +22,7 @@ public class EnemyDataSO : ScriptableObject
     public float chaseSpeedMultiplier = 1.5f;
     public float targetLostWaitingTime = 3f;
 
+    // TODO: 改为多个掉落物
     [Header("Death Related")]
     public ItemDataSO drop;
     [Range(0, 1f)] public float dropProbability;
