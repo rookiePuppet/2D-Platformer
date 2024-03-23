@@ -27,15 +27,15 @@ MonoBehaviour:
   weaponDetails:
   - attackName: attack1
     movementSpeed: 0.5
-    damageAmount: 14
+    damageAmount: 15
     knockBackForce: {x: 3, y: 1}
   - attackName: attack2
     movementSpeed: 1
-    damageAmount: 14
+    damageAmount: 15
     knockBackForce: {x: 3.5, y: 1.5}
   - attackName: attack3
     movementSpeed: 0.5
-    damageAmount: 16
+    damageAmount: 20
     knockBackForce: {x: 2, y: 3.5}
   - attackName: attack4
     movementSpeed: 0.2

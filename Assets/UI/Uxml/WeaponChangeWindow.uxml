@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/UI/Uss/window-global.uss?fileID=7433441132597879392&amp;guid=614bf130f8a514f4d888e310f24c4a15&amp;type=3#window-global" />
     <Style src="project://database/Assets/UI/Uss/weapon-change-window.uss?fileID=7433441132597879392&amp;guid=4d09f5e53a8d4624b866064055d14a6e&amp;type=3#weapon-change-window" />
     <Style src="project://database/Assets/UI/Uss/weapon-info-frame-border.uss?fileID=7433441132597879392&amp;guid=9c86e14912e608b4f95ac316f76f1e78&amp;type=3#weapon-info-frame-border" />
+    <Style src="project://database/Assets/UI/Uss/button-transition.uss?fileID=7433441132597879392&amp;guid=1bd39084dfda93f4383c692d105fb47c&amp;type=3#button-transition" />
     <ui:VisualElement style="flex-grow: 1; justify-content: center; -unity-font-definition: url(&quot;project://database/Assets/Art/unifont-14.0.01.ttf?fileID=12800000&amp;guid=c2bbec7a3c0f11f45b30f8810a18e7e9&amp;type=3#unifont-14.0.01&quot;);">
         <ui:VisualElement name="Background">
             <ui:VisualElement name="Title" style="flex-grow: 0; flex-direction: row; align-items: center;">

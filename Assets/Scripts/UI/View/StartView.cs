@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,7 +10,7 @@ public class StartView : View
     {
         var startButton = Root.Q<Button>("StartButton");
         startButton.clicked += OnStartButtonClicked;
-        
+
         var exitButton = Root.Q<Button>("ExitButton");
         exitButton.clicked += Application.Quit;
     }

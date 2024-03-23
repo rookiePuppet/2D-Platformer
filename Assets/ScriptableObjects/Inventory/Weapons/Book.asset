@@ -25,4 +25,4 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2003808629584326244, guid: c7288ecfa6938c147ac9953dd812df27, type: 3}
   projectileInitialPosition: {x: 0, y: 0}
   projectileInitialVelocity: 3
-  damageAmount: 0
+  damageAmount: 50

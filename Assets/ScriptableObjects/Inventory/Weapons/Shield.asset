@@ -18,4 +18,4 @@ MonoBehaviour:
   itemSprite: {fileID: 461042288, guid: ba00d2cc9cfe3aa4dbabe584112b29a8, type: 3}
   weaponType: 1
   weaponPrefab: {fileID: 7732913417389063129, guid: aac39bb590a10c14d81de9712ac6e028, type: 3}
-  damageReductionRate: 0.5
+  damageReductionRate: 0.75

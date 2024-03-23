@@ -1,0 +1,8 @@
+Button:focus {
+    -unity-font: url("project://database/Assets/Art/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
+    scale: 1.1 1.1;
+}
+
+Button {
+    transition-duration: 0.1s;
+}
