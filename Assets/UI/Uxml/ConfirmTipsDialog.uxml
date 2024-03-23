@@ -6,8 +6,8 @@
             <ui:Label text="提示" name="Title" class="title" />
             <ui:Label text="确认退出游戏吗？" name="Content" class="content" />
             <ui:VisualElement style="flex-direction: row; justify-content: space-around; padding-top: 20px; padding-bottom: 20px;">
-                <ui:Button text="确认" name="ConfirmButton" class="Button" />
-                <ui:Button text="取消" name="CancelButton" tabindex="1" class="Button" />
+                <ui:Button text="确认" name="ConfirmButton" focusable="true" selectable="true" class="Button" />
+                <ui:Button text="取消" name="CancelButton" tabindex="1" selectable="true" class="Button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

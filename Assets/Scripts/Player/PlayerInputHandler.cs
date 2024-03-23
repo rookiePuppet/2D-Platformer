@@ -2,12 +2,13 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private UIManager uiManger;
     [SerializeField] private SceneLoader sceneLoader;
-    [SerializeField] private SceneAsset startScene;
+    [SerializeField] private string startScene;
     [SerializeField] private float inputHoldTime = 0.2f;
 
     public Vector2 RawMoveInput { get; set; }
@@ -50,7 +51,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     public InputActionMap GameplayActionMap => _playerInput.actions.FindActionMap("Gameplay");
-    public InputActionMap UIActionMap => _playerInput.actions.FindActionMap("UI");
+    // public InputActionMap UIActionMap => _playerInput.actions.FindActionMap("UI");
 
     private bool _jumpInput;
     private float _jumpInputStartTime;
@@ -70,7 +71,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void Start()
     {
         AttackInputs = new bool[Enum.GetValues(typeof(CombatInputs)).Length];
-        UIActionMap.Enable();
     }
 
     private void Update()
@@ -84,7 +84,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             var dialog = uiManger.LoadUI<ConfirmTipsDialog>(GameplayActionMap.Disable);
             dialog.SetContent("确认退出游戏吗？");
-            dialog.Confirmed += async () => { await sceneLoader.LoadSceneAsync(startScene.name); };
+            dialog.Confirmed += async () => { await sceneLoader.LoadSceneAsync(startScene); };
             dialog.Canceled += GameplayActionMap.Enable;
         }
     }
@@ -103,6 +103,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnPrimaryAttackInput(InputAction.CallbackContext context)
     {
+        print("PrimaryAttack");
         if (context.started)
         {
             AttackInputs[(int)CombatInputs.Primary] = true;

@@ -27,16 +27,16 @@ MonoBehaviour:
   weaponDetails:
   - attackName: attack1
     movementSpeed: 0.5
-    damageAmount: 1
-    knockBackForce: {x: 4, y: 2}
+    damageAmount: 14
+    knockBackForce: {x: 3, y: 1}
   - attackName: attack2
     movementSpeed: 1
-    damageAmount: 1
-    knockBackForce: {x: 5, y: 3}
+    damageAmount: 14
+    knockBackForce: {x: 3.5, y: 1.5}
   - attackName: attack3
     movementSpeed: 0.5
-    damageAmount: 1
-    knockBackForce: {x: 2, y: 6}
+    damageAmount: 16
+    knockBackForce: {x: 2, y: 3.5}
   - attackName: attack4
     movementSpeed: 0.2
     damageAmount: 1

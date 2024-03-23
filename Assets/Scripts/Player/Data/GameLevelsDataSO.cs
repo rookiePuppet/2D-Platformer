@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameLevelsData", menuName = "Data/GameLevelsData")]
@@ -15,7 +14,7 @@ public struct GameLevelData
     public int id;
     public string levelName;
     public Sprite previewImage;
-    public SceneAsset scene;
+    public string sceneName;
 
     [Header("Player")]
     public Vector3 playerInitialPosition;

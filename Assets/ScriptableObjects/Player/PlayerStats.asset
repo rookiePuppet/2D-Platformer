@@ -16,5 +16,5 @@ MonoBehaviour:
   maxHealth: 100
   dashEnergy: 20
   maxDashEnergy: 20
-  dashConsumeEnergy: 10
+  dashConsumeEnergy: 0
   <DamageReductionRate>k__BackingField: 0
