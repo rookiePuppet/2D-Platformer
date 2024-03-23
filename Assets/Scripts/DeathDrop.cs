@@ -1,15 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DeathDrop : MonoBehaviour
 {
     [SerializeField] private InventoryManager inventoryManager;
 
-    public void DropItem(ItemDataSO itemData, float probability)
-    {
-        var random = Random.Range(0, probability);
+    [SerializeField] private List<DropItemWithProbability> data;
 
-        if (random > probability) return;
-        
-        inventoryManager.InstantiateItem(itemData, transform.position);
+    private IDamageable _damageable;
+
+    private void Awake()
+    {
+        _damageable = GetComponent<IDamageable>();
     }
+
+    private void OnEnable()
+    {
+        _damageable.Dead += DropItem;
+    }
+
+    private void OnDisable()
+    {
+        _damageable.Dead -= DropItem;
+    }
+
+    private void DropItem()
+    {
+        foreach (var item in data)
+        {
+            var random = Random.Range(0, item.probability);
+
+            if (random > item.probability) return;
+
+            inventoryManager.InstantiateItem(item.dropItem, transform.position);
+        }
+    }
+}
+
+[Serializable]
+public struct DropItemWithProbability
+{
+    public ItemDataSO dropItem;
+    [Range(0, 1f)] public float probability;
 }

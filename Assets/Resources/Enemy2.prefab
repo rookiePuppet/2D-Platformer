@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 5203290304442087585}
   - component: {fileID: 1982361478791525494}
   - component: {fileID: 7637360623663391403}
+  - component: {fileID: 2203588447418874562}
   m_Layer: 7
   m_Name: Enemy2
   m_TagString: Enemy
@@ -314,6 +315,26 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7442914634649489572, guid: 46588ca31b1fb954a8a4258c46a1b5b7, type: 3}
   projectileInitialPosition: {x: 0, y: 0}
   projectileInitialVelocity: 10
+--- !u!114 &2203588447418874562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490274789217443892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8181511dd226459095b355efc809b038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: b4b3f50f9faf64947b9bba74dd825649, type: 2}
+  data:
+  - dropItem: {fileID: 11400000, guid: bc504409ea1297849b1b6ea2b3878830, type: 2}
+    probability: 0.4
+  - dropItem: {fileID: 11400000, guid: ab4e4507640babd489976fb5af690803, type: 2}
+    probability: 0.8
+  - dropItem: {fileID: 11400000, guid: fc5efa3545cd6304685e711dc5e38cb0, type: 2}
+    probability: 0.75
 --- !u!1 &6815770685080129075
 GameObject:
   m_ObjectHideFlags: 0

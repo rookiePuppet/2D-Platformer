@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator Animator { get; private set; }
     public Core Core { get; private set; }
     public PlayerController Target { get; private set; }
-    private DeathDrop _deathDrop;
     public EnemyDataSO Data => enemyData;
 
     private StateMachine<Enemy> StateMachine { get; set; }
@@ -45,7 +44,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Core = GetComponentInChildren<Core>();
         Animator = GetComponent<Animator>();
-        _deathDrop = GetComponent<DeathDrop>();
     }
 
     private void Start()
@@ -111,7 +109,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnDead()
     {
-        _deathDrop.DropItem(enemyData.drop, enemyData.dropProbability);
         Destroy(gameObject);
     }
 

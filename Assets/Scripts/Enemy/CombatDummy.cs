@@ -69,6 +69,7 @@ public class CombatDummy : MonoBehaviour, IDamageable
         if (Health < 0)
         {
             Health = 0;
+            Dead?.Invoke();
         }
 
         if (Health == 0)

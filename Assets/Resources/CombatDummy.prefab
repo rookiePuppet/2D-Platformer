@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 478673578120611905}
   - component: {fileID: 5840713242975969447}
   - component: {fileID: 6971180648308243211}
+  - component: {fileID: 5508728444550747834}
   m_Layer: 7
   m_Name: CombatDummy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,6 +202,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5508728444550747834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8215482382679018658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8181511dd226459095b355efc809b038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: b4b3f50f9faf64947b9bba74dd825649, type: 2}
+  data:
+  - dropItem: {fileID: 11400000, guid: 2ad0bfcd286519342a451b4b708d8b78, type: 2}
+    probability: 0.8
+  - dropItem: {fileID: 11400000, guid: ab4e4507640babd489976fb5af690803, type: 2}
+    probability: 0.2
+  - dropItem: {fileID: 11400000, guid: bc504409ea1297849b1b6ea2b3878830, type: 2}
+    probability: 0.1
 --- !u!1 &9033353074665519190
 GameObject:
   m_ObjectHideFlags: 0
