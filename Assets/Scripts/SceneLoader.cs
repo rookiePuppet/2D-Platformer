@@ -18,15 +18,22 @@ public class SceneLoader : ScriptableObject
         await Awaitable.WaitForSecondsAsync(simulateWaitingTime);
         await SceneManager.LoadSceneAsync(sceneName);
 
-        onSceneLoaded?.Invoke();
-
         uiManger.ClearCache();
+        
+        onSceneLoaded?.Invoke();
     }
 
     public async Awaitable LoadLevelAsync(GameLevelData levelData)
     {
         await LoadSceneAsync(levelData.sceneName,
-            () => { levelInitializer.InitializeLevel(levelData, () => { uiManger.LoadUI<MainView>(); }); });
+            () =>
+            {
+                levelInitializer.InitializeLevel(levelData, () =>
+                {
+                    uiManger.LoadUI<MainView>();
+                    ShowControllerViewIfMobile();
+                });
+            });
     }
 
     public async Awaitable LoadLevelByIdAsync(int sceneId)
@@ -34,6 +41,20 @@ public class SceneLoader : ScriptableObject
         var levelData = gameLevels.data.Find((level) => level.id == sceneId);
 
         await LoadSceneAsync(levelData.sceneName,
-            () => { levelInitializer.InitializeLevel(levelData, () => { uiManger.LoadUI<MainView>(); }); });
+            () =>
+            {
+                levelInitializer.InitializeLevel(levelData, () =>
+                {
+                    uiManger.LoadUI<MainView>();
+                    ShowControllerViewIfMobile();
+                });
+            });
+    }
+
+    private void ShowControllerViewIfMobile()
+    {
+#if UNITY_ANDROID || UNITY_IOS
+        uiManger.LoadUI<ScreenControllerView>();
+#endif
     }
 }

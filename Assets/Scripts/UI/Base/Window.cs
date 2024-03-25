@@ -19,8 +19,7 @@ public class Window : UIBase
     {
         _closeButton.clicked -= Hide;
     }
-
-
+    
     public override void Show()
     {
         gameObject.SetActive(true);

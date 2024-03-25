@@ -8,13 +8,13 @@ public class UIManager : ScriptableObject
 {
     [SerializeField] private string rootPath = "UI";
 
-    private readonly Dictionary<string, UIBase> _uis = new();
+    private readonly Dictionary<string, IUIBehaviour> _uis = new();
 
-    public TUI LoadUI<TUI>(Action uiLoaded = null) where TUI : UIBase
+    public TUI LoadUI<TUI>(Action uiLoaded = null) where TUI : class, IUIBehaviour
     {
         var uiName = typeof(TUI).Name;
 
-        if (_uis.TryGetValue(uiName, out var ui) && ui.gameObject != null)
+        if (_uis.TryGetValue(uiName, out var ui))
         {
             ui.Show();
         }
@@ -29,7 +29,7 @@ public class UIManager : ScriptableObject
 
             var gameObject = Instantiate(original);
 
-            ui = gameObject.GetComponent<UIBase>();
+            ui = gameObject.GetComponent<TUI>();
             _uis[uiName] = ui;
 
             ui.Show();
@@ -40,20 +40,12 @@ public class UIManager : ScriptableObject
         return ui as TUI;
     }
 
-    public void UnloadUI<TUI>() where TUI : UIBase
+    public void UnloadUI<TUI>() where TUI : class, IUIBehaviour
     {
         var uiName = typeof(TUI).Name;
 
         if (_uis.TryGetValue(uiName, out var ui))
         {
-            if (ui.gameObject == null)
-            {
-                Debug.LogErrorFormat("The UI({0}) you are trying to unload is not attached to any game object.",
-                    uiName);
-
-                return;
-            }
-
             ui.Hide();
 
             Debug.Log($"Unload UI: {uiName}");
@@ -63,7 +55,7 @@ public class UIManager : ScriptableObject
             Debug.LogErrorFormat("The UI({0}) you are trying to unload has not been loaded.", uiName);
         }
     }
-
+    
     public void ClearCache()
     {
         _uis.Clear();
@@ -83,9 +75,13 @@ public class UIManager : ScriptableObject
         {
             path = $"{rootPath}/Window/{uiType.Name}";
         }
-        else
+        else if(typeof(Dialog).IsAssignableFrom(uiType))
         {
             path = $"{rootPath}/Dialog/{uiType.Name}";
+        }
+        else
+        {
+            path = $"{rootPath}/UGUI/{uiType.Name}";
         }
 
         return path;

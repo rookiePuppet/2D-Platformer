@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class UIBase : MonoBehaviour
+public abstract class UIBase : MonoBehaviour, IUIBehaviour
 {
     protected UIDocument uiDocument;
     protected VisualElement Root => uiDocument.rootVisualElement;
@@ -15,5 +14,6 @@ public abstract class UIBase : MonoBehaviour
     }
 
     public abstract void Show();
+
     public abstract void Hide();
 }

@@ -70,7 +70,7 @@ public class InventoryManager : ScriptableObject
             ItemType.Weapon => UseWeapon,
             _ => null
         };
-        
+
         useAction?.Invoke(item);
     }
 
@@ -91,9 +91,14 @@ public class InventoryManager : ScriptableObject
     {
         Player.StateMachine.TransitionTo<PlayerIdleState>();
         Player.InputHandler.GameplayActionMap.Disable();
-        
+
         var weaponChangeWindow = uiManager.LoadUI<WeaponChangeWindow>();
         weaponChangeWindow.SetAlternativeWeapon(item);
+
+#if UNITY_ANDROID || UNITY_IOS
+        uiManager.UnloadUI<ScreenControllerView>();
+        weaponChangeWindow.Closed += () => uiManager.LoadUI<ScreenControllerView>();
+#endif
 
         weaponChangeWindow.Closed += Player.InputHandler.GameplayActionMap.Enable;
     }

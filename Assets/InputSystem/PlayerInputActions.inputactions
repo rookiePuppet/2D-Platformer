@@ -190,7 +190,7 @@
                 {
                     "name": "",
                     "id": "93455caf-6aaf-44a5-8836-021cde6ddf03",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -245,7 +245,7 @@
                 {
                     "name": "",
                     "id": "134b9657-75fe-42fe-bdb1-c4853ea0e5c1",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -266,19 +266,8 @@
                 },
                 {
                     "name": "",
-                    "id": "06765303-0044-49f9-a3d6-6fddc6644ff8",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PrimaryAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7f65f84f-9b94-493a-8fb1-1ce4e90cd115",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -299,17 +288,6 @@
                 },
                 {
                     "name": "",
-                    "id": "610a2650-120c-43c2-b7ab-a0c09797c3dc",
-                    "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SecondaryAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "509aebd4-97a5-4a6e-b140-764a287a3b10",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -322,7 +300,7 @@
                 {
                     "name": "",
                     "id": "aa3beb30-2d81-4cb1-aa38-96ddc7d18513",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

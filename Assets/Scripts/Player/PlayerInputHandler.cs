@@ -101,7 +101,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnPrimaryAttackInput(InputAction.CallbackContext context)
     {
-        print("PrimaryAttack");
         if (context.started)
         {
             AttackInputs[(int)CombatInputs.Primary] = true;
