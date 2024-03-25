@@ -18,12 +18,12 @@
     width: 100px;
     flex-grow: 0;
     height: auto;
-    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/colorCustomizible/rounded/Slot3D_rounded_CC.png?fileID=21300000&guid=507d7869273b8054b8ca31e853b6b39c&type=3#Slot3D_rounded_CC");
+    background-image: url("project://database/Assets/Art/SimplePixelUI/artwork/halfcustomizible/square/Slot3D.png?fileID=21300000&guid=765c1f075652d7c429d7ea036691f745&type=3#Slot3D");
     margin-right: 10px;
 }
 
 .weapon-icon Label {
-    -unity-font-definition: url("project://database/Assets/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
+    -unity-font-definition: url("project://database/Assets/Art/unifont-14.0.01.ttf?fileID=12800000&guid=c2bbec7a3c0f11f45b30f8810a18e7e9&type=3#unifont-14.0.01");
     font-size: 32px;
     flex-grow: 1;
     -unity-text-align: middle-center;
